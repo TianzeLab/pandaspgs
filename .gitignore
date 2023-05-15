@@ -3,3 +3,4 @@ tests/.pytest_cache/
 dist/
 build/
 site/
+*.pyc
