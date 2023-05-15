@@ -5,39 +5,36 @@ from typing import List, Dict
 from requests.adapters import HTTPAdapter
 from cachetools import TTLCache
 
-cache = TTLCache(maxsize=1024, ttl=10)
+publication_cache = TTLCache(maxsize=1024, ttl=60)
 
 
-def get_data(url: str, interactive: bool = True) -> List[Dict]:
+def get_publication(url: str, cached=True) -> List[Dict]:
+    return get_data(url, cache_impl=publication_cache, cached=cached)
 
+
+def get_data(url: str, cache_impl=None, cached=True) -> List[Dict]:
     with requests.Session() as s:
         s.mount('https://', HTTPAdapter(max_retries=5))
-        if url in cache:
-            r = cache[url]
+        if url in cache_impl and cached:
+            r = cache_impl[url]
         else:
             r = s.get(url)
-            cache[url] = r
+            cache_impl[url] = r
         if r.status_code == 200:
             parsed_data = json.loads(r.text)
             if parsed_data.get('results') is not None:
                 results_list = parsed_data.get('results')
                 if parsed_data.get('next') is not None:
-                    if parsed_data.get('count') > 50 * 100 and interactive:
-                        answer = ask_yes_no_question(
-                            "You are about to download to many data from the PGS Catalog.\r\nThis might take several "
-                            "minutes.\r\nDo you still want to proceed? (Yes or No)")
-                        if answer == "NO":
-                            return []
                     bar = progressbar.ProgressBar(max_value=parsed_data.get('count')).start()
                     progress = 50
                     bar.update(progress)
                     next_url = parsed_data.get('next')
                     while next_url is not None:
-                        if next_url in cache:
-                            r = cache[next_url]
+                        if next_url in cache_impl and cached:
+                            r = cache_impl[next_url]
                         else:
                             r = s.get(next_url)
-                            cache[next_url] = r
+                            cache_impl[next_url] = r
                         parsed_data = json.loads(r.text)
                         results_list.extend(parsed_data.get('results'))
                         progress = progress + parsed_data.get('size')
