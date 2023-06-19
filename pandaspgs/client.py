@@ -87,7 +87,7 @@ def get_data(url: str, cache_impl=None, cached=True) -> List[Dict]:
         elif r.status_code == 404:
             return []
         else:
-            print('The request for %s failed: response code was %d' % (url, r.status_code))
+            raise Exception('The request for %s failed: response code was %d' % (url, r.status_code))
 
 
 def ask_yes_no_question(question: str) -> str:
