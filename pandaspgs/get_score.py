@@ -2,7 +2,7 @@ from typing import List, Dict
 from pandaspgs.client import get_score
 
 
-def get_scores(pgs_id:str = None, pgp_id:str = None, pmid:str = None, trait_id:str = None, cached = True) -> List[Dict]:
+def get_scores(pgs_id:str = None, pgp_id:str = None, pmid:int = None, trait_id:str = None, cached = True) -> List[Dict]:
     if pgs_id is None and pgp_id is None and pmid is None and trait_id is None:
         return get_score('https://www.pgscatalog.org/rest/score/all', cached=cached)
     by_pgs_id = None
@@ -14,7 +14,7 @@ def get_scores(pgs_id:str = None, pgp_id:str = None, pmid:str = None, trait_id:s
         if pgp_id is not None:
             query_str.append('pgp_id=%s' % pgp_id)
         if pmid is not None:
-            query_str.append('pmid=%s' % pmid)
+            query_str.append('pmid=%d' % pmid)
         if trait_id is not None:
             query_str.append('trait_id=%s' % trait_id)
         by_other = get_score('https://www.pgscatalog.org/rest/score/search?%s'% '&'.join(query_str))
