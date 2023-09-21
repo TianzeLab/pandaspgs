@@ -5,12 +5,12 @@ from typing import List, Dict
 from requests.adapters import HTTPAdapter
 from cachetools import TTLCache
 
-fields = ['score','publication','trait','trait_category','performance_metric','sample_set','release']
+fields = ['score','publication','trait','trait_category','performance','sample_set','release']
 publication_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 score_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 trait_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 trait_category_cache = TTLCache(maxsize=1024, ttl=60 * 60)
-performance_metric_cache = TTLCache(maxsize=1024, ttl=60 * 60)
+performance_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 cohort_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 sample_set_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 release_cache = TTLCache(maxsize=1024, ttl=60 * 60)
@@ -32,8 +32,8 @@ def get_trait_category(url: str, cached=True) -> List[Dict]:
     return get_data(url, cache_impl=trait_category_cache, cached=cached)
 
 
-def get_performance_metric(url: str, cached=True) -> List[Dict]:
-    return get_data(url, cache_impl=performance_metric_cache, cached=cached)
+def get_performance(url: str, cached=True) -> List[Dict]:
+    return get_data(url, cache_impl=performance_cache, cached=cached)
 
 
 def get_cohort(url: str, cached=True) -> List[Dict]:
@@ -42,6 +42,10 @@ def get_cohort(url: str, cached=True) -> List[Dict]:
 
 def get_sample_set(url: str, cached=True) -> List[Dict]:
     return get_data(url, cache_impl=sample_set_cache, cached=cached)
+
+
+def get_release(url: str, cached=True) -> List[Dict]:
+    return get_data(url, cache_impl=release_cache, cached=cached)
 
 
 def clear_cache(field: str = 'all'):
