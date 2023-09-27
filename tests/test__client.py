@@ -5,7 +5,7 @@ cache = TTLCache(maxsize=1024, ttl=60)
 
 
 def test_get_data():
-
+xxxx
     r1 = get_data('https://www.pgscatalog.org/rest/publication/search?pgs_id=PGS000001', cache_impl=cache)
     assert len(r1) == 1
     r2 = get_data('https://www.pgscatalog.org/rest/publication/PGP000001', cache_impl=cache)
