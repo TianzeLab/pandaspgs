@@ -1,6 +1,6 @@
 from pandaspgs.get_score import get_scores
 from pandaspgs.client import clear_cache
-xxxx
+
 
 def test_get_scores():
     filter_by_id = get_scores(pgs_id='PGS000001')
