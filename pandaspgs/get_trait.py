@@ -48,5 +48,5 @@ def get_child_traits(trait_id: str = None, cached=True) -> List[Dict]:
     pass
 
 
-print(get_traits(term='Alzheimer', exact=False))
+
 
