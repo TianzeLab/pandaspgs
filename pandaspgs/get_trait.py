@@ -15,7 +15,10 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
         if term is None:
             return by_other
         else:
-            by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s"%term, cached=cached)
+            if exact is not None:
+                by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%d"%(term,exact), cached=cached)
+            else:
+                by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term,cached=cached)
         other_set = set()
         pgs_id_dict = {}
         for single in by_pgs_id:
@@ -29,12 +32,15 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
             result.append(pgs_id_dict[id])
         return result
     else:
-        return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s"%term, cached=cached)
+        if exact is not None:
+            return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%d" % (term, exact), cached=cached)
+        else:
+            return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term, cached=cached)
 
 
 def get_child_traits(trait_id: str = None, cached=True) -> List[Dict]:
     pass
 
 
-
+print(get_traits(term='Alzheimer', exact=False))
 
