@@ -6,6 +6,12 @@ def get_trait_categories(cached=True) -> List[Dict]:
 
 
 def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True) -> List[Dict]:
+    if exact is not None:
+        if exact:
+            num="1"
+        else:
+            num="0"
+
     if trait_id is None and term is None and exact is None:
         return get_trait('https://www.pgscatalog.org/rest/trait/all?include_child_associated_pgs_ids=1', cached=cached)
     elif term is None and exact is not None:
@@ -16,7 +22,7 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
             return by_other
         else:
             if exact is not None:
-                by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%d"%(term,exact), cached=cached)
+                by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%s"%(term,num), cached=cached)
             else:
                 by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term,cached=cached)
         other_set = set()
@@ -33,7 +39,7 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
         return result
     else:
         if exact is not None:
-            return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%d" % (term, exact), cached=cached)
+            return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%s" % (term,num), cached=cached)
         else:
             return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term, cached=cached)
 
