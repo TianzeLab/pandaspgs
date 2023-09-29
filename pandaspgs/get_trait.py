@@ -1,5 +1,6 @@
 from typing import List, Dict
 from pandaspgs.client import get_trait_category, get_trait
+from pandaspgs.trait import Trait
 
 def get_trait_categories(cached=True) -> List[Dict]:
     return get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached)
@@ -8,23 +9,26 @@ def get_trait_categories(cached=True) -> List[Dict]:
 def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True) -> List[Dict]:
     if exact is not None:
         if exact:
-            num="1"
+            num = "1"
         else:
-            num="0"
+            num = "0"
 
     if trait_id is None and term is None and exact is None:
         return get_trait('https://www.pgscatalog.org/rest/trait/all?include_child_associated_pgs_ids=1', cached=cached)
     elif term is None and exact is not None:
         raise Exception("exact is available only if term is not None")
     elif trait_id is not None:
-        by_other=get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=0'%trait_id, cached=cached)
+        by_other = get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=0' % trait_id, cached=cached)
         if term is None:
             return by_other
         else:
             if exact is not None:
-                by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%s"%(term,num), cached=cached)
+                by_pgs_id = get_trait(
+                    "https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%s" % (term, num),
+                    cached=cached)
             else:
-                by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term,cached=cached)
+                by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term,
+                                      cached=cached)
         other_set = set()
         pgs_id_dict = {}
         for single in by_pgs_id:
@@ -39,14 +43,16 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
         return result
     else:
         if exact is not None:
-            return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%s" % (term,num), cached=cached)
+            return get_trait(
+                "https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%s" % (term, num),
+                cached=cached)
         else:
-            return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term, cached=cached)
+            return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term,
+                             cached=cached)
 
 
 def get_child_traits(trait_id: str = None, cached=True) -> List[Dict]:
-    pass
+    return get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached)
 
-
-
-
+a=Trait(get_traits(trait_id="EFO_0000305"),mode='Fat')
+print(a.efo_traits)
