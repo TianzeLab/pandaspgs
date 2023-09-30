@@ -28,3 +28,4 @@ class Trait:
 
     def __len__(self):
         return len(self.efo_traits)
+

@@ -1,12 +1,16 @@
 from typing import List, Dict
+
+from pandas import DataFrame
+
 from pandaspgs.client import get_trait_category, get_trait
 from pandaspgs.trait import Trait
+
 
 def get_trait_categories(cached=True) -> List[Dict]:
     return get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached)
 
 
-def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True) -> List[Dict]:
+def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True) -> DataFrame | list[dict]:
     if exact is not None:
         if exact:
             num = "1"
@@ -14,13 +18,15 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
             num = "0"
 
     if trait_id is None and term is None and exact is None:
-        return get_trait('https://www.pgscatalog.org/rest/trait/all?include_child_associated_pgs_ids=1', cached=cached)
+        return Trait(get_trait('https://www.pgscatalog.org/rest/trait/all?include_child_associated_pgs_ids=1'
+                               , cached=cached)).efo_traits
     elif term is None and exact is not None:
         raise Exception("exact is available only if term is not None")
     elif trait_id is not None:
-        by_other = get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=0' % trait_id, cached=cached)
+        by_other = get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=0' % trait_id
+                             , cached=cached)
         if term is None:
-            return by_other
+            return Trait(by_other).efo_traits
         else:
             if exact is not None:
                 by_pgs_id = get_trait(
@@ -40,19 +46,20 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
         result = []
         for id in intersection:
             result.append(pgs_id_dict[id])
-        return result
+        return Trait(result).efo_traits
     else:
         if exact is not None:
-            return get_trait(
+            return Trait(get_trait(
                 "https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%s" % (term, num),
-                cached=cached)
+                cached=cached)).efo_traits
         else:
-            return get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term,
-                             cached=cached)
+            return Trait(get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term,
+                                   cached=cached)).efo_traits
 
 
-def get_child_traits(trait_id: str = None, cached=True) -> List[Dict]:
-    return get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached)
+def get_child_traits(trait_id: str = None, cached=True) -> DataFrame:
+    return Trait((get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached)[0][
+        'child_traits'])).efo_traits
 
-a=Trait(get_traits(trait_id="EFO_0000305"),mode='Fat')
-print(a.efo_traits)
+
+
