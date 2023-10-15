@@ -1,3 +1,6 @@
+# mode为Fat, trait在Thin模式基础上, 还有以下属性:EFO_traits, trait_categories, trait_synonyms, trait_mapped_terms,
+# associated_pgs_ids, child_associated_pgs_ids. 这些属性的类型都为DataFrame, 各个DataFrame的列名和他们的关联参考PPT
+
 from pandas import DataFrame, Series, json_normalize, set_option
 import numpy
 
@@ -8,24 +11,26 @@ set_option('display.precision', 3)
 
 
 class Trait:
-    def __init__(self, data:list=[], mode: str = "Fat"):
+    def __init__(self, data: list = [], mode: str = "Fat"):
         if data is None:
             data = []
-        if data is None:
-            data = []
-        if mode == "Thin":
-            return
         if mode not in ['Thin', "Fat"]:
             raise Exception("Mode must be Fat or Thin")
         self.raw_data = data
-        if data is None or len(data) == 0:
-            self.efo_traits = DataFrame(
-                columns=["id", "label", "description", "url", "trait_categories", "trait_synonyms",
-                         "trait_mapped_terms", "associated_pgs_ids", "child_associated_pgs_ids"])
+        self.mode = mode
+        if mode == "Thin":
             return
-        self.efo_traits: DataFrame = json_normalize(data, max_level=2)
-
+        if data is None or len(data) == 0:
+            self.EFO_traits = DataFrame(
+                columns=['id', 'label', 'description', 'url'])
+            self.trait_categories = DataFrame(
+                columns=['trait _id', 'trait_category'])
+            self.trait_synonyms = DataFrame(columns=['trait_id', 'trait_synonym'])
+            self.trait_mapped_terms = DataFrame(columns=['trait_id', 'trait_mapped_term'])
+            self.associated_pgs_ids = DataFrame(columns=['trait_id', 'associated_pgs_id'])
+            self.child_associated_pgs_ids = DataFrame(columns=['trait_id', 'child_associated_pgs_id'])
+            return
+        
 
     def __len__(self):
         return len(self.efo_traits)
-
