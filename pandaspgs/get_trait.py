@@ -5,6 +5,8 @@ from pandas import DataFrame
 from pandaspgs.client import get_trait_category, get_trait
 from pandaspgs.trait import Trait
 
+from pandas import DataFrame, Series, json_normalize, set_option
+import numpy
 
 def get_trait_categories(cached=True) -> List[Dict]:
     return get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached)
@@ -61,5 +63,9 @@ def get_child_traits(trait_id: str = None, cached=True) -> DataFrame:
     return Trait((get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached)[0][
         'child_traits'])).efo_traits
 
-
-
+by_pgs_id = get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=Alzheimer",cached=True)
+EFO_traits = json_normalize(data=by_pgs_id, max_level=1)
+trait_categories = json_normalize(data=by_pgs_id,record_path=['trait_categories'],meta=['id'])
+trait_categories.columns=['trait_category','trait_id']
+print(EFO_traits.columns)
+print(trait_categories)

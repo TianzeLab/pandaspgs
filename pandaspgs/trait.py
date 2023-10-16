@@ -30,7 +30,11 @@ class Trait:
             self.associated_pgs_ids = DataFrame(columns=['trait_id', 'associated_pgs_id'])
             self.child_associated_pgs_ids = DataFrame(columns=['trait_id', 'child_associated_pgs_id'])
             return
-        
+        self.EFO_traits = json_normalize(data=data, max_level=1).drop(
+            columns=['trait_categories', 'trait_synonyms', 'trait_mapped_terms',
+                     'associated_pgs_ids', 'child_associated_pgs_ids'])
+        self.trait_categories = json_normalize(data=data, record_path=['trait_categories'], meta=['id'])
+        self.trait_categories.columns = ['trait_category', 'trait_id']
 
     def __len__(self):
         return len(self.efo_traits)
