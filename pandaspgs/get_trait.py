@@ -68,4 +68,4 @@ EFO_traits = json_normalize(data=by_pgs_id, max_level=1)
 trait_categories = json_normalize(data=by_pgs_id,record_path=['trait_categories'],meta=['id'])
 trait_categories.columns=['trait_category','trait_id']
 print(EFO_traits.columns)
-print(trait_categories)
+print()

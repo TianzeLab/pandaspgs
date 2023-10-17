@@ -35,6 +35,7 @@ class Trait:
                      'associated_pgs_ids', 'child_associated_pgs_ids'])
         self.trait_categories = json_normalize(data=data, record_path=['trait_categories'], meta=['id'])
         self.trait_categories.columns = ['trait_category', 'trait_id']
-
-    def __len__(self):
-        return len(self.efo_traits)
+        self.trait_synonyms = json_normalize(data=data, record_path=['trait_synonyms'], meta=['id'])
+        self.trait_synonyms.columns = ['trait_synonym', 'trait_id']
+        self.trait_mapped_terms = json_normalize(data=data, record_path=['trait_mapped_terms'], meta=['id'])
+        self.trait_mapped_terms.columns = ['trait_mapped_term', 'trait_id']
