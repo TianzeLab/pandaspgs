@@ -60,5 +60,5 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
 
 
 def get_child_traits(trait_id: str = None, cached=True) -> Trait:
-    return Trait((get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached)[0][
-        'child_traits']))
+    return Trait(get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached))
+

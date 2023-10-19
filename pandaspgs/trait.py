@@ -40,8 +40,14 @@ class Trait:
         self.trait_mapped_terms = json_normalize(data=data, record_path=['trait_mapped_terms'], meta=['id'])
         self.trait_mapped_terms.columns = ['trait_mapped_term', 'trait_id']
         self.associated_pgs_ids = json_normalize(data=data, record_path=['associated_pgs_ids'], meta=['id'])
-        self.associated_pgs_ids = ['associated_pgs_id', 'trait_id']
+        self.associated_pgs_ids.columns = ['associated_pgs_id', 'trait_id']
         self.child_associated_pgs_ids = json_normalize(data=data, record_path=['child_associated_pgs_ids'], meta=['id'])
-        self.child_associated_pgs_ids = ['child_associated_pgs_id', 'trait_id']
+        # self.child_associated_pgs_ids.columns = ['child_associated_pgs_id', 'trait_id']
         return
+
+    def __len__(self):
+            return len(self.EFO_traits)
+
+
+
 
