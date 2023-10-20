@@ -33,21 +33,35 @@ class Trait:
         self.EFO_traits = json_normalize(data=data, max_level=1).drop(
             columns=['trait_categories', 'trait_synonyms', 'trait_mapped_terms',
                      'associated_pgs_ids', 'child_associated_pgs_ids'])
-        self.trait_categories = json_normalize(data=data, record_path=['trait_categories'], meta=['id'])
-        self.trait_categories.columns = ['trait_category', 'trait_id']
-        self.trait_synonyms = json_normalize(data=data, record_path=['trait_synonyms'], meta=['id'])
-        self.trait_synonyms.columns = ['trait_synonym', 'trait_id']
-        self.trait_mapped_terms = json_normalize(data=data, record_path=['trait_mapped_terms'], meta=['id'])
-        self.trait_mapped_terms.columns = ['trait_mapped_term', 'trait_id']
-        self.associated_pgs_ids = json_normalize(data=data, record_path=['associated_pgs_ids'], meta=['id'])
-        self.associated_pgs_ids.columns = ['associated_pgs_id', 'trait_id']
-        self.child_associated_pgs_ids = json_normalize(data=data, record_path=['child_associated_pgs_ids'], meta=['id'])
-        # self.child_associated_pgs_ids.columns = ['child_associated_pgs_id', 'trait_id']
+        if data[0]['trait_categories'] is not []:
+            self.trait_categories = json_normalize(data=data, record_path=['trait_categories'], meta=['id'])
+            self.trait_categories.columns = ['trait_category', 'trait_id']
+        else:
+            self.trait_categories = DataFrame(
+                columns=['trait _id', 'trait_category'])
+        if data[0]['trait_synonyms'] is not []:
+            self.trait_synonyms = json_normalize(data=data, record_path=['trait_synonyms'], meta=['id'])
+            self.trait_synonyms.columns = ['trait_synonym', 'trait_id']
+        else:
+            self.trait_synonyms = DataFrame(columns=['trait_id', 'trait_synonym'])
+        if data[0]['trait_mapped_terms'] is not []:
+            self.trait_mapped_terms = json_normalize(data=data, record_path=['trait_mapped_terms'], meta=['id'])
+            self.trait_mapped_terms.columns = ['trait_mapped_term', 'trait_id']
+        else:
+            self.trait_mapped_terms = DataFrame(columns=['trait_id', 'trait_mapped_term'])
+        if data[0]['associated_pgs_ids'] is not []:
+            self.associated_pgs_ids = json_normalize(data=data, record_path=['associated_pgs_ids'], meta=['id'])
+            self.associated_pgs_ids.columns = ['associated_pgs_id', 'trait_id']
+        else:
+            self.associated_pgs_ids = DataFrame(columns=['trait_id', 'associated_pgs_id'])
+        if data[0]['child_associated_pgs_ids'] is not []:
+            self.child_associated_pgs_ids = json_normalize(data=data, record_path=['child_associated_pgs_ids'], meta=['id'])
+            self.child_associated_pgs_ids.columns = ['child_associated_pgs_id', 'trait_id']
+        else:
+            self.child_associated_pgs_ids = DataFrame(columns=['trait_id', 'child_associated_pgs_id'])
         return
 
     def __len__(self):
             return len(self.EFO_traits)
-
-
 
 

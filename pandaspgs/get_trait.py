@@ -48,7 +48,7 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
         result = []
         for id in intersection:
             result.append(pgs_id_dict[id])
-        return Trait(result)
+        return result
     else:
         if exact is not None:
             return Trait(get_trait(
