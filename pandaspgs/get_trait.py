@@ -48,7 +48,7 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
         result = []
         for id in intersection:
             result.append(pgs_id_dict[id])
-        return result
+        return Trait(result)
     else:
         if exact is not None:
             return Trait(get_trait(
@@ -61,4 +61,5 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
 
 def get_child_traits(trait_id: str = None, cached=True) -> Trait:
     return Trait(get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached))
+
 
