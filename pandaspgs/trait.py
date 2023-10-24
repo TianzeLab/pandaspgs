@@ -55,13 +55,45 @@ class Trait:
         else:
             self.associated_pgs_ids = DataFrame(columns=['trait_id', 'associated_pgs_id'])
         if data[0]['child_associated_pgs_ids']:
-            self.child_associated_pgs_ids = json_normalize(data=data, record_path=['child_associated_pgs_ids'], meta=['id'])
+            self.child_associated_pgs_ids = json_normalize(data=data, record_path=['child_associated_pgs_ids'],
+                                                           meta=['id'])
             self.child_associated_pgs_ids.columns = ['child_associated_pgs_id', 'trait_id']
         else:
             self.child_associated_pgs_ids = DataFrame(columns=['trait_id', 'child_associated_pgs_id'])
         return
 
+    def __str__(self):
+        if self.mode == 'Fat':
+            return ("Trait is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\nEFO_traits: "
+                    "xxx rows\n|\n -associated_pgs_ids: xxx rows\n|\n -child_associated_pgs_ids:"
+                    "xxx rows\n|\n -trait_categories: xxx rows\n|\n -trait_mapped_terms: xxx rows\n|\n -trait_synonyms:"
+                    " xxx rows")
+        if self.mode == 'Thin':
+            return ('Trait is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
+                    'size x.')
+    def __getitem__(self,item):
+        if isinstance(item,str) or isinstance(item,int):
+            
+
+
+        elif isinstance(item,list) or isinstance(item,tuple) or isinstance(item,range):
+        elif isinstance(item,slice):
+
+
+        else:
+            raise TypeError('Invalid argument type：{}'.format(type(item)))
+
+
+
+
+
+
+
+
+
+
+
+
+
     def __len__(self):
-            return len(self.EFO_traits)
-
-
+        return len(self.EFO_traits)
