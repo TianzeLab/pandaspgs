@@ -63,4 +63,6 @@ def get_child_traits(trait_id: str = None, cached=True) -> Trait:
     return Trait(get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached))
 
 
-print(get_traits(trait_id='EFO_0000305'))
+a=get_traits(trait_id='EFO_0000305')
+b=get_traits(trait_id='EFO_0001645')
+print(a[])
