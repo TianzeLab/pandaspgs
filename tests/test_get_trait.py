@@ -24,3 +24,7 @@ def test_get_traits():
     assert len(filter_get_trait_f) == 4
     filter_get_trait_g = get_traits(trait_id="EFO_0005782", term='Neurological disorder',exact=False)
     assert len(filter_get_trait_g) == 1
+    assert filter_get_trait[0] == filter_get_trait
+    assert filter_get_trait['EFO_0000305'] == filter_get_trait
+    assert len(filter_get_trait_c[1:3]) == 2
+

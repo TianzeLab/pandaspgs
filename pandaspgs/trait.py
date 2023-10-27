@@ -118,7 +118,7 @@ class Trait:
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return Trait(data)
+            return Trait(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -136,7 +136,7 @@ class Trait:
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return Trait(data)
+            return Trait(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -148,7 +148,7 @@ class Trait:
             for j in other.raw_data:
                 and_dict[j['id']] = j
             data = list(and_dict.values())
-            return Trait(data)
+            return Trait(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -167,7 +167,7 @@ class Trait:
             data = []
             for k in sub_key:
                 data.append(and_dict[k])
-            return Trait(data)
+            return Trait(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
