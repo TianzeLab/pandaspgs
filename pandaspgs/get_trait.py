@@ -8,11 +8,12 @@ from pandaspgs.trait import Trait
 from pandas import DataFrame, Series, json_normalize, set_option
 import numpy
 
+
 def get_trait_categories(cached=True) -> List[Dict]:
     return get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached)
 
 
-def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True) -> Trait:
+def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True, mode: str = 'Fat') -> Trait:
     if exact is not None:
         if exact:
             num = "1"
@@ -21,14 +22,14 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
 
     if trait_id is None and term is None and exact is None:
         return Trait(get_trait('https://www.pgscatalog.org/rest/trait/all?include_child_associated_pgs_ids=1'
-                               , cached=cached))
+                               , cached=cached), mode)
     elif term is None and exact is not None:
         raise Exception("exact is available only if term is not None")
     elif trait_id is not None:
         by_other = get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=0' % trait_id
                              , cached=cached)
         if term is None:
-            return Trait(by_other)
+            return Trait(by_other, mode)
         else:
             if exact is not None:
                 by_pgs_id = get_trait(
@@ -48,19 +49,22 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
         result = []
         for id in intersection:
             result.append(pgs_id_dict[id])
-        return Trait(result)
+        return Trait(result, mode)
     else:
         if exact is not None:
             return Trait(get_trait(
                 "https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s&exact=%s" % (term, num),
-                cached=cached))
+                cached=cached), mode)
         else:
             return Trait(get_trait("https://www.pgscatalog.org/rest/trait/search?include_children=0&term=%s" % term,
-                                   cached=cached))
+                                   cached=cached), mode)
 
 
-def get_child_traits(trait_id: str = None, cached=True) -> Trait:
-    return Trait(get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached))
+def get_child_traits(trait_id: str = None, cached=True, mode: str = 'Fat') -> Trait:
+    return Trait(get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached),
+                 mode)
 
 
-
+print(get_traits(term='Neurological disorder')[99:102] == (get_traits(term='Neurological disorder') ^ get_traits(term='Neurological disorder')[0:99]))
+print((get_traits(term='Neurological disorder') ^ get_traits(term='Neurological disorder')[0:99]).EFO_traits['id'])
+print((get_traits(term='Neurological disorder')[99:102]).EFO_traits['id'])

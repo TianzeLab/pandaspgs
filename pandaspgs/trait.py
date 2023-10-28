@@ -67,9 +67,9 @@ class Trait:
             return ("Trait is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\nEFO_traits: "
                     "%d rows\n|\n -associated_pgs_ids: %d rows\n|\n -child_associated_pgs_ids:"
                     "%d rows\n|\n -trait_categories: %d rows\n|\n -trait_mapped_terms: %d rows\n|\n -trait_synonyms:"
-                    " %d rows" % (len(self.EFO_traits), len(self.trait_categories), len(self.trait_synonyms),
-                                  len(self.trait_mapped_terms), len(self.associated_pgs_ids)
-                                  , len(self.child_associated_pgs_ids)))
+                    " %d rows" % (len(self.EFO_traits), len(self.associated_pgs_ids), len(self.child_associated_pgs_ids),
+                                  len(self.trait_categories), len(self.trait_mapped_terms)
+                                  , len(self.trait_synonyms)))
         if self.mode == 'Thin':
             return ('Trait is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
                     'size x.')
@@ -177,4 +177,4 @@ class Trait:
         return self.raw_data == other.raw_data and self.mode == other.mode
 
     def __len__(self):
-        return len(self.EFO_traits)
+        return len(self.raw_data)
