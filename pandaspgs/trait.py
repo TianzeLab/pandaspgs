@@ -30,31 +30,37 @@ class Trait:
             self.associated_pgs_ids = DataFrame(columns=['trait_id', 'associated_pgs_id'])
             self.child_associated_pgs_ids = DataFrame(columns=['trait_id', 'child_associated_pgs_id'])
             return
+        datas = json_normalize(data=data, max_level=1).drop(columns=['id', 'label', 'description', 'url'])
+        datas['trait_categories'] = datas['trait_categories'].map(lambda x: x == [])
+        datas['trait_synonyms'] = datas['trait_synonyms'].map(lambda x: x == [])
+        datas['trait_mapped_terms'] = datas['trait_mapped_terms'].map(lambda x: x == [])
+        datas['associated_pgs_ids'] = datas['associated_pgs_ids'].map(lambda x: x == [])
+        datas['child_associated_pgs_ids'] = datas['child_associated_pgs_ids'].map(lambda x: x == [])
         self.EFO_traits = json_normalize(data=data, max_level=1).drop(
             columns=['trait_categories', 'trait_synonyms', 'trait_mapped_terms',
                      'associated_pgs_ids', 'child_associated_pgs_ids'])
-        if data[0]['trait_categories']:
+        if not datas['trait_categories'].all():
             self.trait_categories = json_normalize(data=data, record_path=['trait_categories'], meta=['id'])
             self.trait_categories.columns = ['trait_category', 'trait_id']
         else:
             self.trait_categories = DataFrame(
                 columns=['trait _id', 'trait_category'])
-        if data[0]['trait_synonyms']:
+        if not datas['trait_synonyms'].all():
             self.trait_synonyms = json_normalize(data=data, record_path=['trait_synonyms'], meta=['id'])
             self.trait_synonyms.columns = ['trait_synonym', 'trait_id']
         else:
             self.trait_synonyms = DataFrame(columns=['trait_id', 'trait_synonym'])
-        if data[0]['trait_mapped_terms']:
+        if not datas['trait_mapped_terms'].all():
             self.trait_mapped_terms = json_normalize(data=data, record_path=['trait_mapped_terms'], meta=['id'])
             self.trait_mapped_terms.columns = ['trait_mapped_term', 'trait_id']
         else:
             self.trait_mapped_terms = DataFrame(columns=['trait_id', 'trait_mapped_term'])
-        if data[0]['associated_pgs_ids']:
+        if not datas['associated_pgs_ids'].all():
             self.associated_pgs_ids = json_normalize(data=data, record_path=['associated_pgs_ids'], meta=['id'])
             self.associated_pgs_ids.columns = ['associated_pgs_id', 'trait_id']
         else:
             self.associated_pgs_ids = DataFrame(columns=['trait_id', 'associated_pgs_id'])
-        if data[0]['child_associated_pgs_ids']:
+        if not datas['child_associated_pgs_ids'].all():
             self.child_associated_pgs_ids = json_normalize(data=data, record_path=['child_associated_pgs_ids'],
                                                            meta=['id'])
             self.child_associated_pgs_ids.columns = ['child_associated_pgs_id', 'trait_id']
@@ -67,9 +73,10 @@ class Trait:
             return ("Trait is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\nEFO_traits: "
                     "%d rows\n|\n -associated_pgs_ids: %d rows\n|\n -child_associated_pgs_ids:"
                     "%d rows\n|\n -trait_categories: %d rows\n|\n -trait_mapped_terms: %d rows\n|\n -trait_synonyms:"
-                    " %d rows" % (len(self.EFO_traits), len(self.associated_pgs_ids), len(self.child_associated_pgs_ids),
-                                  len(self.trait_categories), len(self.trait_mapped_terms)
-                                  , len(self.trait_synonyms)))
+                    " %d rows" % (
+                    len(self.EFO_traits), len(self.associated_pgs_ids), len(self.child_associated_pgs_ids),
+                    len(self.trait_categories), len(self.trait_mapped_terms)
+                    , len(self.trait_synonyms)))
         if self.mode == 'Thin':
             return ('Trait is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
                     'size x.')

@@ -4,13 +4,13 @@ from pandas import DataFrame
 
 from pandaspgs.client import get_trait_category, get_trait
 from pandaspgs.trait import Trait
-
+from pandaspgs.trait_categories import Trait_categories
 from pandas import DataFrame, Series, json_normalize, set_option
 import numpy
 
 
-def get_trait_categories(cached=True) -> List[Dict]:
-    return get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached)
+def get_trait_categories(cached=True) -> Trait_categories:
+    return Trait_categories(get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached))
 
 
 def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True, mode: str = 'Fat') -> Trait:
@@ -65,6 +65,5 @@ def get_child_traits(trait_id: str = None, cached=True, mode: str = 'Fat') -> Tr
                  mode)
 
 
-print(get_traits(term='Neurological disorder')[99:102] == (get_traits(term='Neurological disorder') ^ get_traits(term='Neurological disorder')[0:99]))
-print((get_traits(term='Neurological disorder') ^ get_traits(term='Neurological disorder')[0:99]).EFO_traits['id'])
-print((get_traits(term='Neurological disorder')[99:102]).EFO_traits['id'])
+
+

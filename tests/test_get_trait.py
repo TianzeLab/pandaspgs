@@ -1,10 +1,19 @@
 from pandaspgs.get_trait import get_trait_categories
 from pandaspgs.get_trait import get_traits
-
+import pytest
 
 def test_get_trait_categories():
     categories = get_trait_categories()
     assert len(categories) == 17
+    assert len(categories[1:3]) == 2
+    assert len(categories[range(2)]) == 2
+    assert len(categories ^ categories[0]) == 16
+    assert len(categories[0] + categories[1]) == 2
+    assert len(categories - categories[1]) == 16
+    assert len(categories & categories[1]) == 1
+    assert len(categories[0] | categories[1]) == 2
+
+
 
 
 def test_get_traits():
@@ -40,6 +49,9 @@ def test_get_traits():
     assert len(filter_get_trait_c - filter_get_trait_c[0]) == 101
     assert len(filter_get_trait_c & filter_get_trait_c[0]) == 1
     assert len(filter_get_trait_c | filter_get_trait_a) == 103
+    with pytest.raises(Exception):
+        get_traits(trait_id='EFO_0000305',exact=False)
+
 
 
 
