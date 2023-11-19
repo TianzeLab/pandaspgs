@@ -7,7 +7,7 @@ set_option('display.colheader_justify', 'center')
 set_option('display.precision', 3)
 
 
-class release:
+class Release:
     def __init__(self, data: list = [], mode: str = "Fat"):
         if data is None:
             data = []
@@ -31,42 +31,31 @@ class release:
             columns=['released_score_ids', 'released_publication_ids', 'released_performance_ids'])
         if not datas['released_score_ids'].all():
             self.released_score_ids = json_normalize(data=data, record_path=['released_score_ids'], meta=['date'])
-            self.released_score_ids.columns = ['released_score_ids', 'release_date']
+            self.released_score_ids.columns = ['released_score_id', 'release_date']
         else:
             self.released_score_ids = DataFrame(
-                columns=['released_score_ids', 'release_date'])
-        if not datas['trait_synonyms'].all():
-            self.trait_synonyms = json_normalize(data=data, record_path=['trait_synonyms'], meta=['id'])
-            self.trait_synonyms.columns = ['trait_synonym', 'trait_id']
+                columns=['released_score_id', 'release_date'])
+        if not datas['released_publication_ids'].all():
+            self.released_publication_ids = json_normalize(data=data, record_path=['released_publication_ids'],
+                                                           meta=['date'])
+            self.released_publication_ids.columns = ['released_publication_id', 'release_date']
         else:
-            self.trait_synonyms = DataFrame(columns=['trait_id', 'trait_synonym'])
-        if not datas['trait_mapped_terms'].all():
-            self.trait_mapped_terms = json_normalize(data=data, record_path=['trait_mapped_terms'], meta=['id'])
-            self.trait_mapped_terms.columns = ['trait_mapped_term', 'trait_id']
+            self.released_publication_ids = DataFrame(columns=['released_publication_id', 'release_date'])
+        if not datas['released_performance_ids'].all():
+            self.released_performance_ids = json_normalize(data=data, record_path=['released_performance_ids'],
+                                                           meta=['date'])
+            self.released_performance_ids.columns = ['released_performance_id', 'release_date']
         else:
-            self.trait_mapped_terms = DataFrame(columns=['trait_id', 'trait_mapped_term'])
-        if not datas['associated_pgs_ids'].all():
-            self.associated_pgs_ids = json_normalize(data=data, record_path=['associated_pgs_ids'], meta=['id'])
-            self.associated_pgs_ids.columns = ['associated_pgs_id', 'trait_id']
-        else:
-            self.associated_pgs_ids = DataFrame(columns=['trait_id', 'associated_pgs_id'])
-        if not datas['child_associated_pgs_ids'].all():
-            self.child_associated_pgs_ids = json_normalize(data=data, record_path=['child_associated_pgs_ids'],
-                                                           meta=['id'])
-            self.child_associated_pgs_ids.columns = ['child_associated_pgs_id', 'trait_id']
-        else:
-            self.child_associated_pgs_ids = DataFrame(columns=['trait_id', 'child_associated_pgs_id'])
+            self.released_performance_ids = DataFrame(columns=['released_performance_id', 'release_date'])
         return
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("Trait is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\nEFO_traits: "
-                    "%d rows\n|\n -associated_pgs_ids: %d rows\n|\n -child_associated_pgs_ids:"
-                    "%d rows\n|\n -trait_categories: %d rows\n|\n -trait_mapped_terms: %d rows\n|\n -trait_synonyms:"
-                    " %d rows" % (
-                        len(self.EFO_traits), len(self.associated_pgs_ids), len(self.child_associated_pgs_ids),
-                        len(self.trait_categories), len(self.trait_mapped_terms)
-                        , len(self.trait_synonyms)))
+            return ("Trait is running in fat mode. It has 4 DataFrames with hierarchical dependencies.\n-releases: "
+                    "%d rows\n|\n -released_score_ids: %d rows\n|\n -released_publication_ids:"
+                    "%d rows\n|\n -released_performance_ids: %d rows" % (
+                        len(self.releases), len(self.released_score_ids), len(self.released_publication_ids),
+                        len(self.released_performance_ids)))
         if self.mode == 'Thin':
             return ('Trait is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
                     'size x.')
@@ -84,7 +73,7 @@ class release:
         raw_data = self.raw_data
         raw_data_dict = {}
         for j in raw_data:
-            raw_data_dict[j['id']] = j
+            raw_data_dict[j['date']] = j
         sub_set = []
         for i in arr:
             if isinstance(i, str):
@@ -93,11 +82,11 @@ class release:
                 sub_set.append(raw_data[i])
             else:
                 raise TypeError('Invalid item type: {}'.format(type(i)))
-        return Trait(sub_set, self.mode)
+        return Release(sub_set, self.mode)
 
     def __add__(self, other):
         if self.mode == other.mode:
-            return Trait(self.raw_data + other.raw_data, self.mode)
+            return Release(self.raw_data + other.raw_data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -107,15 +96,15 @@ class release:
             self_dict = {}
             other_key_set = set()
             for i in self.raw_data:
-                self_key_set.add(i['id'])
-                self_dict[i['id']] = i
+                self_key_set.add(i['date'])
+                self_dict[i['date']] = i
             for j in other.raw_data:
-                other_key_set.add(j['id'])
+                other_key_set.add(j['date'])
             sub_key = self_key_set - other_key_set
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return Trait(data, self.mode)
+            return Release(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -125,15 +114,15 @@ class release:
             self_dict = {}
             other_key_set = set()
             for i in self.raw_data:
-                self_key_set.add(i['id'])
-                self_dict[i['id']] = i
+                self_key_set.add(i['date'])
+                self_dict[i['date']] = i
             for j in other.raw_data:
-                other_key_set.add(j['id'])
+                other_key_set.add(j['date'])
             sub_key = self_key_set & other_key_set
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return Trait(data, self.mode)
+            return Release(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -141,11 +130,11 @@ class release:
         if self.mode == other.mode:
             and_dict = {}
             for i in self.raw_data:
-                and_dict[i['id']] = i
+                and_dict[i['date']] = i
             for j in other.raw_data:
-                and_dict[j['id']] = j
+                and_dict[j['date']] = j
             data = list(and_dict.values())
-            return Trait(data, self.mode)
+            return Release(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -155,16 +144,16 @@ class release:
             and_dict = {}
             other_key_set = set()
             for i in self.raw_data:
-                self_key_set.add(i['id'])
-                and_dict[i['id']] = i
+                self_key_set.add(i['date'])
+                and_dict[i['date']] = i
             for j in other.raw_data:
-                other_key_set.add(j['id'])
-                and_dict[j['id']] = j
+                other_key_set.add(j['date'])
+                and_dict[j['date']] = j
             sub_key = self_key_set ^ other_key_set
             data = []
             for k in sub_key:
                 data.append(and_dict[k])
-            return Trait(data, self.mode)
+            return Release(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
