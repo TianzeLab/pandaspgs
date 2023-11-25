@@ -1,8 +1,4 @@
-# mode为Fat, trait在Thin模式基础上, 还有以下属性:EFO_traits, trait_categories, trait_synonyms, trait_mapped_terms,
-# associated_pgs_ids, child_associated_pgs_ids. 这些属性的类型都为DataFrame, 各个DataFrame的列名和他们的关联参考PPT
-
-from pandas import DataFrame, Series, json_normalize, set_option
-import numpy
+from pandas import DataFrame, json_normalize, set_option
 
 set_option('display.max_columns', None)
 set_option('display.width', 1000)
@@ -74,12 +70,14 @@ class Trait:
                     "%d rows\n|\n -associated_pgs_ids: %d rows\n|\n -child_associated_pgs_ids:"
                     "%d rows\n|\n -trait_categories: %d rows\n|\n -trait_mapped_terms: %d rows\n|\n -trait_synonyms:"
                     " %d rows" % (
-                    len(self.EFO_traits), len(self.associated_pgs_ids), len(self.child_associated_pgs_ids),
-                    len(self.trait_categories), len(self.trait_mapped_terms)
-                    , len(self.trait_synonyms)))
+                        len(self.EFO_traits), len(self.associated_pgs_ids), len(self.child_associated_pgs_ids),
+                        len(self.trait_categories), len(self.trait_mapped_terms), len(self.trait_synonyms)))
         if self.mode == 'Thin':
             return ('Trait is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
                     'size x.')
+
+    def __repr__(self):
+        return self.__str__()
 
     def __getitem__(self, item):
         if isinstance(item, str) or isinstance(item, int):

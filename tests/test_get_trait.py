@@ -4,7 +4,10 @@ import pytest
 
 
 def test_get_trait_categories():
+    categories = get_trait_categories(mode='Thin')
+    categories
     categories = get_trait_categories()
+    categories
     assert len(categories) == 17
     assert len(categories[1:3]) == 2
     assert len(categories[range(2)]) == 2
@@ -16,7 +19,10 @@ def test_get_trait_categories():
 
 
 def test_get_traits():
+    filter_get_trait = get_traits(trait_id='EFO_0000305', mode='Thin')
+    filter_get_trait
     filter_get_trait = get_traits(trait_id='EFO_0000305')
+    filter_get_trait
     assert len(filter_get_trait) == 1
     assert filter_get_trait.EFO_traits.size == 4 * 1
     assert filter_get_trait.trait_categories.size == 2 * 1
@@ -33,7 +39,7 @@ def test_get_traits():
     filter_get_trait_d = get_traits(trait_id="EFO_0005782", term='Neurological disorder')
     assert len(filter_get_trait_d) == 1
     filter_get_trait_e = get_traits()
-    assert len(filter_get_trait_e) == 1177
+    assert len(filter_get_trait_e) == 1180
     filter_get_trait_f = get_traits(term='Alzheimer', exact=False)
     assert len(filter_get_trait_f) == 4
     filter_get_trait_g = get_traits(trait_id="EFO_0005782", term='Neurological disorder', exact=False)

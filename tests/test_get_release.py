@@ -2,7 +2,10 @@ from pandaspgs.get_release import get_releases
 
 
 def test_get_releases():
+    current = get_releases(mode='Thin')
+    current
     current = get_releases()
+    current
     assert len(current) == 1
     all_release = get_releases(date='all')
     assert len(all_release) == 72

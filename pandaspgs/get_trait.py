@@ -1,16 +1,10 @@
-from typing import List, Dict
-
-from pandas import DataFrame
-
 from pandaspgs.client import get_trait_category, get_trait
 from pandaspgs.trait import Trait
-from pandaspgs.trait_categories import Trait_categories
-from pandas import DataFrame, Series, json_normalize, set_option
-import numpy
+from pandaspgs.traitcategory import TraitCategory
 
 
-def get_trait_categories(cached=True, mode: str = 'Fat') -> Trait_categories:
-    return Trait_categories(get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached), mode)
+def get_trait_categories(cached=True, mode: str = 'Fat') -> TraitCategory:
+    return TraitCategory(get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached), mode)
 
 
 def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True, mode: str = 'Fat') -> Trait:
@@ -21,13 +15,13 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
             num = "0"
 
     if trait_id is None and term is None and exact is None:
-        return Trait(get_trait('https://www.pgscatalog.org/rest/trait/all?include_child_associated_pgs_ids=1'
-                               , cached=cached), mode)
+        return Trait(
+            get_trait('https://www.pgscatalog.org/rest/trait/all?include_child_associated_pgs_ids=1', cached=cached),
+            mode)
     elif term is None and exact is not None:
         raise Exception("exact is available only if term is not None")
     elif trait_id is not None:
-        by_other = get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=0' % trait_id
-                             , cached=cached)
+        by_other = get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=0' % trait_id, cached=cached)
         if term is None:
             return Trait(by_other, mode)
         else:

@@ -1,6 +1,4 @@
-from pandas import DataFrame, Series, json_normalize, set_option
-import numpy
-import pandas
+from pandas import DataFrame, json_normalize, set_option
 
 set_option('display.max_columns', None)
 set_option('display.width', 1000)
@@ -8,7 +6,7 @@ set_option('display.colheader_justify', 'center')
 set_option('display.precision', 3)
 
 
-class Trait_categories:
+class TraitCategory:
     def __init__(self, data: list = [], mode: str = "Fat"):
         if data is None:
             data = []
@@ -32,17 +30,18 @@ class Trait_categories:
         self.EFO_traits = json_normalize(data=data, record_path=['efotraits'], meta=['id1'])
         self.EFO_traits.columns = ['id', 'label', 'description', 'url', 'category _id']
 
-
-        return
-
     def __str__(self):
         if self.mode == 'Fat':
-            return ("Trait is running in fat mode. It has 2 DataFrames with hierarchical "
-                    "dependencies.\nEFO_traits:%d rows-\n -trait_categories: %d rows" % (
-                        len(self.EFO_traits), len(self.trait_categories)))
+            return ("TraitCategory is running in fat mode. It has 2 DataFrames with hierarchical "
+                    "dependencies.\ntrait_categories: %d rows\n|\n -EFO_traits: %d rows" % (
+                        len(self.trait_categories), len(self.EFO_traits)))
         if self.mode == 'Thin':
-            return ('Trait is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
-                    'size x.')
+            return (
+                'TraitCategory is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
+                'size %d.') % len(self.raw_data)
+
+    def __repr__(self):
+        return self.__str__()
 
     def __getitem__(self, item):
         if isinstance(item, str) or isinstance(item, int):
@@ -66,11 +65,11 @@ class Trait_categories:
                 sub_set.append(raw_data[i])
             else:
                 raise TypeError('Invalid item type: {}'.format(type(i)))
-        return Trait_categories(sub_set, self.mode)
+        return TraitCategory(sub_set, self.mode)
 
     def __add__(self, other):
         if self.mode == other.mode:
-            return Trait_categories(self.raw_data + other.raw_data, self.mode)
+            return TraitCategory(self.raw_data + other.raw_data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -88,7 +87,7 @@ class Trait_categories:
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return Trait_categories(data, self.mode)
+            return TraitCategory(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -106,7 +105,7 @@ class Trait_categories:
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return Trait_categories(data, self.mode)
+            return TraitCategory(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -118,7 +117,7 @@ class Trait_categories:
             for j in other.raw_data:
                 and_dict[j['label']] = j
             data = list(and_dict.values())
-            return Trait_categories(data, self.mode)
+            return TraitCategory(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -137,7 +136,7 @@ class Trait_categories:
             data = []
             for k in sub_key:
                 data.append(and_dict[k])
-            return Trait_categories(data, self.mode)
+            return TraitCategory(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 

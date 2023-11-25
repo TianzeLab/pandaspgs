@@ -1,5 +1,4 @@
-from pandas import DataFrame, Series, json_normalize, set_option
-import numpy
+from pandas import DataFrame, json_normalize, set_option
 
 set_option('display.max_columns', None)
 set_option('display.width', 1000)
@@ -51,14 +50,17 @@ class Release:
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("Trait is running in fat mode. It has 4 DataFrames with hierarchical dependencies.\n-releases: "
-                    "%d rows\n|\n -released_score_ids: %d rows\n|\n -released_publication_ids:"
+            return ("Release is running in fat mode. It has 4 DataFrames with hierarchical dependencies.\n-releases: "
+                    "%d rows\n|\n -released_score_ids: %d rows\n|\n -released_publication_ids: "
                     "%d rows\n|\n -released_performance_ids: %d rows" % (
                         len(self.releases), len(self.released_score_ids), len(self.released_publication_ids),
                         len(self.released_performance_ids)))
         if self.mode == 'Thin':
-            return ('Trait is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
-                    'size x.')
+            return ('Release is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
+                    'size %d.') % len(self.raw_data)
+
+    def __repr__(self):
+        return self.__str__()
 
     def __getitem__(self, item):
         if isinstance(item, str) or isinstance(item, int):
