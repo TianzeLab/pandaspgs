@@ -1,11 +1,12 @@
 from typing import List, Dict
 from pandaspgs.client import get_publication
+from pandaspgs.publication import Publication
 
 
-def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, author: str = None, cached=True) -> List[
-    Dict]:
+def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, author: str = None, cached=True) -> (
+        Publication):
     if pgs_id is None and pgp_id is None and pmid is None and author is None:
-        return get_publication('https://www.pgscatalog.org/rest/publication/all', cached=cached)
+        return Publication(get_publication('https://www.pgscatalog.org/rest/publication/all', cached=cached))
     by_id = None
     by_other = None
     if pgp_id is not None:
@@ -20,9 +21,9 @@ def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, a
             query_str.append('author=%s' % author)
         by_other = get_publication('https://www.pgscatalog.org/rest/publication/search?%s' % '&'.join(query_str))
     if pgp_id is None:
-        return by_other
+        return Publication(by_other)
     if pgs_id is None and pmid is None and author is None:
-        return by_id
+        return Publication(by_id)
     other_set = set()
     id_dict = {}
     for single in by_id:
@@ -34,4 +35,6 @@ def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, a
     result = []
     for id in intersection:
         result.append(id_dict[id])
-    return result
+    return Publication(result)
+
+
