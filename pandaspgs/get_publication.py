@@ -36,6 +36,6 @@ def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, a
     result = []
     for id in intersection:
         result.append(id_dict[id])
-    return Publication(result,mode)\\
+    return Publication(result,mode)
 
 
