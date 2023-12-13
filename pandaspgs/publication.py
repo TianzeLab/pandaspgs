@@ -38,7 +38,7 @@ class Publication:
             self.associated_pgs_ids = concat([dva, eva])
             self.associated_pgs_ids.columns = ['associated_pgs_id', 'publication_id', 'stage']
         else:
-            self.trait_categories = DataFrame(
+            self.associated_pgs_ids = DataFrame(
                 columns=['associated_pgs_id', 'publication_id', 'stage'])
 
         return

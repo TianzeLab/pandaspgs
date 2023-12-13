@@ -3,10 +3,11 @@ from pandaspgs.client import get_publication
 from pandaspgs.publication import Publication
 
 
-def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, author: str = None, cached=True) -> (
+def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, author: str = None, cached=True,
+                     mode: str = 'Fat') -> (
         Publication):
     if pgs_id is None and pgp_id is None and pmid is None and author is None:
-        return Publication(get_publication('https://www.pgscatalog.org/rest/publication/all', cached=cached))
+        return Publication(get_publication('https://www.pgscatalog.org/rest/publication/all', cached=cached),mode)
     by_id = None
     by_other = None
     if pgp_id is not None:
@@ -21,9 +22,9 @@ def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, a
             query_str.append('author=%s' % author)
         by_other = get_publication('https://www.pgscatalog.org/rest/publication/search?%s' % '&'.join(query_str))
     if pgp_id is None:
-        return Publication(by_other)
+        return Publication(by_other,mode)
     if pgs_id is None and pmid is None and author is None:
-        return Publication(by_id)
+        return Publication(by_id,mode)
     other_set = set()
     id_dict = {}
     for single in by_id:
@@ -35,6 +36,6 @@ def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, a
     result = []
     for id in intersection:
         result.append(id_dict[id])
-    return Publication(result)
+    return Publication(result,mode)\\
 
 
