@@ -18,7 +18,7 @@ class Publication:
         if mode == "Thin":
             return
         if data is None or len(data) == 0:
-            self.publication = DataFrame(
+            self.publications = DataFrame(
                 columns=['id', 'title', 'doi', 'PMID', 'journal', 'firstauthor', 'date_publication', 'date_release'
                     , 'authors'])
             self.associated_pgs_ids = DataFrame(
@@ -45,12 +45,12 @@ class Publication:
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("Publication is running in fat mode. It has 2 DataFrames with hierarchical dependencies.\n "
-                    "-publications: %d rows\n|\n -associated_pgs_ids: %d rows" % (len(self.publications),
+            return ("Publication is running in fat mode. It has 2 DataFrames with hierarchical dependencies.\n"
+                    "publications: %d rows\n|\n -associated_pgs_ids: %d rows" % (len(self.publications),
                                                                                   len(self.associated_pgs_ids)))
         if self.mode == 'Thin':
             return ('Publication is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list '
-                    'of size x.')
+                    'of size %d.') % len(self.raw_data)
 
     def __repr__(self):
         return self.__str__()
