@@ -18,7 +18,7 @@ class Cohort:
         if mode == "Thin":
             return
         if data is None or len(data) == 0:
-            self.publications = DataFrame(
+            self.cohorts = DataFrame(
                 columns=['name_short', 'name_full', 'name_others'])
             self.associated_pgs_ids = DataFrame(
                 columns=['name_short', 'associated_pgs_id', 'stage'])

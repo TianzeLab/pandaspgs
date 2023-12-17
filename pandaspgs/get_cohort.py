@@ -12,4 +12,4 @@ def get_cohorts(cohort_symbol: str = None, cached=True, mode: str = 'Fat'):
     return Cohort(by_id, mode)
 
 
-print(get_cohorts())
+print(get_cohorts()[1:10].associated_pgs_ids)
