@@ -44,7 +44,7 @@ class Cohort:
     def __str__(self):
         if self.mode == 'Fat':
             return ("Cohort is running in fat mode. It has 2 DataFrames with hierarchical dependencies.\n"
-                    "publications: %d rows\n|\n -associated_pgs_ids: %d rows" % (len(self.cohorts),
+                    "Cohorts: %d rows\n|\n -associated_pgs_ids: %d rows" % (len(self.cohorts),
                                                                                  len(self.associated_pgs_ids)))
         if self.mode == 'Thin':
             return ('Cohort is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list '
