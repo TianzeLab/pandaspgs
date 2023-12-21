@@ -36,20 +36,20 @@ class Publication:
             dva['stage'] = 'development'
             eva['stage'] = 'evaluation'
             self.associated_pgs_ids = concat([dva, eva])
-            self.associated_pgs_ids.columns = ['associated_pgs_id', 'name_short', 'stage']
+            self.associated_pgs_ids.columns = ['associated_pgs_id', 'publication_id', 'stage']
         else:
             self.associated_pgs_ids = DataFrame(
-                columns=['associated_pgs_id', 'name_short', 'stage'])
+                columns=['associated_pgs_id', 'publication_id', 'stage'])
 
         return
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("Cohort is running in fat mode. It has 2 DataFrames with hierarchical dependencies.\n"
+            return ("Publication is running in fat mode. It has 2 DataFrames with hierarchical dependencies.\n"
                     "publications: %d rows\n|\n -associated_pgs_ids: %d rows" % (len(self.publications),
                                                                                  len(self.associated_pgs_ids)))
         if self.mode == 'Thin':
-            return ('Cohort is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list '
+            return ('Publication is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list '
                     'of size %d.') % len(self.raw_data)
 
     def __repr__(self):

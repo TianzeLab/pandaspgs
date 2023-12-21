@@ -13,8 +13,8 @@ def test_get_publications():
     filter_by_all = get_publications(pgs_id='PGS000001', pgp_id='PGP000001', pmid=25855707, author='Mavaddat')
     assert len(filter_by_all) == 1
     filter_by_none = get_publications()
-    clear_cache('publication')
-    clear_cache('all')
+    clear_cache('Publication')
+    clear_cache('All')
     assert len(filter_by_none) == 537
     assert len(filter_by_none ^ filter_by_id) == 536
     assert len(filter_by_none[range(2)]) == 2

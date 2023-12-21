@@ -1,8 +1,7 @@
 from pandaspgs.get_cohort import get_cohorts
-from pandaspgs.client import clear_cache
 
 
-def test_get_publications():
+def test_get_cohorts():
     filter_by_id = get_cohorts()
     assert len(filter_by_id) == 1252
     assert len(filter_by_id ^ filter_by_id[0]) == 1251

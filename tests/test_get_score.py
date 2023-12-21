@@ -14,6 +14,6 @@ def test_get_scores():
     filter_by_all = get_scores(pgs_id='PGS000002', pgp_id='PGP000001', pmid=25855707, trait_id='EFO_1000649')
     assert len(filter_by_all) == 1
     filter_by_none = get_scores()
-    clear_cache('score')
-    clear_cache('all')
+    clear_cache('Score')
+    clear_cache('All')
     assert len(filter_by_none) == 3664

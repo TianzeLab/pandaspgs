@@ -5,7 +5,7 @@ from typing import List, Dict
 from requests.adapters import HTTPAdapter
 from cachetools import TTLCache
 
-fields = ['score','publication','trait','trait_category','performance','sample_set','release']
+fields = ['Score','Publication','Trait','Trait_category','Performance','Cohort','Sample_set','Release']
 publication_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 score_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 trait_cache = TTLCache(maxsize=1024, ttl=60 * 60)
@@ -48,8 +48,8 @@ def get_release(url: str, cached=True) -> List[Dict]:
     return get_data(url, cache_impl=release_cache, cached=cached)
 
 
-def clear_cache(field: str = 'all'):
-    if field == 'all':
+def clear_cache(field: str = 'All'):
+    if field == 'All':
         for s in fields:
             eval(s + '_cache.clear()')
     else:

@@ -24,7 +24,7 @@ def test_get_publication():
     assert len(r2) == 1
     r3 = get_publication('https://www.pgscatalog.org/rest/publication/all')
     r3 = get_publication('https://www.pgscatalog.org/rest/publication/all')
-    clear_cache('publication')
+    clear_cache('Publication')
     r3 = get_publication('https://www.pgscatalog.org/rest/publication/all')
     assert len(r3) == 455
     r4 = get_publication('https://www.pgscatalog.org/rest/publication/all', cached=False)

@@ -1,11 +1,9 @@
-from typing import List, Dict
 from pandaspgs.client import get_publication
 from pandaspgs.publication import Publication
 
 
 def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, author: str = None, cached=True,
-                     mode: str = 'Fat') -> (
-        Publication):
+                     mode: str = 'Fat') -> Publication:
     if pgs_id is None and pgp_id is None and pmid is None and author is None:
         return Publication(get_publication('https://www.pgscatalog.org/rest/publication/all', cached=cached),mode)
     by_id = None
