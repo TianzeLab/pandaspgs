@@ -6,6 +6,7 @@ from requests.adapters import HTTPAdapter
 from cachetools import TTLCache
 
 fields = ['Score','Publication','Trait','Trait_category','Performance','Cohort','Sample_set','Release']
+fields_and_all = ['All', 'Score','Publication','Trait','Trait_category','Performance','Cohort','Sample_set','Release']
 publication_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 score_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 trait_cache = TTLCache(maxsize=1024, ttl=60 * 60)
@@ -49,11 +50,13 @@ def get_release(url: str, cached=True) -> List[Dict]:
 
 
 def clear_cache(field: str = 'All'):
+    if field not in fields_and_all:
+        raise Exception('The field must one of %s' % str(fields_and_all))
     if field == 'All':
         for s in fields:
-            eval(s + '_cache.clear()')
+            eval(s.lower() + '_cache.clear()')
     else:
-        eval(field+'_cache.clear()')
+        eval(field.lower()+'_cache.clear()')
 
 
 def get_data(url: str, cache_impl=None, cached=True) -> List[Dict]:
