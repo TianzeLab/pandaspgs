@@ -1,10 +1,10 @@
 from typing import List, Dict
 from pandaspgs.client import get_sample_set
+from pandaspgs.sample_set import SampleSet
 
-
-def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached=True) -> List[Dict]:
+def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached=True):
     if pss_id is None and pgs_id is None and pgp_id is None and pmid is None:
-        return get_sample_set('https://www.pgscatalog.org/rest/sample_set/all', cached=cached)
+        return SampleSet(get_sample_set('https://www.pgscatalog.org/rest/sample_set/all', cached=cached))
     by_id = None
     by_other = None
     if pss_id is not None:
@@ -34,3 +34,6 @@ def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, 
     for id in intersection:
         result.append(id_dict[id])
     return result
+
+
+print(get_sample_sets().samples)
