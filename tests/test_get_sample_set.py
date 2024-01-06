@@ -9,20 +9,18 @@ set_option('display.colheader_justify', 'center')
 set_option('display.precision', 3)
 
 
+
 def test_get_sample_sets():
-    all_ss=get_sample_sets()
-    df=json_normalize(data=all_ss, record_path=['samples'],meta='id')
-    df['sample_set_id']=df['id']
-    df['id']=Series(data=range(0,len(df)))
-    cohort=df[['id','sample_set_id','cohorts']].copy()
-    df=df.drop(columns=['cohorts'])
-
-    cohort['sample_id']=cohort['id']
-    cohort['cohorts']=cohort['cohorts'].apply(lambda x: x if len(x) > 0 else numpy.nan)
-    cohort = cohort.dropna()
-    cohort = cohort.explode('cohorts')
-    cohort[['name_short','name_full','name_others']] = cohort['cohorts'].apply(lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
-
+    filter_by_id = get_sample_sets()
+    assert len(filter_by_id) == 9112
+    assert len(filter_by_id ^ filter_by_id[0]) == 9111
+    assert len(filter_by_id[range(2)]) == 2
+    assert len(filter_by_id[1:3]) == 2
+    assert len(filter_by_id['PSS011331']) == 1
+    assert len(filter_by_id[0] + filter_by_id[1]) == 2
+    assert len(filter_by_id - filter_by_id[1]) == 9111
+    assert len(filter_by_id[0] & filter_by_id) == 1
+    assert len(filter_by_id | filter_by_id[0]) == 9112
+    assert len(filter_by_id[0:506] | filter_by_id[506]) == 507
 
 
-    cohort=cohort.drop(columns=['id','cohorts'])

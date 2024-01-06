@@ -1,10 +1,11 @@
-
 from pandas import DataFrame, json_normalize, set_option, Series
+
 set_option('display.max_columns', None)
 set_option('display.width', 1000)
 set_option('display.colheader_justify', 'center')
 set_option('display.precision', 3)
 import numpy
+
 
 class SampleSet:
     def __init__(self, data: list = [], mode: str = "Fat"):
@@ -47,6 +48,7 @@ class SampleSet:
             cohort = cohort.explode('cohorts')
             cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
                 lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
+            cohort = cohort.drop(columns=['id', 'cohorts'])
             self.cohorts = cohort
 
         else:
@@ -63,122 +65,119 @@ class SampleSet:
             self.cohorts = DataFrame(columns=['sample_set_id', 'sample_id', 'name_short', 'name_full', 'name_others'])
         return
 
-    # def __str__(self):
-    #     if self.mode == 'Fat':
-    #         return ("Trait is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\nEFO_traits: "
-    #                 "%d rows\n|\n -associated_pgs_ids: %d rows\n|\n -child_associated_pgs_ids:"
-    #                 "%d rows\n|\n -trait_categories: %d rows\n|\n -trait_mapped_terms: %d rows\n|\n -trait_synonyms:"
-    #                 " %d rows" % (
-    #                     len(self.EFO_traits), len(self.associated_pgs_ids), len(self.child_associated_pgs_ids),
-    #                     len(self.trait_categories), len(self.trait_mapped_terms), len(self.trait_synonyms)))
-    #     if self.mode == 'Thin':
-    #         return ('Trait is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
-    #                 'size x.')
-    #
-    # def __repr__(self):
-    #     return self.__str__()
-    #
-    # def __getitem__(self, item):
-    #     if isinstance(item, str) or isinstance(item, int):
-    #         arr = [item]
-    #     elif isinstance(item, list) or isinstance(item, tuple) or isinstance(item, range):
-    #         arr = item
-    #     elif isinstance(item, slice):
-    #         start, stop, step = item.indices(len(self))
-    #         arr = list(range(start, stop, step))
-    #     else:
-    #         raise TypeError('Invalid argument type：{}'.format(type(item)))
-    #     raw_data = self.raw_data
-    #     raw_data_dict = {}
-    #     for j in raw_data:
-    #         raw_data_dict[j['id']] = j
-    #     sub_set = []
-    #     for i in arr:
-    #         if isinstance(i, str):
-    #             sub_set.append(raw_data_dict[i])
-    #         elif isinstance(i, int):
-    #             sub_set.append(raw_data[i])
-    #         else:
-    #             raise TypeError('Invalid item type: {}'.format(type(i)))
-    #     return Trait(sub_set, self.mode)
-    #
-    # def __add__(self, other):
-    #     if self.mode == other.mode:
-    #         return Trait(self.raw_data + other.raw_data, self.mode)
-    #     else:
-    #         raise Exception("Please input the same mode")
-    #
-    # def __sub__(self, other):
-    #     if self.mode == other.mode:
-    #         self_key_set = set()
-    #         self_dict = {}
-    #         other_key_set = set()
-    #         for i in self.raw_data:
-    #             self_key_set.add(i['id'])
-    #             self_dict[i['id']] = i
-    #         for j in other.raw_data:
-    #             other_key_set.add(j['id'])
-    #         sub_key = self_key_set - other_key_set
-    #         data = []
-    #         for k in sub_key:
-    #             data.append(self_dict[k])
-    #         return Trait(data, self.mode)
-    #     else:
-    #         raise Exception("Please input the same mode")
-    #
-    # def __and__(self, other):
-    #     if self.mode == other.mode:
-    #         self_key_set = set()
-    #         self_dict = {}
-    #         other_key_set = set()
-    #         for i in self.raw_data:
-    #             self_key_set.add(i['id'])
-    #             self_dict[i['id']] = i
-    #         for j in other.raw_data:
-    #             other_key_set.add(j['id'])
-    #         sub_key = self_key_set & other_key_set
-    #         data = []
-    #         for k in sub_key:
-    #             data.append(self_dict[k])
-    #         return Trait(data, self.mode)
-    #     else:
-    #         raise Exception("Please input the same mode")
-    #
-    # def __or__(self, other):
-    #     if self.mode == other.mode:
-    #         and_dict = {}
-    #         for i in self.raw_data:
-    #             and_dict[i['id']] = i
-    #         for j in other.raw_data:
-    #             and_dict[j['id']] = j
-    #         data = list(and_dict.values())
-    #         return Trait(data, self.mode)
-    #     else:
-    #         raise Exception("Please input the same mode")
-    #
-    # def __xor__(self, other):
-    #     if self.mode == other.mode:
-    #         self_key_set = set()
-    #         and_dict = {}
-    #         other_key_set = set()
-    #         for i in self.raw_data:
-    #             self_key_set.add(i['id'])
-    #             and_dict[i['id']] = i
-    #         for j in other.raw_data:
-    #             other_key_set.add(j['id'])
-    #             and_dict[j['id']] = j
-    #         sub_key = self_key_set ^ other_key_set
-    #         data = []
-    #         for k in sub_key:
-    #             data.append(and_dict[k])
-    #         return Trait(data, self.mode)
-    #     else:
-    #         raise Exception("Please input the same mode")
-    #
-    # def __eq__(self, other):
-    #     if self is None or other is None:
-    #         return self is None and other is None
-    #     return self.raw_data == other.raw_data and self.mode == other.mode
-    #
-    # def __len__(self):
-    #     return len(self.raw_data)
+    def __str__(self):
+        if self.mode == 'Fat':
+            return ("Trait is running in fat mode. It has 3 DataFrames with hierarchical dependencies.\n -sample_sets: "
+                    "%d rows\n|\n -samples: %d rows\n|\n -cohorts: %d rows" % (
+                        len(self.sample_sets), len(self.samples), len(self.cohorts)))
+        if self.mode == 'Thin':
+            return ('SampleSet is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
+                    'size x.')
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __getitem__(self, item):
+        if isinstance(item, str) or isinstance(item, int):
+            arr = [item]
+        elif isinstance(item, list) or isinstance(item, tuple) or isinstance(item, range):
+            arr = item
+        elif isinstance(item, slice):
+            start, stop, step = item.indices(len(self))
+            arr = list(range(start, stop, step))
+        else:
+            raise TypeError('Invalid argument type：{}'.format(type(item)))
+        raw_data = self.raw_data
+        raw_data_dict = {}
+        for j in raw_data:
+            raw_data_dict[j['id']] = j
+        sub_set = []
+        for i in arr:
+            if isinstance(i, str):
+                sub_set.append(raw_data_dict[i])
+            elif isinstance(i, int):
+                sub_set.append(raw_data[i])
+            else:
+                raise TypeError('Invalid item type: {}'.format(type(i)))
+        return SampleSet(sub_set, self.mode)
+
+    def __add__(self, other):
+        if self.mode == other.mode:
+            return SampleSet(self.raw_data + other.raw_data, self.mode)
+        else:
+            raise Exception("Please input the same mode")
+
+    def __sub__(self, other):
+        if self.mode == other.mode:
+            self_key_set = set()
+            self_dict = {}
+            other_key_set = set()
+            for i in self.raw_data:
+                self_key_set.add(i['id'])
+                self_dict[i['id']] = i
+            for j in other.raw_data:
+                other_key_set.add(j['id'])
+            sub_key = self_key_set - other_key_set
+            data = []
+            for k in sub_key:
+                data.append(self_dict[k])
+            return SampleSet(data, self.mode)
+        else:
+            raise Exception("Please input the same mode")
+
+    def __and__(self, other):
+        if self.mode == other.mode:
+            self_key_set = set()
+            self_dict = {}
+            other_key_set = set()
+            for i in self.raw_data:
+                self_key_set.add(i['id'])
+                self_dict[i['id']] = i
+            for j in other.raw_data:
+                other_key_set.add(j['id'])
+            sub_key = self_key_set & other_key_set
+            data = []
+            for k in sub_key:
+                data.append(self_dict[k])
+            return SampleSet(data, self.mode)
+        else:
+            raise Exception("Please input the same mode")
+
+    def __or__(self, other):
+        if self.mode == other.mode:
+            and_dict = {}
+            for i in self.raw_data:
+                and_dict[i['id']] = i
+            for j in other.raw_data:
+                and_dict[j['id']] = j
+            data = list(and_dict.values())
+            return SampleSet(data, self.mode)
+        else:
+            raise Exception("Please input the same mode")
+
+    def __xor__(self, other):
+        if self.mode == other.mode:
+            self_key_set = set()
+            and_dict = {}
+            other_key_set = set()
+            for i in self.raw_data:
+                self_key_set.add(i['id'])
+                and_dict[i['id']] = i
+            for j in other.raw_data:
+                other_key_set.add(j['id'])
+                and_dict[j['id']] = j
+            sub_key = self_key_set ^ other_key_set
+            data = []
+            for k in sub_key:
+                data.append(and_dict[k])
+            return SampleSet(data, self.mode)
+        else:
+            raise Exception("Please input the same mode")
+
+    def __eq__(self, other):
+        if self is None or other is None:
+            return self is None and other is None
+        return self.raw_data == other.raw_data and self.mode == other.mode
+
+    def __len__(self):
+        return len(self.raw_data)

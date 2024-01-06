@@ -1,8 +1,10 @@
 from typing import List, Dict
 from pandaspgs.client import get_performance
+from pandas import DataFrame, json_normalize, set_option, Series
+from pandaspgs.performancemetric import PerformanceMetrics
 
-
-def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached=True) -> List[Dict]:
+def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached=True) -> List[
+    Dict]:
     if ppm_id is None and pgs_id is None and pgp_id is None and pmid is None:
         return get_performance('https://www.pgscatalog.org/rest/performance/all', cached=cached)
     by_id = None
@@ -34,3 +36,9 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
     for id in intersection:
         result.append(id_dict[id])
     return result
+
+
+a = get_performances(ppm_id="PPM000001")
+b = PerformanceMetrics(get_performances())
+print(b.othermetrics)
+

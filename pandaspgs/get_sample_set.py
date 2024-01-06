@@ -2,9 +2,12 @@ from typing import List, Dict
 from pandaspgs.client import get_sample_set
 from pandaspgs.sample_set import SampleSet
 
-def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached=True):
+
+def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached=True,
+                    mode: str = 'Fat') \
+        -> SampleSet:
     if pss_id is None and pgs_id is None and pgp_id is None and pmid is None:
-        return SampleSet(get_sample_set('https://www.pgscatalog.org/rest/sample_set/all', cached=cached))
+        return SampleSet(get_sample_set('https://www.pgscatalog.org/rest/sample_set/all', cached=cached), mode)
     by_id = None
     by_other = None
     if pss_id is not None:
@@ -19,9 +22,9 @@ def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, 
             query_str.append('pgp_id=%s' % pgp_id)
         by_other = get_sample_set('https://www.pgscatalog.org/rest/sample_set/search?%s' % '&'.join(query_str))
     if pss_id is None:
-        return by_other
+        return SampleSet(by_other, mode)
     if pgs_id is None and pmid is None and pgp_id is None:
-        return by_id
+        return SampleSet(by_id, mode)
     other_set = set()
     id_dict = {}
     for single in by_id:
@@ -33,7 +36,4 @@ def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, 
     result = []
     for id in intersection:
         result.append(id_dict[id])
-    return result
-
-
-print(get_sample_sets().samples)
+    return SampleSet(result, mode)
