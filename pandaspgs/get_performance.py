@@ -3,10 +3,12 @@ from pandaspgs.client import get_performance
 from pandas import DataFrame, json_normalize, set_option, Series
 from pandaspgs.performancemetric import PerformanceMetrics
 
-def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached=True) -> List[
-    Dict]:
+
+def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None,
+                     cached=True, mode: str = 'Fat') -> PerformanceMetrics:
     if ppm_id is None and pgs_id is None and pgp_id is None and pmid is None:
-        return get_performance('https://www.pgscatalog.org/rest/performance/all', cached=cached)
+        return PerformanceMetrics(get_performance('https://www.pgscatalog.org/rest/performance/all', cached=cached),
+                                  mode)
     by_id = None
     by_other = None
     if ppm_id is not None:
@@ -21,9 +23,9 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
             query_str.append('pgp_id=%s' % pgp_id)
         by_other = get_performance('https://www.pgscatalog.org/rest/performance/search?%s' % '&'.join(query_str))
     if ppm_id is None:
-        return by_other
+        return PerformanceMetrics(by_other, mode)
     if pgs_id is None and pmid is None and pgp_id is None:
-        return by_id
+        return PerformanceMetrics(by_id, mode)
     other_set = set()
     id_dict = {}
     for single in by_id:
@@ -35,10 +37,6 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
     result = []
     for id in intersection:
         result.append(id_dict[id])
-    return result
+    return PerformanceMetrics(result, mode)
 
-
-a = get_performances(ppm_id="PPM000001")
-b = PerformanceMetrics(get_performances())
-print(b.othermetrics)
 

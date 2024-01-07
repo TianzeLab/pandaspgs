@@ -67,7 +67,8 @@ class SampleSet:
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("Trait is running in fat mode. It has 3 DataFrames with hierarchical dependencies.\n -sample_sets: "
+            return ("SampleSet is running in fat mode. It has 3 DataFrames with hierarchical dependencies.\n "
+                    "-sample_sets:"
                     "%d rows\n|\n -samples: %d rows\n|\n -cohorts: %d rows" % (
                         len(self.sample_sets), len(self.samples), len(self.cohorts)))
         if self.mode == 'Thin':
