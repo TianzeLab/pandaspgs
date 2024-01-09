@@ -1,4 +1,3 @@
-from typing import List, Dict
 from pandaspgs.client import get_sample_set
 from pandaspgs.sample_set import SampleSet
 
@@ -20,7 +19,7 @@ def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, 
             query_str.append('pmid=%d' % pmid)
         if pgp_id is not None:
             query_str.append('pgp_id=%s' % pgp_id)
-        by_other = get_sample_set('https://www.pgscatalog.org/rest/sample_set/search?%s' % '&'.join(query_str))
+        by_other = get_sample_set('https://www.pgscatalog.org/rest/sample_set/search?%s' % '&'.join(query_str), cached=cached)
     if pss_id is None:
         return SampleSet(by_other, mode)
     if pgs_id is None and pmid is None and pgp_id is None:

@@ -67,13 +67,13 @@ class SampleSet:
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("SampleSet is running in fat mode. It has 3 DataFrames with hierarchical dependencies.\n "
-                    "-sample_sets:"
-                    "%d rows\n|\n -samples: %d rows\n|\n -cohorts: %d rows" % (
+            return ("SampleSet is running in fat mode. It has 3 DataFrames with hierarchical dependencies.\n"
+                    "sample_sets:"
+                    "%d rows\n|\n -samples: %d rows\n  |\n   -cohorts: %d rows" % (
                         len(self.sample_sets), len(self.samples), len(self.cohorts)))
         if self.mode == 'Thin':
             return ('SampleSet is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
-                    'size x.')
+                    'size %d.' % len(self.raw_data))
 
     def __repr__(self):
         return self.__str__()
