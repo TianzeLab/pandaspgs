@@ -5,8 +5,10 @@ from typing import List, Dict
 from requests.adapters import HTTPAdapter
 from cachetools import TTLCache
 
-fields = ['Score','Publication','Trait','Trait_category','Performance','Cohort','Sample_set','Release']
-fields_and_all = ['All', 'Score','Publication','Trait','Trait_category','Performance','Cohort','Sample_set','Release']
+fields = ['Score', 'Publication', 'Trait', 'Trait_category', 'Performance', 'Cohort', 'Sample_set', 'Release',
+          'Ancestry_category_cache']
+fields_and_all = ['All', 'Score', 'Publication', 'Trait', 'Trait_category', 'Performance', 'Cohort', 'Sample_set',
+                  'Release', 'Ancestry_category_cache']
 publication_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 score_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 trait_cache = TTLCache(maxsize=1024, ttl=60 * 60)
@@ -15,6 +17,16 @@ performance_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 cohort_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 sample_set_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 release_cache = TTLCache(maxsize=1024, ttl=60 * 60)
+ancestry_category_cache = TTLCache(maxsize=1024, ttl=60 * 60)
+
+
+def get_ancestry_category(url: str, cached=True) -> List[Dict]:
+    raw_dict = get_data(url, cache_impl=ancestry_category_cache, cached=cached)[0]
+    dict_list = []
+    for key in raw_dict:
+        raw_dict[key]['symbols'] = key
+        dict_list.append(raw_dict[key])
+    return dict_list
 
 
 def get_publication(url: str, cached=True) -> List[Dict]:
@@ -56,7 +68,7 @@ def clear_cache(field: str = 'All'):
         for s in fields:
             eval(s.lower() + '_cache.clear()')
     else:
-        eval(field.lower()+'_cache.clear()')
+        eval(field.lower() + '_cache.clear()')
 
 
 def get_data(url: str, cache_impl=None, cached=True) -> List[Dict]:
