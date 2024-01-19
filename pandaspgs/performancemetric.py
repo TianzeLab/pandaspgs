@@ -107,7 +107,7 @@ class PerformanceMetrics:
     def __str__(self):
         if self.mode == 'Fat':
             return ("PerformanceMetric is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\n"
-                    "sample_sets:"
+                    "performance_metrics:"
                     "%d rows\n|\n -samples: %d rows\n  |\n   -cohorts: %d rows\n|\n -effect_sizes: %d rows"
                     "\n|\n -class_acc: %d rows"
                     "\n|\n -othermetrics: %d rows" % (
