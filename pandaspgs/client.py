@@ -6,9 +6,9 @@ from requests.adapters import HTTPAdapter
 from cachetools import TTLCache
 
 fields = ['Score', 'Publication', 'Trait', 'Trait_category', 'Performance', 'Cohort', 'Sample_set', 'Release',
-          'Ancestry_category_cache']
+          'Ancestry_category']
 fields_and_all = ['All', 'Score', 'Publication', 'Trait', 'Trait_category', 'Performance', 'Cohort', 'Sample_set',
-                  'Release', 'Ancestry_category_cache']
+                  'Release', 'Ancestry_category']
 publication_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 score_cache = TTLCache(maxsize=1024, ttl=60 * 60)
 trait_cache = TTLCache(maxsize=1024, ttl=60 * 60)
@@ -61,7 +61,29 @@ def get_release(url: str, cached=True) -> List[Dict]:
     return get_data(url, cache_impl=release_cache, cached=cached)
 
 
-def clear_cache(field: str = 'All'):
+def clear_cache(field: str = 'All') -> None:
+    """
+    Clear some or all of the cache.
+
+    Args:
+        field: It can be one of the following: 'All', 'Score', 'Publication', 'Trait', 'Trait_category', 'Performance', 'Cohort', 'Sample_set', 'Release', 'Ancestry_category'
+
+    Returns:
+        None
+
+    ```Python
+    from pandaspgs.get_publication import get_publications
+    from pandaspgs.client import clear_cache
+
+    # Clear all caches.
+    clear_cache('All')
+    pub = get_publications()
+    # Clear the cache used by get_publications()
+    clear_cache('Publication')
+    pub = get_publications()
+    ```
+
+    """
     if field not in fields_and_all:
         raise Exception('The field must one of %s' % str(fields_and_all))
     if field == 'All':
@@ -78,35 +100,35 @@ def get_data(url: str, cache_impl=None, cached=True) -> List[Dict]:
             r = cache_impl[url]
         else:
             r = s.get(url)
-            cache_impl[url] = r
-        if r.status_code == 200:
-            parsed_data = json.loads(r.text)
-            if parsed_data.get('results') is not None:
-                results_list = parsed_data.get('results')
-                if parsed_data.get('next') is not None:
-                    bar = progressbar.ProgressBar(max_value=parsed_data.get('count')).start()
-                    progress = 50
-                    bar.update(progress)
-                    next_url = parsed_data.get('next')
-                    while next_url is not None:
-                        if next_url in cache_impl and cached:
-                            r = cache_impl[next_url]
-                        else:
-                            r = s.get(next_url)
-                            cache_impl[next_url] = r
-                        parsed_data = json.loads(r.text)
-                        results_list.extend(parsed_data.get('results'))
-                        progress = progress + parsed_data.get('size')
+            if r.status_code == 200:
+                cache_impl[url] = r
+                parsed_data = json.loads(r.text)
+                if parsed_data.get('results') is not None:
+                    results_list = parsed_data.get('results')
+                    if parsed_data.get('next') is not None:
+                        bar = progressbar.ProgressBar(max_value=parsed_data.get('count')).start()
+                        progress = 50
                         bar.update(progress)
                         next_url = parsed_data.get('next')
-                    bar.finish()
-                return results_list
+                        while next_url is not None:
+                            if next_url in cache_impl and cached:
+                                r = cache_impl[next_url]
+                            else:
+                                r = s.get(next_url)
+                                cache_impl[next_url] = r
+                            parsed_data = json.loads(r.text)
+                            results_list.extend(parsed_data.get('results'))
+                            progress = progress + parsed_data.get('size')
+                            bar.update(progress)
+                            next_url = parsed_data.get('next')
+                        bar.finish()
+                    return results_list
+                else:
+                    return [parsed_data]
+            elif r.status_code == 404:
+                return []
             else:
-                return [parsed_data]
-        elif r.status_code == 404:
-            return []
-        else:
-            raise Exception('The request for %s failed: response code was %d' % (url, r.status_code))
+                raise Exception('The request for %s failed: response code was %d, content was \n%s' % (url, r.status_code, r.text))
 
 
 def ask_yes_no_question(question: str) -> str:
