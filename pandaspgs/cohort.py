@@ -27,11 +27,23 @@ class Cohort:
     ```
     Subset object s by either identifier or position
     ```Python
-
+    all_df = get_cohorts()
+    all_df[0].cohorts
+    all_df[0:3].cohorts
+    all_df['100-plus'].cohorts
+    all_df[('100-plus','23andMe','2SISTER')].cohorts
     ```
     Objects can be manipulated like sets in the mathematical sense.
     ```Python
-
+    one = get_cohorts(cohort_symbol='100-plus')
+    two = get_cohorts(cohort_symbol='23andMe')
+    three = get_cohorts(cohort_symbol='2SISTER')
+    one_and_two = one+two
+    two_and_three = two+three
+    only_one = one_and_two - two_and_three
+    only_two = one_and_two & two_and_three
+    one_and_two_and_three = one_and_two | two_and_three
+    one_and_three = one_and_two ^ two_and_three
     ```
     """
     def __init__(self, data: list = [], mode: str = "Fat"):
@@ -112,7 +124,7 @@ class Cohort:
 
     def __add__(self, other):
         if self.mode == other.mode:
-            return self.raw_data + other.raw_data, self.mode
+            return Cohort(self.raw_data + other.raw_data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
