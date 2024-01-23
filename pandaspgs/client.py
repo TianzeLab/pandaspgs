@@ -115,7 +115,12 @@ def get_data(url: str, cache_impl=None, cached=True) -> List[Dict]:
                                 r = cache_impl[next_url]
                             else:
                                 r = s.get(next_url)
-                                cache_impl[next_url] = r
+                                if r.status_code == 200:
+                                    cache_impl[next_url] = r
+                                elif r.status_code == 404:
+                                    return []
+                                else:
+                                    raise Exception('The request for %s failed: response code was %d, content was \n%s' % (next_url, r.status_code, r.text))
                             parsed_data = json.loads(r.text)
                             results_list.extend(parsed_data.get('results'))
                             progress = progress + parsed_data.get('size')
