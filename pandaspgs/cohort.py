@@ -8,7 +8,52 @@ set_option('display.precision', 3)
 
 
 class Cohort:
+    """
+    To understand the significance of each column of the DataFrame. Please visit "Cohort_extended" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+
+    Attributes:
+        raw_data: list. Convert from obtained JSON data
+        cohorts: DataFrame. It only exists if the parameter mode of constructor is Fat.
+        associated_pgs_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+
+    ```Python
+    from pandaspgs.get_cohort import get_cohorts
+
+    ch = get_cohorts(cohort_symbol='ABCFS')
+    ch
+    ch.raw_data
+    ch.cohorts
+    ch.associated_pgs_ids
+    ```
+    Subset object s by either identifier or position
+    ```Python
+    all_df = get_cohorts()
+    all_df[0].cohorts
+    all_df[0:3].cohorts
+    all_df['100-plus'].cohorts
+    all_df[('100-plus','23andMe','2SISTER')].cohorts
+    ```
+    Objects can be manipulated like sets in the mathematical sense.
+    ```Python
+    one = get_cohorts(cohort_symbol='100-plus')
+    two = get_cohorts(cohort_symbol='23andMe')
+    three = get_cohorts(cohort_symbol='2SISTER')
+    one_and_two = one+two
+    two_and_three = two+three
+    only_one = one_and_two - two_and_three
+    only_two = one_and_two & two_and_three
+    one_and_two_and_three = one_and_two | two_and_three
+    one_and_three = one_and_two ^ two_and_three
+    ```
+    """
     def __init__(self, data: list = [], mode: str = "Fat"):
+        """
+        An object that stores data of type Cohort.
+
+        Args:
+            data: Raw JSON data.
+            mode:  Fat or Thin. Specifies the mode of the object.
+        """
         if data is None:
             data = []
         if mode not in ['Thin', "Fat"]:
@@ -44,7 +89,7 @@ class Cohort:
     def __str__(self):
         if self.mode == 'Fat':
             return ("Cohort is running in fat mode. It has 2 DataFrames with hierarchical dependencies.\n"
-                    "Cohorts: %d rows\n|\n -associated_pgs_ids: %d rows" % (len(self.cohorts),
+                    "cohorts: %d rows\n|\n -associated_pgs_ids: %d rows" % (len(self.cohorts),
                                                                                  len(self.associated_pgs_ids)))
         if self.mode == 'Thin':
             return ('Cohort is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list '
@@ -79,7 +124,7 @@ class Cohort:
 
     def __add__(self, other):
         if self.mode == other.mode:
-            return self.raw_data + other.raw_data, self.mode
+            return Cohort(self.raw_data + other.raw_data, self.mode)
         else:
             raise Exception("Please input the same mode")
 

@@ -1,13 +1,4 @@
-import numpy
-
 from pandaspgs.get_performance import get_performances
-from pandas import DataFrame, json_normalize, set_option, Series
-
-set_option('display.max_columns', None)
-set_option('display.width', 1000)
-set_option('display.colheader_justify', 'center')
-set_option('display.precision', 3)
-
 
 
 def test_get_sample_sets():

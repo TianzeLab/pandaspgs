@@ -1,4 +1,4 @@
-from pandaspgs.client import get_data, get_publication, clear_cache
+from pandaspgs.client import get_data, get_publication, clear_cache, get_ancestry_category
 from cachetools import TTLCache
 
 cache = TTLCache(maxsize=1024, ttl=60)
@@ -29,3 +29,8 @@ def test_get_publication():
     assert len(r3) == 455
     r4 = get_publication('https://www.pgscatalog.org/rest/publication/all', cached=False)
     assert len(r3) == 455
+
+
+def test_get_ancestry_category():
+    cat = get_ancestry_category('https://www.pgscatalog.org/rest/ancestry_categories')
+    assert cat[0]['symbol'] == 'AFR'

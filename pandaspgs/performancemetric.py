@@ -106,17 +106,16 @@ class PerformanceMetrics:
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("PerformanceMetric is running in fat mode. It has 3 DataFrames with hierarchical dependencies.\n "
-                    "-sample_sets:"
-                    "%d rows\n|\n -samples: %d rows\n|\n -cohorts: %d rows\n|\n -effect_sizes: %d rows"
+            return ("PerformanceMetric is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\n"
+                    "performance_metrics:"
+                    "%d rows\n|\n -samples: %d rows\n  |\n   -cohorts: %d rows\n|\n -effect_sizes: %d rows"
                     "\n|\n -class_acc: %d rows"
                     "\n|\n -othermetrics: %d rows" % (
                         len(self.performance_metrics), len(self.samples), len(self.cohorts),
                         len(self.effect_sizes), len(self.class_acc), len(self.othermetrics)))
         if self.mode == 'Thin':
             return ('PerformanceMetrics is running in thin mode. It has 1 list that contains the raw data.\nraw_data: '
-                    'a list of'
-                    'size x.')
+                    'a list of size %d.' % len(self.raw_data))
 
     def __repr__(self):
         return self.__str__()
