@@ -36,5 +36,3 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
     for id in intersection:
         result.append(id_dict[id])
     return PerformanceMetrics(result, mode)
-
-

@@ -7,7 +7,7 @@ set_option('display.precision', 3)
 import numpy
 
 
-class PerformanceMetrics:
+class Score:
     def __init__(self, data: list = [], mode: str = "Fat"):
         if data is None:
             data = []
@@ -18,23 +18,62 @@ class PerformanceMetrics:
         if mode == "Thin":
             return
         if data is None or len(data) == 0:
-            self.performance_metrics = DataFrame(
-                columns=['id', 'associated_pgs_id', 'phenotyping_reported', 'publication.id', 'publication.title',
-                         'publication.doi', 'publication.PMID', 'publication.journal', 'publication.firstauthor',
-                         'publication.date_publication', 'sampleset.id', 'performance_metrics', 'covariates',
-                         'performance_comments'])
-            self.samples = DataFrame(
-                columns=['id', 'performance_metric_id', 'sample_number', 'sample_cases', 'sample_controls',
-                         'sample_percent_male', 'sample_age.estimate_type', 'sample_age.estimate',
-                         'sample_age.interval.type', 'sample_age.interval.lower', 'sample_age.interval.upper',
-                         'sample_age.variability_type', 'sample_age.variability', 'sample_age.unit',
-                         'phenotyping_free', 'followup_time.estimate_type', 'followup_time.estimate',
-                         'followup_time.interval.type', 'followup_time.interval.lower', 'followup_time.interval.upper',
-                         'followup_time.variability_type', 'followup_time.variability', 'followup_time.unit',
-                         'ancestry_broad', 'ancestry_free', 'ancestry_country', 'ancestry_additional',
-                         'source_GWAS_catalog', 'source_PMID', 'source_DOI', 'cohorts_additional'])
-            self.cohorts = DataFrame(
-                columns=['performance_metric_id', 'sample_id', 'name_short', 'name_full', 'name_others'])
+            self.scores = DataFrame(
+                columns=['id'
+                         'name'
+                         'ftp_scoring_file'
+                         'ftp_harmonized_scoring_files.GRCh37.positions'
+                         'ftp_harmonized_scoring_files.GRCh38.positions'
+                         'publication.id'
+                         'publication.title'
+                         'publication.doi'
+                         'publication.PMID'
+                         'publication.journal'
+                         'publication.firstauthor'
+                         'publication.date_publication'
+                         'matches_publication'
+                         'trait_reported'
+                         'trait_additional'
+                         'method_name'
+                         'method_params'
+                         'variants_number'
+                         'variants_interactions'
+                         'variants_genomebuild'
+                         'weight_type'
+                         'date_release'
+                         'license'
+                         ])
+            self.samples_variants = DataFrame(
+                columns=['id'
+                         'name'
+                         'ftp_scoring_file'
+                         'ftp_harmonized_scoring_files.GRCh37.positions'
+                         'ftp_harmonized_scoring_files.GRCh38.positions'
+                         'publication.id'
+                         'publication.title'
+                         'publication.doi'
+                         'publication.PMID'
+                         'publication.journal'
+                         'publication.firstauthor'
+                         'publication.date_publication'
+                         'matches_publication'
+                         'trait_reported'
+                         'trait_additional'
+                         'method_name'
+                         'method_params'
+                         'variants_number'
+                         'variants_interactions'
+                         'variants_genomebuild'
+                         'weight_type'
+                         'date_release'
+                         'license'
+                         ])
+            self.samples_variants_cohorts = DataFrame(
+                columns=['score_id'
+                         'sample_id'
+                         'name_short'
+                         'name_full'
+                         'name_others'])
             self.effect_sizes = DataFrame(
                 columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
             self.class_acc = DataFrame(
@@ -111,7 +150,7 @@ class PerformanceMetrics:
                                                                      'publication.firstauthor',
                                                                      'publication.date_publication'])
         if 'sample_age' in self.samples:
-            self.samples.drop(columns=['sample_age'])
+            self.samples.drop(columns=['samples_age'])
             self.samples = self.samples.reindex(
                 columns=self.samples.columns.tolist() + ['sample_age.estimate_type', 'sample_age.estimate',
                                                          'sample_age.interval.type', 'sample_age.interval.lower',
