@@ -74,15 +74,68 @@ class Score:
                          'name_short'
                          'name_full'
                          'name_others'])
-            self.effect_sizes = DataFrame(
-                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
-            self.class_acc = DataFrame(
-                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
-            self.othermetrics = DataFrame(
-                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
+            self.trait_efo = DataFrame(
+                columns=['score_i'
+                         'id'
+                         'label'
+                         'description'
+                         'url'
+                         ])
+            self.samples_training = DataFrame(
+                columns=['id'
+                         'score_id'
+                         'sample_number'
+                         'sample_cases'
+                         'sample_controls'
+                         'sample_percent_male'
+                         'sample_age.estimate_type'
+                         'sample_age.estimate'
+                         'sample_age.interval.type'
+                         'sample_age.interval.lower'
+                         'sample_age.interval.upper'
+                         'sample_age.variability_type'
+                         'sample_age.variability'
+                         'sample_age.unit'
+                         'phenotyping_free'
+                         'followup_time.estimate_type'
+                         'followup_time.estimate'
+                         'followup_time.interval.type'
+                         'followup_time.interval.lower'
+                         'followup_time.interval.upper'
+                         'followup_time.variability_type'
+                         'followup_time.variability'
+                         'followup_time.unit'
+                         'ancestry_broad'
+                         'ancestry_free'
+                         'ancestry_country'
+                         'ancestry_additional'
+                         'source_GWAS_catalog'
+                         'source_PMID'
+                         'source_DOI'
+                         'cohorts_additional'
+                         ])
+            self.samples_training_cohorts = DataFrame(
+                columns=['score_id'
+                         'sample_id'
+                         'name_short'
+                         'name_full'
+                         'name_others'
+                         ])
+            self.ancestry_distribution = DataFrame(
+                columns=['score_id'
+                         'stage'
+                         'dist'
+                         'count'
+                         'multi'])
             return
         datas = json_normalize(data=data, max_level=1)
-        datas['sampleset.samples'] = datas['sampleset.samples'].map(lambda x: x == [])
+        # ['id', 'name', 'ftp_scoring_file', 'matches_publication', 'samples_variants', 'samples_training',
+        #  'trait_reported', 'trait_additional', 'trait_efo', 'method_name', 'method_params', 'variants_number',
+        #  'variants_interactions', 'variants_genomebuild', 'weight_type', 'date_release', 'license',
+        #  'ftp_harmonized_scoring_files.GRCh37', 'ftp_harmonized_scoring_files.GRCh38', 'publication.id',
+        #  'publication.title', 'publication.doi', 'publication.PMID', 'publication.journal', 'publication.firstauthor',
+        #  'publication.date_publication', 'ancestry_distribution.eval', 'ancestry_distribution.gwas']
+        datas['samples_variants'] = datas['samples_variants'].map(lambda x: x == [])
         datas['performance_metrics.effect_sizes'] = datas['performance_metrics.effect_sizes'].map(lambda x: x == [])
         datas['performance_metrics.class_acc'] = datas['performance_metrics.class_acc'].map(lambda x: x == [])
         datas['performance_metrics.othermetrics'] = datas['performance_metrics.othermetrics'].map(lambda x: x == [])
@@ -90,12 +143,12 @@ class Score:
             columns=['sampleset.samples', 'performance_metrics.effect_sizes',
                      'performance_metrics.class_acc',
                      'performance_metrics.othermetrics'])
-        if not datas['sampleset.samples'].all():
-            self.samples = json_normalize(data=data, record_path=['sampleset', 'samples'], meta=['id'])
-            self.samples['performance_metric_id'] = self.samples['id']
-            self.samples['id'] = Series(data=range(0, len(self.samples)))
-            cohort = self.samples[['id', 'performance_metric_id', 'cohorts']].copy()
-            self.samples = self.samples.drop(columns=['cohorts'])
+        if not datas['samples_variants'].all():
+            self.samples_variants = json_normalize(data=data, record_path=['samples_variants'], meta=['id'])
+            self.samples_variants['score_id'] = self.samples_variants['id']
+            self.samples_variants['id'] = Series(data=range(0, len(self.samples_variants)))
+            cohort = self.samples_variants[['id', 'score_id', 'cohorts']].copy()
+            self.samples_variants = self.samples_variants.drop(columns=['cohorts'])
             cohort['sample_id'] = cohort['id']
             cohort['cohorts'] = cohort['cohorts'].apply(lambda x: x if len(x) > 0 else numpy.nan)
             cohort = cohort.dropna()
@@ -103,21 +156,97 @@ class Score:
             cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
                 lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
             cohort = cohort.drop(columns=['id', 'cohorts'])
-            self.cohorts = cohort
+            self.samples_variants_cohorts = cohort
 
         else:
-            self.samples = DataFrame(
-                columns=['id', 'performance_metric_id', 'sample_number', 'sample_cases', 'sample_controls',
-                         'sample_percent_male', 'sample_age.estimate_type', 'sample_age.estimate',
-                         'sample_age.interval.type', 'sample_age.interval.lower', 'sample_age.interval.upper',
-                         'sample_age.variability_type', 'sample_age.variability', 'sample_age.unit',
-                         'phenotyping_free', 'followup_time.estimate_type', 'followup_time.estimate',
-                         'followup_time.interval.type', 'followup_time.interval.lower', 'followup_time.interval.upper',
-                         'followup_time.variability_type', 'followup_time.variability', 'followup_time.unit',
-                         'ancestry_broad', 'ancestry_free', 'ancestry_country', 'ancestry_additional',
-                         'source_GWAS_catalog', 'source_PMID', 'source_DOI', 'cohorts_additional'])
-            self.cohorts = DataFrame(
-                columns=['performance_metric_id', 'sample_id', 'name_short', 'name_full', 'name_others'])
+            self.samples_variants = DataFrame(
+                columns=['id'
+                         'name'
+                         'ftp_scoring_file'
+                         'ftp_harmonized_scoring_files.GRCh37.positions'
+                         'ftp_harmonized_scoring_files.GRCh38.positions'
+                         'publication.id'
+                         'publication.title'
+                         'publication.doi'
+                         'publication.PMID'
+                         'publication.journal'
+                         'publication.firstauthor'
+                         'publication.date_publication'
+                         'matches_publication'
+                         'trait_reported'
+                         'trait_additional'
+                         'method_name'
+                         'method_params'
+                         'variants_number'
+                         'variants_interactions'
+                         'variants_genomebuild'
+                         'weight_type'
+                         'date_release'
+                         'license'
+                         ])
+            self.samples_variants_cohorts = DataFrame(
+                columns=['score_id'
+                         'sample_id'
+                         'name_short'
+                         'name_full'
+                         'name_others'])
+        if not datas['samples_variants'].all():
+            self.samples_training = json_normalize(data=data, record_path=['samples_training'], meta=['id'])
+            self.samples_training['score_id'] = self.samples_training['id']
+            self.samples_training['id'] = Series(data=range(0, len(self.samples_training)))
+            cohort = self.samples_training[['id', 'score_id', 'cohorts']].copy()
+            self.samples_training = self.samples_training.drop(columns=['cohorts'])
+            cohort['sample_id'] = cohort['id']
+            cohort['cohorts'] = cohort['cohorts'].apply(lambda x: x if len(x) > 0 else numpy.nan)
+            cohort = cohort.dropna()
+            cohort = cohort.explode('cohorts')
+            cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
+                lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
+            cohort = cohort.drop(columns=['id', 'cohorts'])
+            self.samples_training_cohorts = cohort
+
+        else:
+            self.samples_training = DataFrame(
+                columns=['id'
+                         'score_id'
+                         'sample_number'
+                         'sample_cases'
+                         'sample_controls'
+                         'sample_percent_male'
+                         'sample_age.estimate_type'
+                         'sample_age.estimate'
+                         'sample_age.interval.type'
+                         'sample_age.interval.lower'
+                         'sample_age.interval.upper'
+                         'sample_age.variability_type'
+                         'sample_age.variability'
+                         'sample_age.unit'
+                         'phenotyping_free'
+                         'followup_time.estimate_type'
+                         'followup_time.estimate'
+                         'followup_time.interval.type'
+                         'followup_time.interval.lower'
+                         'followup_time.interval.upper'
+                         'followup_time.variability_type'
+                         'followup_time.variability'
+                         'followup_time.unit'
+                         'ancestry_broad'
+                         'ancestry_free'
+                         'ancestry_country'
+                         'ancestry_additional'
+                         'source_GWAS_catalog'
+                         'source_PMID'
+                         'source_DOI'
+                         'cohorts_additional'
+                         ])
+            self.samples_training_cohorts = DataFrame(
+                columns=['score_id'
+                         'sample_id'
+                         'name_short'
+                         'name_full'
+                         'name_others'
+                         ])
+            
         if not datas['performance_metrics.effect_sizes'].all():
             self.effect_sizes = json_normalize(data=data, record_path=['performance_metrics', 'effect_sizes'],
                                                meta=['id'])

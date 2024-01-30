@@ -1,6 +1,6 @@
 from typing import List, Dict
 from pandaspgs.client import get_score
-
+from pandas import DataFrame, json_normalize, set_option, Series
 
 def get_scores(pgs_id:str = None, pgp_id:str = None, pmid:int = None, trait_id:str = None, cached = True) -> List[Dict]:
     if pgs_id is None and pgp_id is None and pmid is None and trait_id is None:
@@ -34,3 +34,11 @@ def get_scores(pgs_id:str = None, pgp_id:str = None, pmid:int = None, trait_id:s
     for id in intersection:
         result.append(pgs_id_dict[id])
     return result
+
+
+a = get_scores(pgp_id='PGP000580')
+datas = json_normalize(data=a, max_level=1)
+print(datas.columns)
+print(a)
+print(a[0]['samples_variants'])
+
