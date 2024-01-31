@@ -45,28 +45,36 @@ class Score:
                          ])
             self.samples_variants = DataFrame(
                 columns=['id'
-                         'name'
-                         'ftp_scoring_file'
-                         'ftp_harmonized_scoring_files.GRCh37.positions'
-                         'ftp_harmonized_scoring_files.GRCh38.positions'
-                         'publication.id'
-                         'publication.title'
-                         'publication.doi'
-                         'publication.PMID'
-                         'publication.journal'
-                         'publication.firstauthor'
-                         'publication.date_publication'
-                         'matches_publication'
-                         'trait_reported'
-                         'trait_additional'
-                         'method_name'
-                         'method_params'
-                         'variants_number'
-                         'variants_interactions'
-                         'variants_genomebuild'
-                         'weight_type'
-                         'date_release'
-                         'license'
+                         'score_id'
+                         'sample_number'
+                         'sample_cases'
+                         'sample_controls'
+                         'sample_percent_male'
+                         'sample_age.estimate_type'
+                         'sample_age.estimate'
+                         'sample_age.interval.type'
+                         'sample_age.interval.lower'
+                         'sample_age.interval.upper'
+                         'sample_age.variability_type'
+                         'sample_age.variability'
+                         'sample_age.unit'
+                         'phenotyping_free'
+                         'followup_time.estimate_type'
+                         'followup_time.estimate'
+                         'followup_time.interval.type'
+                         'followup_time.interval.lower'
+                         'followup_time.interval.upper'
+                         'followup_time.variability_type'
+                         'followup_time.variability'
+                         'followup_time.unit'
+                         'ancestry_broad'
+                         'ancestry_free'
+                         'ancestry_country'
+                         'ancestry_additional'
+                         'source_GWAS_catalog'
+                         'source_PMID'
+                         'source_DOI'
+                         'cohorts_additional'
                          ])
             self.samples_variants_cohorts = DataFrame(
                 columns=['score_id'
@@ -136,13 +144,18 @@ class Score:
         #  'publication.title', 'publication.doi', 'publication.PMID', 'publication.journal', 'publication.firstauthor',
         #  'publication.date_publication', 'ancestry_distribution.eval', 'ancestry_distribution.gwas']
         datas['samples_variants'] = datas['samples_variants'].map(lambda x: x == [])
-        datas['performance_metrics.effect_sizes'] = datas['performance_metrics.effect_sizes'].map(lambda x: x == [])
-        datas['performance_metrics.class_acc'] = datas['performance_metrics.class_acc'].map(lambda x: x == [])
-        datas['performance_metrics.othermetrics'] = datas['performance_metrics.othermetrics'].map(lambda x: x == [])
-        self.performance_metrics = json_normalize(data=data, max_level=1).drop(
-            columns=['sampleset.samples', 'performance_metrics.effect_sizes',
-                     'performance_metrics.class_acc',
-                     'performance_metrics.othermetrics'])
+        datas['samples_training'] = datas['samples_training'].map(lambda x: x == [])
+        datas['trait_efo'] = datas['trait_efo'].map(lambda x: x == [])
+        datas['ancestry_distribution'] = datas['ancestry_distribution'].map(lambda x: x == [])
+        self.scores = json_normalize(data=data, max_level=1).drop(
+            columns=['samples_variants', 'samples_training',
+                     'trait_efo', 'ancestry_distribution'])
+        self.scores['ftp_harmonized_scoring_files.GRCh38.positions'] = self.scores[
+            'ftp_harmonized_scoring_files.GRCh38'].map(
+            lambda x: x['positions'])
+        self.scores['ftp_harmonized_scoring_files.GRCh37.positions'] = self.scores[
+            'ftp_harmonized_scoring_files.GRCh37'].map(
+            lambda x: x['positions'])
         if not datas['samples_variants'].all():
             self.samples_variants = json_normalize(data=data, record_path=['samples_variants'], meta=['id'])
             self.samples_variants['score_id'] = self.samples_variants['id']
@@ -161,28 +174,36 @@ class Score:
         else:
             self.samples_variants = DataFrame(
                 columns=['id'
-                         'name'
-                         'ftp_scoring_file'
-                         'ftp_harmonized_scoring_files.GRCh37.positions'
-                         'ftp_harmonized_scoring_files.GRCh38.positions'
-                         'publication.id'
-                         'publication.title'
-                         'publication.doi'
-                         'publication.PMID'
-                         'publication.journal'
-                         'publication.firstauthor'
-                         'publication.date_publication'
-                         'matches_publication'
-                         'trait_reported'
-                         'trait_additional'
-                         'method_name'
-                         'method_params'
-                         'variants_number'
-                         'variants_interactions'
-                         'variants_genomebuild'
-                         'weight_type'
-                         'date_release'
-                         'license'
+                         'score_id'
+                         'sample_number'
+                         'sample_cases'
+                         'sample_controls'
+                         'sample_percent_male'
+                         'sample_age.estimate_type'
+                         'sample_age.estimate'
+                         'sample_age.interval.type'
+                         'sample_age.interval.lower'
+                         'sample_age.interval.upper'
+                         'sample_age.variability_type'
+                         'sample_age.variability'
+                         'sample_age.unit'
+                         'phenotyping_free'
+                         'followup_time.estimate_type'
+                         'followup_time.estimate'
+                         'followup_time.interval.type'
+                         'followup_time.interval.lower'
+                         'followup_time.interval.upper'
+                         'followup_time.variability_type'
+                         'followup_time.variability'
+                         'followup_time.unit'
+                         'ancestry_broad'
+                         'ancestry_free'
+                         'ancestry_country'
+                         'ancestry_additional'
+                         'source_GWAS_catalog'
+                         'source_PMID'
+                         'source_DOI'
+                         'cohorts_additional'
                          ])
             self.samples_variants_cohorts = DataFrame(
                 columns=['score_id'
@@ -190,7 +211,7 @@ class Score:
                          'name_short'
                          'name_full'
                          'name_others'])
-        if not datas['samples_variants'].all():
+        if not datas['samples_training'].all():
             self.samples_training = json_normalize(data=data, record_path=['samples_training'], meta=['id'])
             self.samples_training['score_id'] = self.samples_training['id']
             self.samples_training['id'] = Series(data=range(0, len(self.samples_training)))
@@ -246,68 +267,100 @@ class Score:
                          'name_full'
                          'name_others'
                          ])
-            
-        if not datas['performance_metrics.effect_sizes'].all():
-            self.effect_sizes = json_normalize(data=data, record_path=['performance_metrics', 'effect_sizes'],
-                                               meta=['id'])
-            self.effect_sizes['performance_metric_id'] = self.effect_sizes['id']
-            self.effect_sizes = self.effect_sizes.drop(columns=['id'])
+        if not datas['trait_efo'].all():
+            self.trait_efo = json_normalize(data=data, record_path=['trait_efo'], meta=['id'])
+            self.trait_efo['score_id'] = self.trait_efo['id']
+            self.trait_efo = self.trait_efo.drop(columns=['id'])
         else:
-            self.effect_sizes = DataFrame(
-                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
-        if not datas['performance_metrics.class_acc'].all():
-            self.class_acc = json_normalize(data=data, record_path=['performance_metrics', 'class_acc'], meta=['id'])
-            self.class_acc['performance_metric_id'] = self.class_acc['id']
-            self.class_acc = self.class_acc.drop(columns=['id'])
+            self.trait_efo = DataFrame(
+                columns=['score_i'
+                         'id'
+                         'label'
+                         'description'
+                         'url'])
+        if not datas['ancestry_distribution'].all():
+            self.ancestry_distribution = json_normalize(data=data, record_path=['ancestry_distribution'], meta=['id'])
+            self.ancestry_distribution['score_id'] = self.ancestry_distribution['id']
+            self.ancestry_distribution = self.ancestry_distribution.drop(columns=['id'])
         else:
-            self.class_acc = DataFrame(
-                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
-        if not datas['performance_metrics.othermetrics'].all():
-            self.othermetrics = json_normalize(data=data, record_path=['performance_metrics', 'othermetrics'],
-                                               meta=['id'])
-            self.othermetrics['performance_metric_id'] = self.othermetrics['id']
-            self.othermetrics = self.othermetrics.drop(columns=['id'])
-        else:
-            self.othermetrics = DataFrame(
-                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
-        if 'publication' in self.performance_metrics.columns:
-            self.performance_metrics.drop(columns=['pubication'])
-            self.performance_metrics = self.performance_metrics.reindex(
-                columns=self.performance_metrics.columns.tolist() + ['publication.title',
-                                                                     'publication.doi', 'publication.PMID',
-                                                                     'publication.journal',
-                                                                     'publication.firstauthor',
-                                                                     'publication.date_publication'])
-        if 'sample_age' in self.samples:
-            self.samples.drop(columns=['samples_age'])
-            self.samples = self.samples.reindex(
-                columns=self.samples.columns.tolist() + ['sample_age.estimate_type', 'sample_age.estimate',
-                                                         'sample_age.interval.type', 'sample_age.interval.lower',
-                                                         'sample_age.interval.upper',
-                                                         'sample_age.variability_type', 'sample_age.variability',
-                                                         'sample_age.unit']
+            self.ancestry_distribution = DataFrame(
+                columns=['score_id'
+                         'stage'
+                         'dist'
+                         'count'
+                         'multi'])
+
+        if 'publication' in self.scores.columns:
+            self.scores.drop(columns=['pubication'])
+            self.scores = self.scores.reindex(
+                columns=self.scores.columns.tolist() + ['publication.id'
+                                                        'publication.title'
+                                                        'publication.doi'
+                                                        'publication.PMID'
+                                                        'publication.journal'
+                                                        'publication.firstauthor'
+                                                        'publication.date_publication'])
+        if 'sample_age' in self.samples_variants:
+            self.samples_variants.drop(columns=['samples_age'])
+            self.samples_variants = self.samples_variants.reindex(
+                columns=self.samples_variants.columns.tolist() + ['sample_age.estimate_type'
+                                                                  'sample_age.estimate'
+                                                                  'sample_age.interval.type'
+                                                                  'sample_age.interval.lower'
+                                                                  'sample_age.interval.upper'
+                                                                  'sample_age.variability_type'
+                                                                  'sample_age.variability'
+                                                                  'sample_age.unit']
             )
-        if 'followup_time' in self.samples:
-            self.samples.drop(columns=['followup_time'])
-            self.samples = self.samples.reindex(
-                columns=self.samples.columns.tolist() + ['followup_time.estimate_type', 'followup_time.estimate',
-                                                         'followup_time.interval.type', 'followup_time.interval.lower',
-                                                         'followup_time.interval.upper',
-                                                         'followup_time.variability_type', 'followup_time.variability',
-                                                         'followup_time.unit'])
+        if 'followup_time' in self.samples_variants:
+            self.samples_variants.drop(columns=['followup_time'])
+            self.samples_variants = self.samples_variants.reindex(
+                columns=self.samples_variants.columns.tolist() + ['followup_time.estimate_type'
+                                                                  'followup_time.estimate'
+                                                                  'followup_time.interval.type'
+                                                                  'followup_time.interval.lower'
+                                                                  'followup_time.interval.upper'
+                                                                  'followup_time.variability_type'
+                                                                  'followup_time.variability'
+                                                                  'followup_time.unit'])
+        if 'sample_age' in self.samples_training:
+            self.samples_training.drop(columns=['samples_age'])
+            self.samples_training = self.samples_training.reindex(
+                columns=self.samples_training.columns.tolist() + ['sample_age.estimate_type'
+                                                                  'sample_age.estimate'
+                                                                  'sample_age.interval.type'
+                                                                  'sample_age.interval.lower'
+                                                                  'sample_age.interval.upper'
+                                                                  'sample_age.variability_type'
+                                                                  'sample_age.variability'
+                                                                  'sample_age.unit']
+            )
+        if 'followup_time' in self.samples_training:
+            self.samples_training.drop(columns=['followup_time'])
+            self.samples_training = self.samples_training.reindex(
+                columns=self.samples_training.columns.tolist() + ['followup_time.estimate_type'
+                                                                  'followup_time.estimate'
+                                                                  'followup_time.interval.type'
+                                                                  'followup_time.interval.lower'
+                                                                  'followup_time.interval.upper'
+                                                                  'followup_time.variability_type'
+                                                                  'followup_time.variability'
+                                                                  'followup_time.unit'])
         return
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("PerformanceMetric is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\n"
-                    "performance_metrics:"
-                    "%d rows\n|\n -samples: %d rows\n  |\n   -cohorts: %d rows\n|\n -effect_sizes: %d rows"
-                    "\n|\n -class_acc: %d rows"
-                    "\n|\n -othermetrics: %d rows" % (
-                        len(self.performance_metrics), len(self.samples), len(self.cohorts),
-                        len(self.effect_sizes), len(self.class_acc), len(self.othermetrics)))
+            return ("Score is running in fat mode. It has 7 DataFrames with hierarchical dependencies.\n"
+                    "scores:%d rows\n|\n -samples_varients: %d rows\n  |\n   -samples_variants_cohorts: %d rows\n|\n "
+                    "-samples_training: %d rows"
+                    "\n|\n  -samples_training_cohorts: %d rows"
+                    "\n|\n -trait_efo: %d rows"
+                    "\n|\n -ancestry_distribution: %d rows" % (
+                        len(self.scores), len(self.samples_variants), len(self.samples_variants_cohorts),
+                        len(self.samples_training), len(self.samples_training_cohorts), len(self.trait_efo),
+                        len(self.ancestry_distribution)))
         if self.mode == 'Thin':
-            return ('PerformanceMetrics is running in thin mode. It has 1 list that contains the raw data.\nraw_data: '
+            return ('Score is running in thin mode. It has 1 list that contains the raw data.\n raw_data: '
                     'a list of size %d.' % len(self.raw_data))
 
     def __repr__(self):
@@ -335,11 +388,11 @@ class Score:
                 sub_set.append(raw_data[i])
             else:
                 raise TypeError('Invalid item type: {}'.format(type(i)))
-        return PerformanceMetrics(sub_set, self.mode)
+        return Score(sub_set, self.mode)
 
     def __add__(self, other):
         if self.mode == other.mode:
-            return PerformanceMetrics(self.raw_data + other.raw_data, self.mode)
+            return Score(self.raw_data + other.raw_data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -357,7 +410,7 @@ class Score:
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return PerformanceMetrics(data, self.mode)
+            return Score(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -375,7 +428,7 @@ class Score:
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return PerformanceMetrics(data, self.mode)
+            return Score(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -387,7 +440,7 @@ class Score:
             for j in other.raw_data:
                 and_dict[j['id']] = j
             data = list(and_dict.values())
-            return PerformanceMetrics(data, self.mode)
+            return Score(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -406,7 +459,7 @@ class Score:
             data = []
             for k in sub_key:
                 data.append(and_dict[k])
-            return PerformanceMetrics(data, self.mode)
+            return Score(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
