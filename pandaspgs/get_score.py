@@ -1,13 +1,13 @@
 from typing import List, Dict
 from pandaspgs.client import get_score
-from pandas import DataFrame, json_normalize, set_option, Series
+from pandas import DataFrame, json_normalize, set_option, Series, concat
 from pandaspgs.score import Score
 
 
-def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_id: str = None, cached=True) -> List[
-    Dict]:
+def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_id: str = None, cached=True,
+               mode: str = 'Fat') -> Score:
     if pgs_id is None and pgp_id is None and pmid is None and trait_id is None:
-        return get_score('https://www.pgscatalog.org/rest/score/all', cached=cached)
+        return Score(get_score('https://www.pgscatalog.org/rest/score/all', cached=cached), mode)
     by_pgs_id = None
     by_other = None
     if pgs_id is not None:
@@ -22,9 +22,9 @@ def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_i
             query_str.append('trait_id=%s' % trait_id)
         by_other = get_score('https://www.pgscatalog.org/rest/score/search?%s' % '&'.join(query_str))
     if pgs_id is None:
-        return by_other
+        return Score(by_other, mode)
     if pgp_id is None and pmid is None and trait_id is None:
-        return by_pgs_id
+        return Score(by_pgs_id, mode)
     other_set = set()
     pgs_id_dict = {}
     for single in by_pgs_id:
@@ -36,10 +36,9 @@ def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_i
     result = []
     for id in intersection:
         result.append(pgs_id_dict[id])
-    return result
+    return Score(result, mode)
 
 
-a = get_scores(pgp_id='PGP000580')
-datas = json_normalize(data=a, max_level=1)
-print(datas['ancestry_distribution.eval'])
-print(datas['ancestry_distribution.gwas'])
+filter_by_id = get_scores(pgs_id='PGS000001')
+filter_by_none = get_scores()
+print(len(filter_by_none))

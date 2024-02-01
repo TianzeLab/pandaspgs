@@ -61,6 +61,9 @@ class PerformanceMetrics:
             cohort['cohorts'] = cohort['cohorts'].apply(lambda x: x if len(x) > 0 else numpy.nan)
             cohort = cohort.dropna()
             cohort = cohort.explode('cohorts')
+            if len(cohort) == 0:
+                self.cohorts = DataFrame(
+                    columns=['performance_metric_id', 'sample_id', 'name_short', 'name_full', 'name_others'])
             cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
                 lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
             cohort = cohort.drop(columns=['id', 'cohorts'])

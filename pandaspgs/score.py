@@ -1,4 +1,5 @@
 from pandas import DataFrame, json_normalize, set_option, Series
+from pandas import concat
 
 set_option('display.max_columns', None)
 set_option('display.width', 1000)
@@ -137,19 +138,14 @@ class Score:
                          'multi'])
             return
         datas = json_normalize(data=data, max_level=1)
-        # ['id', 'name', 'ftp_scoring_file', 'matches_publication', 'samples_variants', 'samples_training',
-        #  'trait_reported', 'trait_additional', 'trait_efo', 'method_name', 'method_params', 'variants_number',
-        #  'variants_interactions', 'variants_genomebuild', 'weight_type', 'date_release', 'license',
-        #  'ftp_harmonized_scoring_files.GRCh37', 'ftp_harmonized_scoring_files.GRCh38', 'publication.id',
-        #  'publication.title', 'publication.doi', 'publication.PMID', 'publication.journal', 'publication.firstauthor',
-        #  'publication.date_publication', 'ancestry_distribution.eval', 'ancestry_distribution.gwas']
         datas['samples_variants'] = datas['samples_variants'].map(lambda x: x == [])
         datas['samples_training'] = datas['samples_training'].map(lambda x: x == [])
         datas['trait_efo'] = datas['trait_efo'].map(lambda x: x == [])
-        datas['ancestry_distribution'] = datas['ancestry_distribution'].map(lambda x: x == [])
+        datas['ancestry_distribution.eval'] = datas['ancestry_distribution.eval'].map(lambda x: x == [])
+        datas['ancestry_distribution.gwas'] = datas['ancestry_distribution.gwas'].map(lambda x: x == [])
         self.scores = json_normalize(data=data, max_level=1).drop(
             columns=['samples_variants', 'samples_training',
-                     'trait_efo', 'ancestry_distribution'])
+                     'trait_efo', 'ancestry_distribution.eval', 'ancestry_distribution.gwas'])
         self.scores['ftp_harmonized_scoring_files.GRCh38.positions'] = self.scores[
             'ftp_harmonized_scoring_files.GRCh38'].map(
             lambda x: x['positions'])
@@ -166,9 +162,17 @@ class Score:
             cohort['cohorts'] = cohort['cohorts'].apply(lambda x: x if len(x) > 0 else numpy.nan)
             cohort = cohort.dropna()
             cohort = cohort.explode('cohorts')
-            cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
-                lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
-            cohort = cohort.drop(columns=['id', 'cohorts'])
+            if len(cohort) == 0:
+                self.samples_variants_cohorts = DataFrame(
+                    columns=['score_id'
+                             'sample_id'
+                             'name_short'
+                             'name_full'
+                             'name_others'])
+            else:
+                cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
+                    lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
+                cohort = cohort.drop(columns=['id', 'cohorts'])
             self.samples_variants_cohorts = cohort
 
         else:
@@ -221,6 +225,13 @@ class Score:
             cohort['cohorts'] = cohort['cohorts'].apply(lambda x: x if len(x) > 0 else numpy.nan)
             cohort = cohort.dropna()
             cohort = cohort.explode('cohorts')
+            if len(cohort) == 0:
+                self.samples_variants_cohorts = DataFrame(
+                    columns=['score_id'
+                             'sample_id'
+                             'name_short'
+                             'name_full'
+                             'name_others'])
             cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
                 lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
             cohort = cohort.drop(columns=['id', 'cohorts'])
@@ -267,10 +278,12 @@ class Score:
                          'name_full'
                          'name_others'
                          ])
+        for i in range(len(data)):
+            data[i]['id1'] = data[i]['id']
         if not datas['trait_efo'].all():
-            self.trait_efo = json_normalize(data=data, record_path=['trait_efo'], meta=['id'])
-            self.trait_efo['score_id'] = self.trait_efo['id']
-            self.trait_efo = self.trait_efo.drop(columns=['id'])
+            self.trait_efo = json_normalize(data=data, record_path=['trait_efo'], meta=['id1'])
+            self.trait_efo['score_id'] = self.trait_efo['id1']
+            self.trait_efo = self.trait_efo.drop(columns=['id1'])
         else:
             self.trait_efo = DataFrame(
                 columns=['score_i'
@@ -278,10 +291,32 @@ class Score:
                          'label'
                          'description'
                          'url'])
-        if not datas['ancestry_distribution'].all():
-            self.ancestry_distribution = json_normalize(data=data, record_path=['ancestry_distribution'], meta=['id'])
-            self.ancestry_distribution['score_id'] = self.ancestry_distribution['id']
-            self.ancestry_distribution = self.ancestry_distribution.drop(columns=['id'])
+        if not datas['ancestry_distribution.gwas'].all() or not datas['ancestry_distribution.gwas.'].all():
+            a = json_normalize(data=data, max_level=1)
+            dva = a[['id', 'ancestry_distribution.eval']].copy()
+            dva['stage'] = 'eval'
+            dva['ancestry_distribution'] = dva['ancestry_distribution.eval']
+            dva = dva.drop(columns=['ancestry_distribution.eval'])
+            eva = a[['id', 'ancestry_distribution.gwas']].copy()
+            eva['stage'] = 'gwas'
+            eva['ancestry_distribution'] = eva['ancestry_distribution.gwas']
+            eva = eva.drop(columns=['ancestry_distribution.gwas'])
+            b = concat([dva, eva])
+            b['score_id'] = b['id']
+            b = b.dropna()
+            b.index = range(len(b))
+            for i in range(len(b['ancestry_distribution'])):
+                if not ('multi' in b['ancestry_distribution'][i]):
+                    b['ancestry_distribution'][i]['multi'] = None
+
+            b[['dist', 'count', 'multi']] = b['ancestry_distribution'].apply(
+                lambda x: Series(data=[x['dist'], x['count'], x['multi']]))
+            b = b.drop(columns=['id', 'ancestry_distribution'])
+            self.ancestry_distribution = b
+
+
+
+
         else:
             self.ancestry_distribution = DataFrame(
                 columns=['score_id'
@@ -300,7 +335,7 @@ class Score:
                                                         'publication.journal'
                                                         'publication.firstauthor'
                                                         'publication.date_publication'])
-        if 'sample_age' in self.samples_variants:
+        if 'samples_age' in self.samples_variants.columns:
             self.samples_variants.drop(columns=['samples_age'])
             self.samples_variants = self.samples_variants.reindex(
                 columns=self.samples_variants.columns.tolist() + ['sample_age.estimate_type'
@@ -312,7 +347,7 @@ class Score:
                                                                   'sample_age.variability'
                                                                   'sample_age.unit']
             )
-        if 'followup_time' in self.samples_variants:
+        if 'followup_time' in self.samples_variants.columns:
             self.samples_variants.drop(columns=['followup_time'])
             self.samples_variants = self.samples_variants.reindex(
                 columns=self.samples_variants.columns.tolist() + ['followup_time.estimate_type'
@@ -323,7 +358,7 @@ class Score:
                                                                   'followup_time.variability_type'
                                                                   'followup_time.variability'
                                                                   'followup_time.unit'])
-        if 'sample_age' in self.samples_training:
+        if 'samples_age' in self.samples_training.columns:
             self.samples_training.drop(columns=['samples_age'])
             self.samples_training = self.samples_training.reindex(
                 columns=self.samples_training.columns.tolist() + ['sample_age.estimate_type'
@@ -335,7 +370,7 @@ class Score:
                                                                   'sample_age.variability'
                                                                   'sample_age.unit']
             )
-        if 'followup_time' in self.samples_training:
+        if 'followup_time' in self.samples_training.columns:
             self.samples_training.drop(columns=['followup_time'])
             self.samples_training = self.samples_training.reindex(
                 columns=self.samples_training.columns.tolist() + ['followup_time.estimate_type'
