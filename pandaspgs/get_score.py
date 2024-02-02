@@ -38,7 +38,3 @@ def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_i
         result.append(pgs_id_dict[id])
     return Score(result, mode)
 
-
-filter_by_id = get_scores(pgs_id='PGS000001')
-filter_by_none = get_scores()
-print(len(filter_by_none))
