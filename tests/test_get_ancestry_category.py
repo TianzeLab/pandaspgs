@@ -1,7 +1,7 @@
 from pandaspgs.get_ancestry_category import get_ancestry_categories
 
 
-def test_get_sample_sets():
+def test_get_ancestry_categories():
     filter_by_id = get_ancestry_categories()
     assert len(filter_by_id) == 11
     assert len(filter_by_id ^ filter_by_id[0]) == 10
