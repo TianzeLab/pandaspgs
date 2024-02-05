@@ -8,6 +8,20 @@ import numpy
 
 
 class PerformanceMetrics:
+    """
+    To understand the significance of each column of the DataFrame. Please visit "PerformanceMetrics" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+
+    Attributes:
+         raw_data: list. Convert from obtained JSON data
+         performance_metrics: DataFrame. It only exists if the parameter mode of constructor is Fat.
+         samples: DataFrame. It only exists if the parameter mode of constructor is Fat.
+         cohorts: DataFrame. It only exists if the parameter mode of constructor is Fat.
+         effect_sizes: DataFrame. It only exists if the parameter mode of constructor is Fat.
+         class_acc DataFrame. It only exists if the parameter mode of constructor is Fat.
+         othermetrics DataFrame. It only exists if the parameter mode of constructor is Fat.
+
+
+    """
     def __init__(self, data: list = [], mode: str = "Fat"):
         if data is None:
             data = []
