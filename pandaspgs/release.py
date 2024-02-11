@@ -7,7 +7,58 @@ set_option('display.precision', 3)
 
 
 class Release:
+    """
+       To understand the significance of each column of the DataFrame. Please visit "Release" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+
+       Attributes:
+            raw_data: list. Convert from obtained JSON data
+            releases: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            released_score_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            released_publication_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            released_score_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            mode: Fat or Thin. Specifies the mode of the returned object.
+
+       ```python
+       from pandaspgs.get_release import get_releases
+
+       ch = get_releases(date="2024-01-26")
+       ch
+       ch.raw_data
+       ch.mode
+       ch.releases
+       ch.released_score_ids
+       ch.released_publication_ids
+       ch.released_score_ids
+       ```
+       Subset object s by either identifier or position
+       ```python
+       all_df = get_releases()
+       all_df[0].releases
+       all_df[0:3].releases
+       all_df['2024-01-26'].releases
+       all_df[('2024-01-26','2024-01-11','2023-12-19')].releases
+       ```
+       Objects can be manipulated like sets in the mathematical sense.
+       ```python
+       one = get_releases(date='2024-01-26')
+       two = get_releases(date='2024-01-11')
+       three = get_releases(date='2023-12-19')
+       one_and_two = one+two
+       two_and_three = two+three
+       only_one = one_and_two - two_and_three
+       only_two = one_and_two & two_and_three
+       one_and_two_and_three = one_and_two | two_and_three
+       one_and_three = one_and_two ^ two_and_three
+       ```
+       """
     def __init__(self, data: list = [], mode: str = "Fat"):
+        """
+        An object that stores data of type Release.
+
+        Args:
+            data: Raw JSON data.
+            mode: Fat or Thin. Specifies the mode of the object.
+        """
         if data is None:
             data = []
         if mode not in ['Thin', "Fat"]:

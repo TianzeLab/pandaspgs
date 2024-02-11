@@ -8,7 +8,56 @@ import numpy
 
 
 class SampleSet:
+    """
+       To understand the significance of each column of the DataFrame. Please visit "SampleSet" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+
+       Attributes:
+            raw_data: list. Convert from obtained JSON data
+            sample_sets: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            samples: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            cohorts: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            mode: Fat or Thin. Specifies the mode of the returned object.
+
+       ```python
+       from pandaspgs.get_sample_set import get_sample_sets
+
+       ch = get_sample_sets(pss_id='PSS000001')
+       ch
+       ch.raw_data
+       ch.mode
+       ch.sample_sets
+       ch.samples
+       ch.cohorts
+       ```
+       Subset object s by either identifier or position
+       ```python
+       all_df = get_sample_sets()
+       all_df[0].sample_sets
+       all_df[0:3].sample_sets
+       all_df['PSS000001'].sample_sets
+       all_df[('PSS000001','PSS000002','PSS000003')].sample_sets
+       ```
+       Objects can be manipulated like sets in the mathematical sense.
+       ```python
+       one = get_sample_sets(pss_id='PSS000001')
+       two = get_sample_sets(pss_id='PSS000002')
+       three = get_sample_sets(pss_id='PSS000003')
+       one_and_two = one+two
+       two_and_three = two+three
+       only_one = one_and_two - two_and_three
+       only_two = one_and_two & two_and_three
+       one_and_two_and_three = one_and_two | two_and_three
+       one_and_three = one_and_two ^ two_and_three
+       ```
+       """
     def __init__(self, data: list = [], mode: str = "Fat"):
+        """
+        An object that stores data of type SampleSet.
+
+        Args:
+            data: Raw JSON data.
+            mode: Fat or Thin. Specifies the mode of the object.
+        """
         if data is None:
             data = []
         if mode not in ['Thin', "Fat"]:

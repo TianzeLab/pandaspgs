@@ -4,3 +4,10 @@
 - [get_cohorts][pandaspgs.get_cohort.get_cohorts]
 ## Class
 - [Cohort][pandaspgs.cohort.Cohort]
+- [PerformanceMetrics][pandaspgs.performancemetric.PerformanceMetrics]
+- [Publication][pandaspgs.publication.Publication]
+- [Release][pandaspgs.release.Release]
+- [SampleSet][pandaspgs.sample_set.SampleSet]
+- [Score][pandaspgs.score.Score]
+- [Trait][pandaspgs.trait.Trait]
+- [TraitCategory][pandaspgs.traitcategory.TraitCategory]

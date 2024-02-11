@@ -7,7 +7,54 @@ set_option('display.precision', 3)
 
 
 class TraitCategory:
+    """
+       To understand the significance of each column of the DataFrame. Please visit "TraitCategory" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+
+       Attributes:
+            raw_data: list. Convert from obtained JSON data
+            EFO_traits : DataFrame. It only exists if the parameter mode of constructor is Fat.
+            trait_categories: DataFrame. It only exists if the parameter mode of constructor is Fat.
+
+       ```python
+       from pandaspgs.get_trait import get_trait_categories
+
+       ch = get_trait_categories()
+       ch
+       ch.raw_data
+       ch.mode
+       ch.EFO_traits
+       ch.trait_categories
+       ```
+       Subset object s by either identifier or position
+       ```python
+       all_df = get_trait_categories()
+       all_df[0].EFO_traits
+       all_df[0:3].EFO_traits
+       all_df['Biological process'].EFO_traits
+       all_df[('Biological process','Body measurement','Cancer')].EFO_traits
+       ```
+       Objects can be manipulated like sets in the mathematical sense.
+       ```python
+       all_df = get_trait_categories()
+       one = all_df[0]
+       two = all_df[1]
+       three = all_df[2]
+       one_and_two = one+two
+       two_and_three = two+three
+       only_one = one_and_two - two_and_three
+       only_two = one_and_two & two_and_three
+       one_and_two_and_three = one_and_two | two_and_three
+       one_and_three = one_and_two ^ two_and_three
+       ```
+       """
     def __init__(self, data: list = [], mode: str = "Fat"):
+        """
+        An object that stores data of type TraitCategory.
+
+        Args:
+            data: Raw JSON data.
+            mode: Fat or Thin. Specifies the mode of the object.
+        """
         if data is None:
             data = []
         if mode not in ['Thin', "Fat"]:

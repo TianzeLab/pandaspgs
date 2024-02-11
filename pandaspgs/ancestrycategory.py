@@ -7,7 +7,55 @@ set_option('display.precision', 3)
 
 
 class AncestryCategory:
+    """
+       To understand the significance of each column of the DataFrame. Please visit "Other endpoints" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+
+       Attributes:
+            raw_data: list. Convert from obtained JSON data
+            ancestry_categories : DataFrame. It only exists if the parameter mode of constructor is Fat.
+            categories: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            mode: Fat or Thin. Specifies the mode of the returned object.
+
+       ```python
+       from pandaspgs.get_ancestry_category import get_ancestry_categories
+
+       ch = get_ancestry_categories()
+       ch
+       ch.raw_data
+       ch.mode
+       ch.ancestry_categories
+       ch.categories
+       ```
+       Subset object s by either identifier or position
+       ```python
+       all_df = get_ancestry_categories()
+       all_df[0].ancestry_categories
+       all_df[0:3].ancestry_categories
+       all_df['AFR'].ancestry_categories
+       all_df[('AFR','ASN','EAS')].ancestry_categories
+       ```
+       Objects can be manipulated like sets in the mathematical sense.
+       ```python
+       all_df = get_ancestry_categories()
+       one = all_df[0]
+       two = all_df[1]
+       three = all_df[2]
+       one_and_two = one+two
+       two_and_three = two+three
+       only_one = one_and_two - two_and_three
+       only_two = one_and_two & two_and_three
+       one_and_two_and_three = one_and_two | two_and_three
+       one_and_three = one_and_two ^ two_and_three
+       ```
+       """
     def __init__(self, data: list = [], mode: str = "Fat"):
+        """
+        An object that stores data of type AncestryCategory.
+
+        Args:
+            data: Raw JSON data.
+            mode: Fat or Thin. Specifies the mode of the object.
+        """
         if data is None:
             data = []
         if mode not in ['Thin', "Fat"]:
@@ -25,9 +73,10 @@ class AncestryCategory:
         datas = json_normalize(data=data, max_level=1).drop(columns=['symbols', 'display_category'])
         datas['categories'] = datas['categories'].map(lambda x: x == [])
         self.ancestry_categories = json_normalize(data=data, max_level=1).drop(
-            columns=['symbols', 'display_category'])
+            columns=['categories'])
         if not datas['categories'].all():
             self.categories = json_normalize(data=data, record_path=['categories'], meta=['symbols'])
+            self.categories.columns = ['category', 'symbols']
 
         else:
             self.categories = DataFrame(

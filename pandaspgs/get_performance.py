@@ -19,7 +19,8 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
             query_str.append('pmid=%d' % pmid)
         if pgp_id is not None:
             query_str.append('pgp_id=%s' % pgp_id)
-        by_other = get_performance('https://www.pgscatalog.org/rest/performance/search?%s' % '&'.join(query_str), cached=cached)
+        by_other = get_performance('https://www.pgscatalog.org/rest/performance/search?%s' % '&'.join(query_str),
+                                   cached=cached)
     if ppm_id is None:
         return PerformanceMetrics(by_other, mode)
     if pgs_id is None and pmid is None and pgp_id is None:
@@ -36,3 +37,6 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
     for id in intersection:
         result.append(id_dict[id])
     return PerformanceMetrics(result, mode)
+
+
+a = get_performances(ppm_id='PPM000001')

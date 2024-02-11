@@ -11,6 +11,7 @@ def get_cohorts(cohort_symbol: str = None, cached: bool= True, mode: str = 'Fat'
         cached: Whether or not to try to get data from the cache.
         mode: Fat or Thin. Specifies the mode of the returned object.
 
+
     Returns:
         A Cohort object. Attributes of type DataFrame have hierarchical dependencies.
 

@@ -7,7 +7,62 @@ set_option('display.precision', 3)
 
 
 class Trait:
+    """
+       To understand the significance of each column of the DataFrame. Please visit "EFOTrait_Ontology" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+
+       Attributes:
+            raw_data: list. Convert from obtained JSON data
+            EFO_traits : DataFrame. It only exists if the parameter mode of constructor is Fat.
+            trait_categories: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            trait_synonyms: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            trait_mapped_terms: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            associated_pgs_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            child_associated_pgs_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            mode: Fat or Thin. Specifies the mode of the returned object.
+
+       ```python
+       from pandaspgs.get_trait import get_traits
+
+       ch = get_traits(trait_id='EFO_0004214')
+       ch
+       ch.raw_data
+       ch.mode
+       ch.EFO_traits
+       ch.trait_categories
+       ch.trait_synonyms
+       ch.trait_mapped_terms
+       ch.associated_pgs_ids
+       ch.child_associated_pgs_ids
+       ```
+       Subset object s by either identifier or position
+       ```python
+       all_df = get_traits()
+       all_df[0].EFO_traits
+       all_df[0:3].EFO_traits
+       all_df['EFO_0004214'].EFO_traits
+       all_df[('EFO_0004214','HP_0002027','HP_0011458')].EFO_traits
+       ```
+       Objects can be manipulated like sets in the mathematical sense.
+       ```python
+       one = get_scores(trait_id='EFO_0004214')
+       two = get_scores(trait_id='HP_0002027')
+       three = get_scores(trait_id='HP_0011458')
+       one_and_two = one+two
+       two_and_three = two+three
+       only_one = one_and_two - two_and_three
+       only_two = one_and_two & two_and_three
+       one_and_two_and_three = one_and_two | two_and_three
+       one_and_three = one_and_two ^ two_and_three
+       ```
+       """
     def __init__(self, data: list = [], mode: str = "Fat"):
+        """
+        An object that stores data of type Trait.
+
+        Args:
+            data: Raw JSON data.
+            mode: Fat or Thin. Specifies the mode of the object.
+        """
         if data is None:
             data = []
         if mode not in ['Thin', "Fat"]:

@@ -38,3 +38,5 @@ def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_i
         result.append(pgs_id_dict[id])
     return Score(result, mode)
 
+
+print(get_scores(pgs_id='PGS000001').raw_data)

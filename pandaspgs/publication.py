@@ -8,7 +8,54 @@ set_option('display.precision', 3)
 
 
 class Publication:
+    """
+       To understand the significance of each column of the DataFrame. Please visit "Publication" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+
+       Attributes:
+            raw_data: list. Convert from obtained JSON data
+            publications: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            associated_pgs_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            mode: Fat or Thin. Specifies the mode of the returned object.
+
+       ```python
+       from pandaspgs.get_publication import get_publications
+
+       ch = get_publications(pgs_id='PGS000001')
+       ch
+       ch.raw_data
+       ch.mode
+       ch.publications
+       ch.associated_pgs_ids
+       ```
+       Subset object s by either identifier or position
+       ```python
+       all_df = get_publications()
+       all_df[0].publications
+       all_df[0:3].publications
+       all_df['PGP000001'].publications
+       all_df[('PGP000001','PGP000002','PGP000003')].publications
+       ```
+       Objects can be manipulated like sets in the mathematical sense.
+       ```python
+       one = get_cohorts(ppm_id='PPM000001')
+       two = get_cohorts(ppm_id='PPM000002')
+       three = get_cohorts(ppm_id='PPM000003')
+       one_and_two = one+two
+       two_and_three = two+three
+       only_one = one_and_two - two_and_three
+       only_two = one_and_two & two_and_three
+       one_and_two_and_three = one_and_two | two_and_three
+       one_and_three = one_and_two ^ two_and_three
+       ```
+       """
     def __init__(self, data: list = [], mode: str = "Fat"):
+        """
+        An object that stores data of type Publication
+        .
+        Args:
+            data: Raw JSON data.
+            mode: Fat or Thin. Specifies the mode of the object.
+        """
         if data is None:
             data = []
         if mode not in ['Thin', "Fat"]:

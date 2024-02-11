@@ -15,6 +15,7 @@ class Cohort:
         raw_data: list. Convert from obtained JSON data
         cohorts: DataFrame. It only exists if the parameter mode of constructor is Fat.
         associated_pgs_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+        mode: Fat or Thin. Specifies the mode of the returned object.
 
     ```Python
     from pandaspgs.get_cohort import get_cohorts
@@ -22,6 +23,7 @@ class Cohort:
     ch = get_cohorts(cohort_symbol='ABCFS')
     ch
     ch.raw_data
+    ch.mode
     ch.cohorts
     ch.associated_pgs_ids
     ```
@@ -52,7 +54,7 @@ class Cohort:
 
         Args:
             data: Raw JSON data.
-            mode:  Fat or Thin. Specifies the mode of the object.
+            mode: Fat or Thin. Specifies the mode of the object.
         """
         if data is None:
             data = []

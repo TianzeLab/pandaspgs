@@ -36,3 +36,6 @@ def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, 
     for id in intersection:
         result.append(id_dict[id])
     return SampleSet(result, mode)
+
+
+print(get_sample_sets(pss_id='PSS000001').raw_data)

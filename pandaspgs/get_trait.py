@@ -59,3 +59,5 @@ def get_child_traits(trait_id: str = None, cached=True, mode: str = 'Fat') -> Tr
                  mode)
 
 
+print(get_trait_categories().trait_categories)
+

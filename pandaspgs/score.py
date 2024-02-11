@@ -9,7 +9,64 @@ import numpy
 
 
 class Score:
+    """
+       To understand the significance of each column of the DataFrame. Please visit "Score" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+
+       Attributes:
+            raw_data: list. Convert from obtained JSON data
+            scores: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            samples_variants: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            samples_variants_cohorts: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            trait_efo: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            samples_training: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            samples_training_cohorts: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            ancestry_distribution: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            mode: Fat or Thin. Specifies the mode of the returned object.
+
+       ```python
+       from pandaspgs.get_score import get_scores
+
+       ch = get_scores(pgs_id='PGS000001')
+       ch
+       ch.raw_data
+       ch.mode
+       ch.scores
+       ch.samples_variants
+       ch.samples_variants_cohorts
+       ch.trait_efo
+       ch.samples_training
+       ch.samples_training_cohorts
+       ch.ancestry_distribution
+       ```
+       Subset object s by either identifier or position
+       ```python
+       all_df = get_scores()
+       all_df[0].scores
+       all_df[0:3].scores
+       all_df['PGS000001'].scores
+       all_df[('PGS000001','PGS000002','PGS000003')].scores
+       ```
+       Objects can be manipulated like sets in the mathematical sense.
+       ```python
+       one = get_scores(pgs_id='PGS000001')
+       two = get_scores(pgs_id='PGS000002')
+       three = get_scores(pgs_id='PGS000003')
+       one_and_two = one+two
+       two_and_three = two+three
+       only_one = one_and_two - two_and_three
+       only_two = one_and_two & two_and_three
+       one_and_two_and_three = one_and_two | two_and_three
+       one_and_three = one_and_two ^ two_and_three
+       ```
+       """
     def __init__(self, data: list = [], mode: str = "Fat"):
+        """
+        An object that stores data of type Score.
+
+        Args:
+            data: Raw JSON data.
+            mode: Fat or Thin. Specifies the mode of the object.
+        """
         if data is None:
             data = []
         if mode not in ['Thin', "Fat"]:
