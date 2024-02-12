@@ -4,6 +4,27 @@ from pandaspgs.performancemetric import PerformanceMetrics
 
 def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None,
                      cached=True, mode: str = 'Fat') -> PerformanceMetrics:
+    """
+    Get PerformanceMetrics data from the server.
+
+    Args:
+        ppm_id: PGS Performance Metric ID (PPM)
+        pgs_id: Polygenic Score ID (PGS) - optional
+        pgp_id: PGS Catalog Publication ID (PGP) - optional
+        pmid: PubMed ID (without the prefix "PMID:") - optional
+        cached: Whether or not to try to get data from the cache.
+        mode: Fat or Thin. Specifies the mode of the returned object.
+
+
+    Returns:
+        A PerformanceMetrics object. Attributes of type DataFrame have hierarchical dependencies.
+
+    ```Python
+    from pandaspgs.get_performance import get_performances
+
+    ch = get_performances(ppm_id='PPM000001')
+    ```
+    """
     if ppm_id is None and pgs_id is None and pgp_id is None and pmid is None:
         return PerformanceMetrics(get_performance('https://www.pgscatalog.org/rest/performance/all', cached=cached),
                                   mode)
@@ -39,4 +60,4 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
     return PerformanceMetrics(result, mode)
 
 
-a = get_performances(ppm_id='PPM000001')
+

@@ -5,6 +5,24 @@ import re
 
 
 def get_releases(date: str = 'latest', cached=True, mode: str = 'Fat') -> Release:
+    """
+    Get Release data from the server.
+
+    Args:
+        date: PGS Catalog release date (format YYYY-MM-DD)
+        cached: Whether or not to try to get data from the cache.
+        mode: Fat or Thin. Specifies the mode of the returned object.
+
+
+    Returns:
+        A Release object. Attributes of type DataFrame have hierarchical dependencies.
+
+    ```Python
+    from pandaspgs.get_release import get_releases
+
+    ch = get_releases(date="2024-01-26")
+    ```
+    """
     if date == 'all':
         return Release(get_release('https://www.pgscatalog.org/rest/release/all', cached=cached), mode)
     if date == 'latest':
@@ -16,4 +34,4 @@ def get_releases(date: str = 'latest', cached=True, mode: str = 'Fat') -> Releas
     return Release(get_release('https://www.pgscatalog.org/rest/release/%s' % date, cached=cached), mode)
 
 
-print(get_releases(date="2024-01-26").raw_data)
+

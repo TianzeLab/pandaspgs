@@ -1,0 +1,1 @@
+:::pandaspgs.get_trait.get_child_traits

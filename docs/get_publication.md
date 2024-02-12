@@ -1,0 +1,1 @@
+:::pandaspgs.get_publication.get_publications

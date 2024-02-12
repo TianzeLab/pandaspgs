@@ -4,10 +4,47 @@ from pandaspgs.traitcategory import TraitCategory
 
 
 def get_trait_categories(cached=True, mode: str = 'Fat') -> TraitCategory:
+    """
+    Get TraitCategory data from the server.
+
+    Args:
+        cached: Whether or not to try to get data from the cache.
+        mode: Fat or Thin. Specifies the mode of the returned object.
+
+
+    Returns:
+        A TraitCategory object. Attributes of type DataFrame have hierarchical dependencies.
+
+    ```Python
+    from pandaspgs.get_trait_category import get_trait_categories
+
+    ch = get_trait_categories()
+    ```
+    """
     return TraitCategory(get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached), mode)
 
 
 def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True, mode: str = 'Fat') -> Trait:
+    """
+    Get Trait data from the server.
+
+    Args:
+        trait_id: Ontology ID (e.g. from EFO, HP or MONDO) with the format "EFO_XXXX"
+        term: Trait ID, trait name, trait category, trait synonym or external mapped terms/IDs
+        exact: Flag to search only the exact term or not (defaut: 0)
+        cached: Whether or not to try to get data from the cache.
+        mode: Fat or Thin. Specifies the mode of the returned object.
+
+
+    Returns:
+        A Trait object. Attributes of type DataFrame have hierarchical dependencies.
+
+    ```Python
+    from pandaspgs.get_trait import get_traits
+
+    ch = get_traits(trait_id='EFO_0000305')
+    ```
+    """
     if exact is not None:
         if exact:
             num = "1"
@@ -55,9 +92,26 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
 
 
 def get_child_traits(trait_id: str = None, cached=True, mode: str = 'Fat') -> Trait:
+    """
+    Get Trait data from the server.
+
+    Args:
+        trait_id: Ontology ID (e.g. from EFO, HP or MONDO) with the format "EFO_XXXX"
+        cached: Whether or not to try to get data from the cache.
+        mode: Fat or Thin. Specifies the mode of the returned object.
+
+
+    Returns:
+        A Trait object. Attributes of type DataFrame have hierarchical dependencies.
+
+    ```Python
+    from pandaspgs.get_child_trait import get_child_traits
+
+    ch = get_child_traits(trait_id='EFO_0000305')
+    ```
+    """
     return Trait(get_trait('https://www.pgscatalog.org/rest/trait/%s?include_children=1' % trait_id, cached=cached),
                  mode)
 
 
-print(get_trait_categories().trait_categories)
 

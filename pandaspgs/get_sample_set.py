@@ -5,6 +5,27 @@ from pandaspgs.sample_set import SampleSet
 def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached=True,
                     mode: str = 'Fat') \
         -> SampleSet:
+    """
+    Get SampleSet data from the server.
+
+    Args:
+        pss_id: PGS Sample Set ID (PSS)
+        pgs_id: Polygenic Score ID (PGS) - optional
+        pgp_id: PGS Catalog Publication ID (PGP) - optional
+        pmid:PubMed ID (without the prefix "PMID:") - optional
+        cached: Whether or not to try to get data from the cache.
+        mode: Fat or Thin. Specifies the mode of the returned object.
+
+
+    Returns:
+        A SampleSet object. Attributes of type DataFrame have hierarchical dependencies.
+
+    ```Python
+    from pandaspgs.get_sample_set import get_sample_sets
+
+    ch = get_sample_sets(pss_id='PSS000001')
+    ```
+    """
     if pss_id is None and pgs_id is None and pgp_id is None and pmid is None:
         return SampleSet(get_sample_set('https://www.pgscatalog.org/rest/sample_set/all', cached=cached), mode)
     by_id = None
@@ -38,4 +59,3 @@ def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, 
     return SampleSet(result, mode)
 
 
-print(get_sample_sets(pss_id='PSS000001').raw_data)

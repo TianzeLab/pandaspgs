@@ -4,6 +4,27 @@ from pandaspgs.publication import Publication
 
 def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, author: str = None, cached=True,
                      mode: str = 'Fat') -> Publication:
+    """
+    Get Publication data from the server.
+
+    Args:
+        pgs_id: PGS Publication ID (PGP)
+        pgp_id: Polygenic Score ID (PGS) - optional
+        pmid: PubMed ID (without the prefix "PMID:") - optional
+        author: Publication author (any author in the list of authors in a publication) - optional
+        cached: Whether or not to try to get data from the cache.
+        mode: Fat or Thin. Specifies the mode of the returned object.
+
+
+    Returns:
+        A Publication object. Attributes of type DataFrame have hierarchical dependencies.
+
+    ```Python
+    from pandaspgs.get_publication import get_publications
+
+    ch = get_publications(pgp_id='PGP000003')
+    ```
+    """
     if pgs_id is None and pgp_id is None and pmid is None and author is None:
         return Publication(get_publication('https://www.pgscatalog.org/rest/publication/all', cached=cached), mode)
     by_id = None
@@ -37,7 +58,7 @@ def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, a
     return Publication(result, mode)
 
 
-print(get_publications(pgp_id='PGP000003').raw_data)
+
 
 
 

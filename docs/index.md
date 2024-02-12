@@ -2,6 +2,15 @@
 ## Function
 - [clear_cache][pandaspgs.client.clear_cache]
 - [get_cohorts][pandaspgs.get_cohort.get_cohorts]
+- [get_ancestry_category][pandaspgs.get_ancestry_category.get_ancestry_categories]
+- [get_child_trait][pandaspgs.get_trait.get_child_traits]
+- [get_performance][pandaspgs.get_performance.get_performances]
+- [get_publication][pandaspgs.get_publication.get_publications]
+- [get_release][pandaspgs.get_release.get_releases]
+- [get_sample_set][pandaspgs.get_sample_set.get_sample_sets]
+- [get_score][pandaspgs.get_score.get_scores]
+- [get_trait][pandaspgs.get_trait.get_traits]
+- [get_trait_category][pandaspgs.get_trait.get_trait_categories]
 ## Class
 - [Cohort][pandaspgs.cohort.Cohort]
 - [PerformanceMetrics][pandaspgs.performancemetric.PerformanceMetrics]
@@ -11,3 +20,4 @@
 - [Score][pandaspgs.score.Score]
 - [Trait][pandaspgs.trait.Trait]
 - [TraitCategory][pandaspgs.traitcategory.TraitCategory]
+- [AncestryCategory][pandaspgs.ancestrycategory.AncestryCategory]

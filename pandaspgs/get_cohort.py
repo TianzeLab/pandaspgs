@@ -7,7 +7,7 @@ def get_cohorts(cohort_symbol: str = None, cached: bool= True, mode: str = 'Fat'
     Get Cohort data from the server.
 
     Args:
-        cohort_symbol: Retrieve a Cohort, based on its symbol, including: Cohort full name. Associated Polygenic Scores(s), with the distinction between associations with the Polygenic Score at the development phase or at the evaluation phase
+        cohort_symbol: Short name of a cohort
         cached: Whether or not to try to get data from the cache.
         mode: Fat or Thin. Specifies the mode of the returned object.
 

@@ -6,6 +6,27 @@ from pandaspgs.score import Score
 
 def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_id: str = None, cached=True,
                mode: str = 'Fat') -> Score:
+    """
+    Get Score data from the server.
+
+    Args:
+        pgs_id: Polygenic Score ID
+        pgp_id: PGS Catalog Publication ID (PGP) - optional
+        pmid: PubMed ID (without the prefix "PMID:") - optional
+        trait_id: Ontology ID (e.g. from EFO, HP or MONDO) with the format "EFO_XXXX" - optional
+        cached: Whether or not to try to get data from the cache.
+        mode: Fat or Thin. Specifies the mode of the returned object.
+
+
+    Returns:
+        A Score object. Attributes of type DataFrame have hierarchical dependencies.
+
+    ```Python
+    from pandaspgs.get_score import get_scores
+
+    ch = get_scores(pgs_id='PGS000001')
+    ```
+    """
     if pgs_id is None and pgp_id is None and pmid is None and trait_id is None:
         return Score(get_score('https://www.pgscatalog.org/rest/score/all', cached=cached), mode)
     by_pgs_id = None
@@ -39,4 +60,3 @@ def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_i
     return Score(result, mode)
 
 
-print(get_scores(pgs_id='PGS000001').raw_data)
