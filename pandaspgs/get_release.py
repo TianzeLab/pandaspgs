@@ -4,12 +4,12 @@ from pandaspgs.release import Release
 import re
 
 
-def get_releases(date: str = 'latest', cached=True, mode: str = 'Fat') -> Release:
+def get_releases(date: str = 'latest', cached: bool = True, mode: str = 'Fat') -> Release:
     """
     Get Release data from the server.
 
     Args:
-        date: PGS Catalog release date (format YYYY-MM-DD)
+        date: PGS Catalog release date (format YYYY-MM-DD) or 'latest' or 'all'
         cached: Whether or not to try to get data from the cache.
         mode: Fat or Thin. Specifies the mode of the returned object.
 

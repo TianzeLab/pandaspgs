@@ -2,16 +2,16 @@ from pandaspgs.client import get_publication
 from pandaspgs.publication import Publication
 
 
-def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, author: str = None, cached=True,
+def get_publications(pgs_id: str = None, pgp_id: str = None, pmid: int = None, author: str = None, cached: bool = True,
                      mode: str = 'Fat') -> Publication:
     """
     Get Publication data from the server.
 
     Args:
         pgs_id: PGS Publication ID (PGP)
-        pgp_id: Polygenic Score ID (PGS) - optional
-        pmid: PubMed ID (without the prefix "PMID:") - optional
-        author: Publication author (any author in the list of authors in a publication) - optional
+        pgp_id: Polygenic Score ID (PGS)
+        pmid: PubMed ID (without the prefix "PMID:")
+        author: Publication author (any author in the list of authors in a publication)
         cached: Whether or not to try to get data from the cache.
         mode: Fat or Thin. Specifies the mode of the returned object.
 

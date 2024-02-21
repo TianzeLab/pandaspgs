@@ -4,16 +4,16 @@ from pandas import DataFrame, json_normalize, set_option, Series, concat
 from pandaspgs.score import Score
 
 
-def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_id: str = None, cached=True,
+def get_scores(pgs_id: str = None, pgp_id: str = None, pmid: int = None, trait_id: str = None, cached: bool = True,
                mode: str = 'Fat') -> Score:
     """
     Get Score data from the server.
 
     Args:
         pgs_id: Polygenic Score ID
-        pgp_id: PGS Catalog Publication ID (PGP) - optional
-        pmid: PubMed ID (without the prefix "PMID:") - optional
-        trait_id: Ontology ID (e.g. from EFO, HP or MONDO) with the format "EFO_XXXX" - optional
+        pgp_id: PGS Catalog Publication ID (PGP)
+        pmid: PubMed ID (without the prefix "PMID:")
+        trait_id: Ontology ID (e.g. from EFO, HP or MONDO) with the format "EFO_XXXX"
         cached: Whether or not to try to get data from the cache.
         mode: Fat or Thin. Specifies the mode of the returned object.
 

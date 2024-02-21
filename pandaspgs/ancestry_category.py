@@ -6,36 +6,37 @@ set_option('display.colheader_justify', 'center')
 set_option('display.precision', 3)
 
 
-class TraitCategory:
+class AncestryCategory:
     """
-       To understand the significance of each column of the DataFrame. Please visit "TraitCategory" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+       An object that stores data of type AncestryCategory. To understand the significance of each column of the DataFrame. Please visit "Other endpoints" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
 
        Attributes:
             raw_data: list. Convert from obtained JSON data
-            EFO_traits : DataFrame. It only exists if the parameter mode of constructor is Fat.
-            trait_categories: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            ancestry_categories : DataFrame. It only exists if the parameter mode of constructor is Fat.
+            categories: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            mode: Fat or Thin. Specifies the mode of the returned object.
 
        ```python
-       from pandaspgs.get_trait import get_trait_categories
+       from pandaspgs.get_ancestry_category import get_ancestry_categories
 
-       ch = get_trait_categories()
+       ch = get_ancestry_categories()
        ch
        ch.raw_data
        ch.mode
-       ch.EFO_traits
-       ch.trait_categories
+       ch.ancestry_categories
+       ch.categories
        ```
        Subset object s by either identifier or position
        ```python
-       all_df = get_trait_categories()
-       all_df[0].EFO_traits
-       all_df[0:3].EFO_traits
-       all_df['Biological process'].EFO_traits
-       all_df[('Biological process','Body measurement','Cancer')].EFO_traits
+       all_df = get_ancestry_categories()
+       all_df[0].ancestry_categories
+       all_df[0:3].ancestry_categories
+       all_df['AFR'].ancestry_categories
+       all_df[('AFR','ASN','EAS')].ancestry_categories
        ```
        Objects can be manipulated like sets in the mathematical sense.
        ```python
-       all_df = get_trait_categories()
+       all_df = get_ancestry_categories()
        one = all_df[0]
        two = all_df[1]
        three = all_df[2]
@@ -49,8 +50,6 @@ class TraitCategory:
        """
     def __init__(self, data: list = [], mode: str = "Fat"):
         """
-        An object that stores data of type TraitCategory.
-
         Args:
             data: Raw JSON data.
             mode: Fat or Thin. Specifies the mode of the object.
@@ -64,27 +63,31 @@ class TraitCategory:
         if mode == "Thin":
             return
         if data is None or len(data) == 0:
-            self.EFO_traits = DataFrame(
-                columns=['id', 'label', 'description', 'url', 'category _id'])
-            self.trait_categories = DataFrame(
-                columns=['id', 'label'])
+            self.ancestry_categories = DataFrame(
+                columns=['symbols', 'display_category'])
+            self.categories = DataFrame(
+                columns=['symbols', 'category'])
             return
-        for i in range(len(data)):
-            data[i]['id1'] = i
+        datas = json_normalize(data=data, max_level=1).drop(columns=['symbols', 'display_category'])
+        datas['categories'] = datas['categories'].map(lambda x: x == [])
+        self.ancestry_categories = json_normalize(data=data, max_level=1).drop(
+            columns=['categories'])
+        if not datas['categories'].all():
+            self.categories = json_normalize(data=data, record_path=['categories'], meta=['symbols'])
+            self.categories.columns = ['category', 'symbols']
 
-        self.trait_categories = json_normalize(data=data, max_level=1).drop(columns=['efotraits'])
-        self.trait_categories.columns = ['label', 'id']
-        self.EFO_traits = json_normalize(data=data, record_path=['efotraits'], meta=['id1'])
-        self.EFO_traits.columns = ['id', 'label', 'description', 'url', 'category _id']
+        else:
+            self.categories = DataFrame(
+                columns=['symbols', 'category'])
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("TraitCategory is running in fat mode. It has 2 DataFrames with hierarchical "
-                    "dependencies.\ntrait_categories: %d rows\n|\n -EFO_traits: %d rows" % (
-                        len(self.trait_categories), len(self.EFO_traits)))
+            return ("AncestryCategory is running in fat mode. It has 2 DataFrames with hierarchical "
+                    "dependencies.\nancestry_categories: %d rows\n|\n -categories: %d rows" % (
+                        len(self.ancestry_categories), len(self.categories)))
         if self.mode == 'Thin':
             return (
-                'TraitCategory is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
+                'AncestryCategory is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '
                 'size %d.') % len(self.raw_data)
 
     def __repr__(self):
@@ -103,7 +106,7 @@ class TraitCategory:
         raw_data = self.raw_data
         raw_data_dict = {}
         for j in raw_data:
-            raw_data_dict[j['label']] = j
+            raw_data_dict[j['symbols']] = j
         sub_set = []
         for i in arr:
             if isinstance(i, str):
@@ -112,11 +115,11 @@ class TraitCategory:
                 sub_set.append(raw_data[i])
             else:
                 raise TypeError('Invalid item type: {}'.format(type(i)))
-        return TraitCategory(sub_set, self.mode)
+        return AncestryCategory(sub_set, self.mode)
 
     def __add__(self, other):
         if self.mode == other.mode:
-            return TraitCategory(self.raw_data + other.raw_data, self.mode)
+            return AncestryCategory(self.raw_data + other.raw_data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -126,15 +129,15 @@ class TraitCategory:
             self_dict = {}
             other_key_set = set()
             for i in self.raw_data:
-                self_key_set.add(i['label'])
-                self_dict[i['label']] = i
+                self_key_set.add(i['symbols'])
+                self_dict[i['symbols']] = i
             for j in other.raw_data:
-                other_key_set.add(j['label'])
+                other_key_set.add(j['symbols'])
             sub_key = self_key_set - other_key_set
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return TraitCategory(data, self.mode)
+            return AncestryCategory(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -144,15 +147,15 @@ class TraitCategory:
             self_dict = {}
             other_key_set = set()
             for i in self.raw_data:
-                self_key_set.add(i['label'])
-                self_dict[i['label']] = i
+                self_key_set.add(i['symbols'])
+                self_dict[i['symbols']] = i
             for j in other.raw_data:
-                other_key_set.add(j['label'])
+                other_key_set.add(j['symbols'])
             sub_key = self_key_set & other_key_set
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return TraitCategory(data, self.mode)
+            return AncestryCategory(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -160,11 +163,11 @@ class TraitCategory:
         if self.mode == other.mode:
             and_dict = {}
             for i in self.raw_data:
-                and_dict[i['label']] = i
+                and_dict[i['symbols']] = i
             for j in other.raw_data:
-                and_dict[j['label']] = j
+                and_dict[j['symbols']] = j
             data = list(and_dict.values())
-            return TraitCategory(data, self.mode)
+            return AncestryCategory(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -174,16 +177,16 @@ class TraitCategory:
             and_dict = {}
             other_key_set = set()
             for i in self.raw_data:
-                self_key_set.add(i['label'])
-                and_dict[i['label']] = i
+                self_key_set.add(i['symbols'])
+                and_dict[i['symbols']] = i
             for j in other.raw_data:
-                other_key_set.add(j['label'])
-                and_dict[j['label']] = j
+                other_key_set.add(j['symbols'])
+                and_dict[j['symbols']] = j
             sub_key = self_key_set ^ other_key_set
             data = []
             for k in sub_key:
                 data.append(and_dict[k])
-            return TraitCategory(data, self.mode)
+            return AncestryCategory(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 

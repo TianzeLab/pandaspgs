@@ -1,17 +1,17 @@
 from pandaspgs.client import get_performance
-from pandaspgs.performancemetric import PerformanceMetrics
+from pandaspgs.performance import PerformanceMetric
 
 
 def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None,
-                     cached=True, mode: str = 'Fat') -> PerformanceMetrics:
+                     cached: bool = True, mode: str = 'Fat') -> PerformanceMetric:
     """
     Get PerformanceMetrics data from the server.
 
     Args:
-        ppm_id: PGS Performance Metric ID (PPM)
-        pgs_id: Polygenic Score ID (PGS) - optional
-        pgp_id: PGS Catalog Publication ID (PGP) - optional
-        pmid: PubMed ID (without the prefix "PMID:") - optional
+        ppm_id: PGS Performance Metric ID (PPM).
+        pgs_id: Polygenic Score ID (PGS).
+        pgp_id: PGS Catalog Publication ID (PGP).
+        pmid: PubMed ID (without the prefix "PMID:").
         cached: Whether or not to try to get data from the cache.
         mode: Fat or Thin. Specifies the mode of the returned object.
 
@@ -26,8 +26,8 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
     ```
     """
     if ppm_id is None and pgs_id is None and pgp_id is None and pmid is None:
-        return PerformanceMetrics(get_performance('https://www.pgscatalog.org/rest/performance/all', cached=cached),
-                                  mode)
+        return PerformanceMetric(get_performance('https://www.pgscatalog.org/rest/performance/all', cached=cached),
+                                 mode)
     by_id = None
     by_other = None
     if ppm_id is not None:
@@ -43,9 +43,9 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
         by_other = get_performance('https://www.pgscatalog.org/rest/performance/search?%s' % '&'.join(query_str),
                                    cached=cached)
     if ppm_id is None:
-        return PerformanceMetrics(by_other, mode)
+        return PerformanceMetric(by_other, mode)
     if pgs_id is None and pmid is None and pgp_id is None:
-        return PerformanceMetrics(by_id, mode)
+        return PerformanceMetric(by_id, mode)
     other_set = set()
     id_dict = {}
     for single in by_id:
@@ -57,7 +57,7 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
     result = []
     for id in intersection:
         result.append(id_dict[id])
-    return PerformanceMetrics(result, mode)
+    return PerformanceMetric(result, mode)
 
 
 

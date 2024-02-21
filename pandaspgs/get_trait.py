@@ -1,9 +1,9 @@
 from pandaspgs.client import get_trait_category, get_trait
 from pandaspgs.trait import Trait
-from pandaspgs.traitcategory import TraitCategory
+from pandaspgs.trait_category import TraitCategory
 
 
-def get_trait_categories(cached=True, mode: str = 'Fat') -> TraitCategory:
+def get_trait_categories(cached: bool = True, mode: str = 'Fat') -> TraitCategory:
     """
     Get TraitCategory data from the server.
 
@@ -24,14 +24,14 @@ def get_trait_categories(cached=True, mode: str = 'Fat') -> TraitCategory:
     return TraitCategory(get_trait_category('https://www.pgscatalog.org/rest/trait_category/all', cached), mode)
 
 
-def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached=True, mode: str = 'Fat') -> Trait:
+def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cached: bool = True, mode: str = 'Fat') -> Trait:
     """
     Get Trait data from the server.
 
     Args:
         trait_id: Ontology ID (e.g. from EFO, HP or MONDO) with the format "EFO_XXXX"
         term: Trait ID, trait name, trait category, trait synonym or external mapped terms/IDs
-        exact: Flag to search only the exact term or not (defaut: 0)
+        exact: Flag to search only the exact term or not
         cached: Whether or not to try to get data from the cache.
         mode: Fat or Thin. Specifies the mode of the returned object.
 
@@ -91,9 +91,9 @@ def get_traits(trait_id: str = None, term: str = None, exact: bool = None, cache
                                    cached=cached), mode)
 
 
-def get_child_traits(trait_id: str = None, cached=True, mode: str = 'Fat') -> Trait:
+def get_child_traits(trait_id: str = None, cached: bool =True, mode: str = 'Fat') -> Trait:
     """
-    Get Trait data from the server.
+    Get children Trait data of the specified Trait ID from the server.
 
     Args:
         trait_id: Ontology ID (e.g. from EFO, HP or MONDO) with the format "EFO_XXXX"

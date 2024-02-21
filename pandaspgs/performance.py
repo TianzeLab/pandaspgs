@@ -7,9 +7,9 @@ set_option('display.precision', 3)
 import numpy
 
 
-class PerformanceMetrics:
+class PerformanceMetric:
     """
-    To understand the significance of each column of the DataFrame. Please visit "PerformanceMetrics" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+    An object that stores data of type PerformanceMetric. To understand the significance of each column of the DataFrame. Please visit "PerformanceMetric" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
 
     Attributes:
          raw_data: list. Convert from obtained JSON data
@@ -17,8 +17,8 @@ class PerformanceMetrics:
          samples: DataFrame. It only exists if the parameter mode of constructor is Fat.
          cohorts: DataFrame. It only exists if the parameter mode of constructor is Fat.
          effect_sizes: DataFrame. It only exists if the parameter mode of constructor is Fat.
-         class_acc DataFrame. It only exists if the parameter mode of constructor is Fat.
-         othermetrics DataFrame. It only exists if the parameter mode of constructor is Fat.
+         class_acc: DataFrame. It only exists if the parameter mode of constructor is Fat.
+         othermetrics: DataFrame. It only exists if the parameter mode of constructor is Fat.
          mode: Fat or Thin. Specifies the mode of the returned object.
 
     ```python
@@ -58,8 +58,6 @@ class PerformanceMetrics:
     """
     def __init__(self, data: list = [], mode: str = "Fat"):
         """
-        An object that stores data of type PerformanceMetrics.
-
         Args:
             data: Raw JSON data.
             mode: Fat or Thin. Specifies the mode of the object.
@@ -225,11 +223,11 @@ class PerformanceMetrics:
                 sub_set.append(raw_data[i])
             else:
                 raise TypeError('Invalid item type: {}'.format(type(i)))
-        return PerformanceMetrics(sub_set, self.mode)
+        return PerformanceMetric(sub_set, self.mode)
 
     def __add__(self, other):
         if self.mode == other.mode:
-            return PerformanceMetrics(self.raw_data + other.raw_data, self.mode)
+            return PerformanceMetric(self.raw_data + other.raw_data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -247,7 +245,7 @@ class PerformanceMetrics:
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return PerformanceMetrics(data, self.mode)
+            return PerformanceMetric(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -265,7 +263,7 @@ class PerformanceMetrics:
             data = []
             for k in sub_key:
                 data.append(self_dict[k])
-            return PerformanceMetrics(data, self.mode)
+            return PerformanceMetric(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -277,7 +275,7 @@ class PerformanceMetrics:
             for j in other.raw_data:
                 and_dict[j['id']] = j
             data = list(and_dict.values())
-            return PerformanceMetrics(data, self.mode)
+            return PerformanceMetric(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 
@@ -296,7 +294,7 @@ class PerformanceMetrics:
             data = []
             for k in sub_key:
                 data.append(and_dict[k])
-            return PerformanceMetrics(data, self.mode)
+            return PerformanceMetric(data, self.mode)
         else:
             raise Exception("Please input the same mode")
 

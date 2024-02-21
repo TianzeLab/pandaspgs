@@ -1,8 +1,8 @@
 from pandaspgs.client import get_ancestry_category
-from pandaspgs.ancestrycategory import AncestryCategory
+from pandaspgs.ancestry_category import AncestryCategory
 
 
-def get_ancestry_categories(cached=True, mode: str = 'Fat') -> AncestryCategory:
+def get_ancestry_categories(cached: bool = True, mode: str = 'Fat') -> AncestryCategory:
     """
     Get AncestryCategory data from the server.
 

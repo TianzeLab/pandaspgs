@@ -2,7 +2,7 @@ from pandaspgs.client import get_sample_set
 from pandaspgs.sample_set import SampleSet
 
 
-def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached=True,
+def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, pmid: int = None, cached: bool = True,
                     mode: str = 'Fat') \
         -> SampleSet:
     """
@@ -10,9 +10,9 @@ def get_sample_sets(pss_id: str = None, pgs_id: str = None, pgp_id: str = None, 
 
     Args:
         pss_id: PGS Sample Set ID (PSS)
-        pgs_id: Polygenic Score ID (PGS) - optional
-        pgp_id: PGS Catalog Publication ID (PGP) - optional
-        pmid:PubMed ID (without the prefix "PMID:") - optional
+        pgs_id: Polygenic Score ID (PGS)
+        pgp_id: PGS Catalog Publication ID (PGP)
+        pmid:PubMed ID (without the prefix "PMID:")
         cached: Whether or not to try to get data from the cache.
         mode: Fat or Thin. Specifies the mode of the returned object.
 

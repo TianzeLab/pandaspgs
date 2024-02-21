@@ -8,7 +8,7 @@ set_option('display.precision', 3)
 
 class Release:
     """
-       To understand the significance of each column of the DataFrame. Please visit "Release" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
+       An object that stores data of type Release. To understand the significance of each column of the DataFrame. Please visit "Release" in [PGS Catalog Documentation](https://www.pgscatalog.org/rest/) for details.
 
        Attributes:
             raw_data: list. Convert from obtained JSON data
@@ -53,8 +53,6 @@ class Release:
        """
     def __init__(self, data: list = [], mode: str = "Fat"):
         """
-        An object that stores data of type Release.
-
         Args:
             data: Raw JSON data.
             mode: Fat or Thin. Specifies the mode of the object.
