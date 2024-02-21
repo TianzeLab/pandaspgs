@@ -8,7 +8,7 @@
 python: 3.10  
 pandas: 1.5.3  
 requests: 2.28.1  
-progressbar2: 4.2.0
+progressbar2: 4.2.0   
 cachetools: 5.3.0
 ## Documentation
 See [pandasPGS Documentation](https://caotianze.github.io/pandaspgs/)
