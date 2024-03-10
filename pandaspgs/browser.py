@@ -12,7 +12,7 @@ def open_score_in_pgs_catalog(pgs_id: str) -> bool:
         Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.
     ```python
     from pandaspgs.browser import open_score_in_pgs_catalog
-    open_in_pgs_catalog('PGS000001')
+    open_score_in_pgs_catalog('PGS000001')
     ```
 
     """
@@ -37,7 +37,7 @@ def open_publication_in_pgs_catalog(pgp_id: str) -> bool:
     return webbrowser.open_new_tab('https://www.pgscatalog.org/publication/%s' % pgp_id)
 
 
-def open_Sample_Set_in_pgs_catalog(pss_id: str) -> bool:
+def open_sample_set_in_pgs_catalog(pss_id: str) -> bool:
     """
     This function launches the web browser and opens a tab for each identifier on the PGS Catalog web graphical user interface: https://www.pgscatalog.org/.
 
@@ -47,8 +47,8 @@ def open_Sample_Set_in_pgs_catalog(pss_id: str) -> bool:
     Returns:
         Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.
     ```python
-    from pandaspgs.browser import open_Sample_Set_in_pgs_catalog
-    open_Sample_Set_in_pgs_catalog('PSS000001')
+    from pandaspgs.browser import open_sample_set_in_pgs_catalog
+    open_sample_set_in_pgs_catalog('PSS000001')
     ```
 
     """

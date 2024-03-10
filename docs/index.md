@@ -14,11 +14,23 @@
 - [get_child_traits][pandaspgs.get_trait.get_child_traits]
 - [get_trait_categories][pandaspgs.get_trait.get_trait_categories]
 ### Set operation
-
+- [bind][pandaspgs.set_operation.bind]
+- [intersect][pandaspgs.set_operation.intersect]
+- [set_diff][pandaspgs.set_operation.set_diff]
+- [set_equal][pandaspgs.set_operation.set_equal]
+- [set_xor][pandaspgs.set_operation.set_xor]
 ### Web browser
-
+- [open_in_dbsnp][pandaspgs.browser.open_in_dbsnp]
+- [open_in_pubmed][pandaspgs.browser.open_in_pubmed]
+- [open_publication_in_pgs_catalog][pandaspgs.browser.open_publication_in_pgs_catalog]
+- [open_sample_set_in_pgs_catalog][pandaspgs.browser.open_sample_set_in_pgs_catalog]
+- [open_score_in_pgs_catalog][pandaspgs.browser.open_score_in_pgs_catalog]
+- [open_trait_in_pgs_catalog][pandaspgs.browser.open_trait_in_pgs_catalog]
 ### File operation
-
+- read_scoring_file
+- write_xlsx
+- write_csv
+- write_sql
 ## Class
 - [Cohort][pandaspgs.cohort.Cohort]
 - [PerformanceMetric][pandaspgs.performance.PerformanceMetric]
