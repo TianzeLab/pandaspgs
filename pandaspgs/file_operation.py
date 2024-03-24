@@ -34,7 +34,7 @@ def read_scoring_file(pgs_id: str = None, grch='GRCh37') -> DataFrame:
         raise Exception("pgs_id can't be None.")
     raw_score_data = get_scores(pgs_id=pgs_id).raw_data
     if len(raw_score_data) != 1:
-        raise Exception("Unable to find the link to download. Please check if the pgs_id is valid.")
+        raise Exception("Unable to find the link to download. Please check the pgs_id.")
     url = raw_score_data[0]['ftp_harmonized_scoring_files'][grch]['positions']
     match_obj = re.match('.*/(.*)', url)
     file_name = match_obj.group(1)
