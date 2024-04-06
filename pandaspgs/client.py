@@ -9,15 +9,15 @@ fields = ['Score', 'Publication', 'Trait', 'Trait_category', 'Performance', 'Coh
           'Ancestry_category']
 fields_and_all = ['All', 'Score', 'Publication', 'Trait', 'Trait_category', 'Performance', 'Cohort', 'Sample_set',
                   'Release', 'Ancestry_category']
-publication_cache = TTLCache(maxsize=1024, ttl=60 * 60)
-score_cache = TTLCache(maxsize=1024, ttl=60 * 60)
-trait_cache = TTLCache(maxsize=1024, ttl=60 * 60)
-trait_category_cache = TTLCache(maxsize=1024, ttl=60 * 60)
-performance_cache = TTLCache(maxsize=1024, ttl=60 * 60)
-cohort_cache = TTLCache(maxsize=1024, ttl=60 * 60)
-sample_set_cache = TTLCache(maxsize=1024, ttl=60 * 60)
-release_cache = TTLCache(maxsize=1024, ttl=60 * 60)
-ancestry_category_cache = TTLCache(maxsize=1024, ttl=60 * 60)
+publication_cache = TTLCache(maxsize=1024*1024, ttl=60 * 60 * 24)
+score_cache = TTLCache(maxsize=1024*1024, ttl=60 * 60 * 24)
+trait_cache = TTLCache(maxsize=1024*1024, ttl=60 * 60 * 24)
+trait_category_cache = TTLCache(maxsize=1024*1024, ttl=60 * 60 * 24)
+performance_cache = TTLCache(maxsize=1024*1024, ttl=60 * 60 * 24)
+cohort_cache = TTLCache(maxsize=1024*1024, ttl=60 * 60 * 24)
+sample_set_cache = TTLCache(maxsize=1024*1024, ttl=60 * 60 * 24)
+release_cache = TTLCache(maxsize=1024*1024, ttl=60 * 60 * 24)
+ancestry_category_cache = TTLCache(maxsize=1024*1024, ttl=60 * 60 * 24)
 
 
 def get_ancestry_category(url: str, cached=True) -> List[Dict]:

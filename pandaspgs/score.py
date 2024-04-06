@@ -196,17 +196,22 @@ class Score:
         datas['samples_variants'] = datas['samples_variants'].map(lambda x: x == [])
         datas['samples_training'] = datas['samples_training'].map(lambda x: x == [])
         datas['trait_efo'] = datas['trait_efo'].map(lambda x: x == [])
-        datas['ancestry_distribution.eval'] = datas['ancestry_distribution.eval'].map(lambda x: x == [])
-        datas['ancestry_distribution.gwas'] = datas['ancestry_distribution.gwas'].map(lambda x: x == [])
+
         self.scores = json_normalize(data=data, max_level=1).drop(
             columns=['samples_variants', 'samples_training',
-                     'trait_efo', 'ancestry_distribution.eval', 'ancestry_distribution.gwas'])
+                     'trait_efo'])
+        ancestry_distribution_to_drop = ['ancestry_distribution.eval', 'ancestry_distribution.gwas',
+                                         'ancestry_distribution.multi']
+        for to_drop in ancestry_distribution_to_drop:
+            if to_drop in self.scores.columns:
+                self.scores = self.scores.drop(columns=[to_drop])
         self.scores['ftp_harmonized_scoring_files.GRCh38.positions'] = self.scores[
             'ftp_harmonized_scoring_files.GRCh38'].map(
             lambda x: x['positions'])
         self.scores['ftp_harmonized_scoring_files.GRCh37.positions'] = self.scores[
             'ftp_harmonized_scoring_files.GRCh37'].map(
             lambda x: x['positions'])
+        self.scores = self.scores.drop(columns=['ftp_harmonized_scoring_files.GRCh38','ftp_harmonized_scoring_files.GRCh37'])
         if not datas['samples_variants'].all():
             self.samples_variants = json_normalize(data=data, record_path=['samples_variants'], meta=['id'])
             self.samples_variants['score_id'] = self.samples_variants['id']
@@ -333,52 +338,33 @@ class Score:
                          'name_full'
                          'name_others'
                          ])
-        for i in range(len(data)):
-            data[i]['id1'] = data[i]['id']
         if not datas['trait_efo'].all():
-            self.trait_efo = json_normalize(data=data, record_path=['trait_efo'], meta=['id1'])
-            self.trait_efo['score_id'] = self.trait_efo['id1']
-            self.trait_efo = self.trait_efo.drop(columns=['id1'])
+            self.trait_efo = json_normalize(data=data, record_path=['trait_efo'], meta='id', meta_prefix='score_')
+
         else:
             self.trait_efo = DataFrame(
-                columns=['score_i'
+                columns=['score_id'
                          'id'
                          'label'
                          'description'
                          'url'])
-        if not datas['ancestry_distribution.gwas'].all() or not datas['ancestry_distribution.gwas.'].all():
-            a = json_normalize(data=data, max_level=1)
-            dva = a[['id', 'ancestry_distribution.eval']].copy()
-            dva['stage'] = 'eval'
-            dva['ancestry_distribution'] = dva['ancestry_distribution.eval']
-            dva = dva.drop(columns=['ancestry_distribution.eval'])
-            eva = a[['id', 'ancestry_distribution.gwas']].copy()
-            eva['stage'] = 'gwas'
-            eva['ancestry_distribution'] = eva['ancestry_distribution.gwas']
-            eva = eva.drop(columns=['ancestry_distribution.gwas'])
-            b = concat([dva, eva])
-            b['score_id'] = b['id']
-            b = b.dropna()
-            b.index = range(len(b))
-            for i in range(len(b['ancestry_distribution'])):
-                if not ('multi' in b['ancestry_distribution'][i]):
-                    b['ancestry_distribution'][i]['multi'] = None
-
-            b[['dist', 'count', 'multi']] = b['ancestry_distribution'].apply(
-                lambda x: Series(data=[x['dist'], x['count'], x['multi']]))
-            b = b.drop(columns=['id', 'ancestry_distribution'])
-            self.ancestry_distribution = b
-
-
-
-
-        else:
-            self.ancestry_distribution = DataFrame(
-                columns=['score_id'
-                         'stage'
-                         'dist'
-                         'count'
-                         'multi'])
+        raw_ancestry_distribution = json_normalize(data=data, max_level=0)
+        raw_ancestry_distribution['ancestry_distribution'] = raw_ancestry_distribution['ancestry_distribution'].map(
+            lambda x: [{y:x[y]} for y in x])
+        raw_ancestry_distribution = raw_ancestry_distribution.explode('ancestry_distribution')
+        raw_ancestry_distribution['stage'] = raw_ancestry_distribution['ancestry_distribution'].map(
+            lambda x: list(x.keys())[0])
+        raw_ancestry_distribution['ancestry_distribution'] = raw_ancestry_distribution['ancestry_distribution'].map(
+            lambda x: list(x.values())[0])
+        raw_ancestry_distribution['dist'] = raw_ancestry_distribution['ancestry_distribution'].map(
+            lambda x: x['dist'])
+        raw_ancestry_distribution['count'] = raw_ancestry_distribution['ancestry_distribution'].map(
+            lambda x: x['count'])
+        raw_ancestry_distribution['multi'] = raw_ancestry_distribution['ancestry_distribution'].map(
+            lambda x: x['multi'] if 'multi' in x else None)
+        raw_ancestry_distribution['score_id'] = raw_ancestry_distribution['id']
+        self.ancestry_distribution = raw_ancestry_distribution[
+            ['score_id', 'stage', 'dist', 'count', 'multi']].copy().reset_index(drop=True)
 
         if 'publication' in self.scores.columns:
             self.scores.drop(columns=['pubication'])

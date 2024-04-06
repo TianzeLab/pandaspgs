@@ -23,8 +23,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     packages=['pandaspgs'],
-    python_requires=">=3.10",
-    install_requires=['pandas>=1.5.3', 'requests>=2.28.1', 'progressbar2>=4.2.0', 'cachetools>=5.3.0'],
+    python_requires=">=3.11",
+    install_requires=['pandas>=2.1.4', 'requests>=2.31.0', 'progressbar2>=4.4.0', 'cachetools>=5.3.3'],
     license="MIT",
     keywords=['pgs', 'genomics', 'snp', 'bioinformatics','pandas'],
     package_data={

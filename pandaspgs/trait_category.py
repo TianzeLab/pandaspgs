@@ -63,7 +63,7 @@ class TraitCategory:
             return
         if data is None or len(data) == 0:
             self.EFO_traits = DataFrame(
-                columns=['id', 'label', 'description', 'url', 'category _id'])
+                columns=['id', 'label', 'description', 'url', 'category_id'])
             self.trait_categories = DataFrame(
                 columns=['id', 'label'])
             return
@@ -73,7 +73,7 @@ class TraitCategory:
         self.trait_categories = json_normalize(data=data, max_level=1).drop(columns=['efotraits'])
         self.trait_categories.columns = ['label', 'id']
         self.EFO_traits = json_normalize(data=data, record_path=['efotraits'], meta=['id1'])
-        self.EFO_traits.columns = ['id', 'label', 'description', 'url', 'category _id']
+        self.EFO_traits.columns = ['id', 'label', 'description', 'url', 'category_id']
 
     def __str__(self):
         if self.mode == 'Fat':

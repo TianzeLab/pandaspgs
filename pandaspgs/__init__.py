@@ -19,6 +19,7 @@ from pandaspgs.get_release import get_releases
 from pandaspgs.get_sample_set import get_sample_sets
 from pandaspgs.set_operation import set_equal, set_xor, set_diff, intersect, union, bind
 from pandaspgs.file_operation import read_scoring_file
+from pandaspgs.client import clear_cache
 
 __all__ = ['Cohort', 'Score', 'SampleSet', 'Release', 'Trait', 'Publication', 'AncestryCategory',
            'open_sample_set_in_pgs_catalog', 'open_publication_in_pgs_catalog', 'open_score_in_pgs_catalog',
