@@ -201,7 +201,7 @@ class Score:
             columns=['samples_variants', 'samples_training',
                      'trait_efo'])
         ancestry_distribution_to_drop = ['ancestry_distribution.eval', 'ancestry_distribution.gwas',
-                                         'ancestry_distribution.multi']
+                                         'ancestry_distribution.dev']
         for to_drop in ancestry_distribution_to_drop:
             if to_drop in self.scores.columns:
                 self.scores = self.scores.drop(columns=[to_drop])
