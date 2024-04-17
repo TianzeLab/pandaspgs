@@ -427,9 +427,9 @@ class Score:
     def __str__(self):
         if self.mode == 'Fat':
             return ("Score is running in fat mode. It has 7 DataFrames with hierarchical dependencies.\n"
-                    "scores:%d rows\n|\n -samples_varients: %d rows\n  |\n   -samples_variants_cohorts: %d rows\n|\n "
+                    "scores:%d rows\n|\n -samples_variants: %d rows\n  |\n   -samples_variants_cohorts: %d rows\n|\n "
                     "-samples_training: %d rows"
-                    "\n|\n  -samples_training_cohorts: %d rows"
+                    "\n  |\n   -samples_training_cohorts: %d rows"
                     "\n|\n -trait_efo: %d rows"
                     "\n|\n -ancestry_distribution: %d rows" % (
                         len(self.scores), len(self.samples_variants), len(self.samples_variants_cohorts),
