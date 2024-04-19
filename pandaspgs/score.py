@@ -233,7 +233,7 @@ class Score:
                 cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
                     lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
                 cohort = cohort.drop(columns=['id', 'cohorts'])
-            self.samples_variants_cohorts = cohort
+                self.samples_variants_cohorts = cohort
 
         else:
             self.samples_variants = DataFrame(
@@ -286,16 +286,17 @@ class Score:
             cohort = cohort.dropna()
             cohort = cohort.explode('cohorts')
             if len(cohort) == 0:
-                self.samples_variants_cohorts = DataFrame(
+                self.samples_training_cohorts = DataFrame(
                     columns=['score_id'
                              'sample_id'
                              'name_short'
                              'name_full'
                              'name_others'])
-            cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
-                lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
-            cohort = cohort.drop(columns=['id', 'cohorts'])
-            self.samples_training_cohorts = cohort
+            else:
+                cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
+                    lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
+                cohort = cohort.drop(columns=['id', 'cohorts'])
+                self.samples_training_cohorts = cohort
 
         else:
             self.samples_training = DataFrame(
