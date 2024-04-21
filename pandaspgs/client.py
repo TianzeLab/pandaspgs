@@ -101,6 +101,8 @@ def get_data(url: str, cache_impl=None, cached=True) -> List[Dict]:
         else:
             r = s.get(url)
         if r.status_code == 200:
+            if len(json.loads(r.text)) == 0:
+                return []
             cache_impl[url] = r
             parsed_data = json.loads(r.text)
             if parsed_data.get('results') is not None:
