@@ -59,6 +59,7 @@ class Score:
        one_and_three = one_and_two ^ two_and_three
        ```
        """
+
     def __init__(self, data: list = [], mode: str = "Fat"):
         """
         Args:
@@ -76,121 +77,121 @@ class Score:
         if data is None or len(data) == 0:
             self.scores = DataFrame(
                 columns=['id'
-                         'name'
-                         'ftp_scoring_file'
-                         'ftp_harmonized_scoring_files.GRCh37.positions'
-                         'ftp_harmonized_scoring_files.GRCh38.positions'
-                         'publication.id'
-                         'publication.title'
-                         'publication.doi'
-                         'publication.PMID'
-                         'publication.journal'
-                         'publication.firstauthor'
-                         'publication.date_publication'
-                         'matches_publication'
-                         'trait_reported'
-                         'trait_additional'
-                         'method_name'
-                         'method_params'
-                         'variants_number'
-                         'variants_interactions'
-                         'variants_genomebuild'
-                         'weight_type'
-                         'date_release'
-                         'license'
+                    , 'name'
+                    , 'ftp_scoring_file'
+                    , 'ftp_harmonized_scoring_files.GRCh37.positions'
+                    , 'ftp_harmonized_scoring_files.GRCh38.positions'
+                    , 'publication.id'
+                    , 'publication.title'
+                    , 'publication.doi'
+                    , 'publication.PMID'
+                    , 'publication.journal'
+                    , 'publication.firstauthor'
+                    , 'publication.date_publication'
+                    , 'matches_publication'
+                    , 'trait_reported'
+                    , 'trait_additional'
+                    , 'method_name'
+                    , 'method_params'
+                    , 'variants_number'
+                    , 'variants_interactions'
+                    , 'variants_genomebuild'
+                    , 'weight_type'
+                    , 'date_release'
+                    , 'license'
                          ])
             self.samples_variants = DataFrame(
                 columns=['id'
-                         'score_id'
-                         'sample_number'
-                         'sample_cases'
-                         'sample_controls'
-                         'sample_percent_male'
-                         'sample_age.estimate_type'
-                         'sample_age.estimate'
-                         'sample_age.interval.type'
-                         'sample_age.interval.lower'
-                         'sample_age.interval.upper'
-                         'sample_age.variability_type'
-                         'sample_age.variability'
-                         'sample_age.unit'
-                         'phenotyping_free'
-                         'followup_time.estimate_type'
-                         'followup_time.estimate'
-                         'followup_time.interval.type'
-                         'followup_time.interval.lower'
-                         'followup_time.interval.upper'
-                         'followup_time.variability_type'
-                         'followup_time.variability'
-                         'followup_time.unit'
-                         'ancestry_broad'
-                         'ancestry_free'
-                         'ancestry_country'
-                         'ancestry_additional'
-                         'source_GWAS_catalog'
-                         'source_PMID'
-                         'source_DOI'
-                         'cohorts_additional'
+                    , 'score_id'
+                    , 'sample_number'
+                    , 'sample_cases'
+                    , 'sample_controls'
+                    , 'sample_percent_male'
+                    , 'sample_age.estimate_type'
+                    , 'sample_age.estimate'
+                    , 'sample_age.interval.type'
+                    , 'sample_age.interval.lower'
+                    , 'sample_age.interval.upper'
+                    , 'sample_age.variability_type'
+                    , 'sample_age.variability'
+                    , 'sample_age.unit'
+                    , 'phenotyping_free'
+                    , 'followup_time.estimate_type'
+                    , 'followup_time.estimate'
+                    , 'followup_time.interval.type'
+                    , 'followup_time.interval.lower'
+                    , 'followup_time.interval.upper'
+                    , 'followup_time.variability_type'
+                    , 'followup_time.variability'
+                    , 'followup_time.unit'
+                    , 'ancestry_broad'
+                    , 'ancestry_free'
+                    , 'ancestry_country'
+                    , 'ancestry_additional'
+                    , 'source_GWAS_catalog'
+                    , 'source_PMID'
+                    , 'source_DOI'
+                    , 'cohorts_additional'
                          ])
             self.samples_variants_cohorts = DataFrame(
                 columns=['score_id'
-                         'sample_id'
-                         'name_short'
-                         'name_full'
-                         'name_others'])
+                    , 'sample_id'
+                    , 'name_short'
+                    , 'name_full'
+                    , 'name_others'])
             self.trait_efo = DataFrame(
                 columns=['score_i'
-                         'id'
-                         'label'
-                         'description'
-                         'url'
+                    , 'id'
+                    , 'label'
+                    , 'description'
+                    , 'url'
                          ])
             self.samples_training = DataFrame(
                 columns=['id'
-                         'score_id'
-                         'sample_number'
-                         'sample_cases'
-                         'sample_controls'
-                         'sample_percent_male'
-                         'sample_age.estimate_type'
-                         'sample_age.estimate'
-                         'sample_age.interval.type'
-                         'sample_age.interval.lower'
-                         'sample_age.interval.upper'
-                         'sample_age.variability_type'
-                         'sample_age.variability'
-                         'sample_age.unit'
-                         'phenotyping_free'
-                         'followup_time.estimate_type'
-                         'followup_time.estimate'
-                         'followup_time.interval.type'
-                         'followup_time.interval.lower'
-                         'followup_time.interval.upper'
-                         'followup_time.variability_type'
-                         'followup_time.variability'
-                         'followup_time.unit'
-                         'ancestry_broad'
-                         'ancestry_free'
-                         'ancestry_country'
-                         'ancestry_additional'
-                         'source_GWAS_catalog'
-                         'source_PMID'
-                         'source_DOI'
-                         'cohorts_additional'
+                    , 'score_id'
+                    , 'sample_number'
+                    , 'sample_cases'
+                    , 'sample_controls'
+                    , 'sample_percent_male'
+                    , 'sample_age.estimate_type'
+                    , 'sample_age.estimate'
+                    , 'sample_age.interval.type'
+                    , 'sample_age.interval.lower'
+                    , 'sample_age.interval.upper'
+                    , 'sample_age.variability_type'
+                    , 'sample_age.variability'
+                    , 'sample_age.unit'
+                    , 'phenotyping_free'
+                    , 'followup_time.estimate_type'
+                    , 'followup_time.estimate'
+                    , 'followup_time.interval.type'
+                    , 'followup_time.interval.lower'
+                    , 'followup_time.interval.upper'
+                    , 'followup_time.variability_type'
+                    , 'followup_time.variability'
+                    , 'followup_time.unit'
+                    , 'ancestry_broad'
+                    , 'ancestry_free'
+                    , 'ancestry_country'
+                    , 'ancestry_additional'
+                    , 'source_GWAS_catalog'
+                    , 'source_PMID'
+                    , 'source_DOI'
+                    , 'cohorts_additional'
                          ])
             self.samples_training_cohorts = DataFrame(
                 columns=['score_id'
-                         'sample_id'
-                         'name_short'
-                         'name_full'
-                         'name_others'
+                    , 'sample_id'
+                    , 'name_short'
+                    , 'name_full'
+                    , 'name_others'
                          ])
             self.ancestry_distribution = DataFrame(
                 columns=['score_id'
-                         'stage'
-                         'dist'
-                         'count'
-                         'multi'])
+                    , 'stage'
+                    , 'dist'
+                    , 'count'
+                    , 'multi'])
             return
         datas = json_normalize(data=data, max_level=1)
         datas['samples_variants'] = datas['samples_variants'].map(lambda x: x == [])
@@ -211,7 +212,8 @@ class Score:
         self.scores['ftp_harmonized_scoring_files.GRCh37.positions'] = self.scores[
             'ftp_harmonized_scoring_files.GRCh37'].map(
             lambda x: x['positions'])
-        self.scores = self.scores.drop(columns=['ftp_harmonized_scoring_files.GRCh38','ftp_harmonized_scoring_files.GRCh37'])
+        self.scores = self.scores.drop(
+            columns=['ftp_harmonized_scoring_files.GRCh38', 'ftp_harmonized_scoring_files.GRCh37'])
         if not datas['samples_variants'].all():
             self.samples_variants = json_normalize(data=data, record_path=['samples_variants'], meta=['id'])
             self.samples_variants['score_id'] = self.samples_variants['id']
@@ -225,10 +227,10 @@ class Score:
             if len(cohort) == 0:
                 self.samples_variants_cohorts = DataFrame(
                     columns=['score_id'
-                             'sample_id'
-                             'name_short'
-                             'name_full'
-                             'name_others'])
+                        , 'sample_id'
+                        , 'name_short'
+                        , 'name_full'
+                        , 'name_others'])
             else:
                 cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
                     lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
@@ -238,43 +240,43 @@ class Score:
         else:
             self.samples_variants = DataFrame(
                 columns=['id'
-                         'score_id'
-                         'sample_number'
-                         'sample_cases'
-                         'sample_controls'
-                         'sample_percent_male'
-                         'sample_age.estimate_type'
-                         'sample_age.estimate'
-                         'sample_age.interval.type'
-                         'sample_age.interval.lower'
-                         'sample_age.interval.upper'
-                         'sample_age.variability_type'
-                         'sample_age.variability'
-                         'sample_age.unit'
-                         'phenotyping_free'
-                         'followup_time.estimate_type'
-                         'followup_time.estimate'
-                         'followup_time.interval.type'
-                         'followup_time.interval.lower'
-                         'followup_time.interval.upper'
-                         'followup_time.variability_type'
-                         'followup_time.variability'
-                         'followup_time.unit'
-                         'ancestry_broad'
-                         'ancestry_free'
-                         'ancestry_country'
-                         'ancestry_additional'
-                         'source_GWAS_catalog'
-                         'source_PMID'
-                         'source_DOI'
-                         'cohorts_additional'
+                    , 'score_id'
+                    , 'sample_number'
+                    , 'sample_cases'
+                    , 'sample_controls'
+                    , 'sample_percent_male'
+                    , 'sample_age.estimate_type'
+                    , 'sample_age.estimate'
+                    , 'sample_age.interval.type'
+                    , 'sample_age.interval.lower'
+                    , 'sample_age.interval.upper'
+                    , 'sample_age.variability_type'
+                    , 'sample_age.variability'
+                    , 'sample_age.unit'
+                    , 'phenotyping_free'
+                    , 'followup_time.estimate_type'
+                    , 'followup_time.estimate'
+                    , 'followup_time.interval.type'
+                    , 'followup_time.interval.lower'
+                    , 'followup_time.interval.upper'
+                    , 'followup_time.variability_type'
+                    , 'followup_time.variability'
+                    , 'followup_time.unit'
+                    , 'ancestry_broad'
+                    , 'ancestry_free'
+                    , 'ancestry_country'
+                    , 'ancestry_additional'
+                    , 'source_GWAS_catalog'
+                    , 'source_PMID'
+                    , 'source_DOI'
+                    , 'cohorts_additional'
                          ])
             self.samples_variants_cohorts = DataFrame(
                 columns=['score_id'
-                         'sample_id'
-                         'name_short'
-                         'name_full'
-                         'name_others'])
+                    , 'sample_id'
+                    , 'name_short'
+                    , 'name_full'
+                    , 'name_others'])
         if not datas['samples_training'].all():
             self.samples_training = json_normalize(data=data, record_path=['samples_training'], meta=['id'])
             self.samples_training['score_id'] = self.samples_training['id']
@@ -288,10 +290,10 @@ class Score:
             if len(cohort) == 0:
                 self.samples_training_cohorts = DataFrame(
                     columns=['score_id'
-                             'sample_id'
-                             'name_short'
-                             'name_full'
-                             'name_others'])
+                        , 'sample_id'
+                        , 'name_short'
+                        , 'name_full'
+                        , 'name_others'])
             else:
                 cohort[['name_short', 'name_full', 'name_others']] = cohort['cohorts'].apply(
                     lambda x: Series(data=[x['name_short'], x['name_full'], x['name_others']]))
@@ -301,43 +303,43 @@ class Score:
         else:
             self.samples_training = DataFrame(
                 columns=['id'
-                         'score_id'
-                         'sample_number'
-                         'sample_cases'
-                         'sample_controls'
-                         'sample_percent_male'
-                         'sample_age.estimate_type'
-                         'sample_age.estimate'
-                         'sample_age.interval.type'
-                         'sample_age.interval.lower'
-                         'sample_age.interval.upper'
-                         'sample_age.variability_type'
-                         'sample_age.variability'
-                         'sample_age.unit'
-                         'phenotyping_free'
-                         'followup_time.estimate_type'
-                         'followup_time.estimate'
-                         'followup_time.interval.type'
-                         'followup_time.interval.lower'
-                         'followup_time.interval.upper'
-                         'followup_time.variability_type'
-                         'followup_time.variability'
-                         'followup_time.unit'
-                         'ancestry_broad'
-                         'ancestry_free'
-                         'ancestry_country'
-                         'ancestry_additional'
-                         'source_GWAS_catalog'
-                         'source_PMID'
-                         'source_DOI'
-                         'cohorts_additional'
+                    , 'score_id'
+                    , 'sample_number'
+                    , 'sample_cases'
+                    , 'sample_controls'
+                    , 'sample_percent_male'
+                    , 'sample_age.estimate_type'
+                    , 'sample_age.estimate'
+                    , 'sample_age.interval.type'
+                    , 'sample_age.interval.lower'
+                    , 'sample_age.interval.upper'
+                    , 'sample_age.variability_type'
+                    , 'sample_age.variability'
+                    , 'sample_age.unit'
+                    , 'phenotyping_free'
+                    , 'followup_time.estimate_type'
+                    , 'followup_time.estimate'
+                    , 'followup_time.interval.type'
+                    , 'followup_time.interval.lower'
+                    , 'followup_time.interval.upper'
+                    , 'followup_time.variability_type'
+                    , 'followup_time.variability'
+                    , 'followup_time.unit'
+                    , 'ancestry_broad'
+                    , 'ancestry_free'
+                    , 'ancestry_country'
+                    , 'ancestry_additional'
+                    , 'source_GWAS_catalog'
+                    , 'source_PMID'
+                    , 'source_DOI'
+                    , 'cohorts_additional'
                          ])
             self.samples_training_cohorts = DataFrame(
                 columns=['score_id'
-                         'sample_id'
-                         'name_short'
-                         'name_full'
-                         'name_others'
+                    , 'sample_id'
+                    , 'name_short'
+                    , 'name_full'
+                    , 'name_others'
                          ])
         if not datas['trait_efo'].all():
             self.trait_efo = json_normalize(data=data, record_path=['trait_efo'], meta='id', meta_prefix='score_')
@@ -345,13 +347,13 @@ class Score:
         else:
             self.trait_efo = DataFrame(
                 columns=['score_id'
-                         'id'
-                         'label'
-                         'description'
-                         'url'])
+                    , 'id'
+                    , 'label'
+                    , 'description'
+                    , 'url'])
         raw_ancestry_distribution = json_normalize(data=data, max_level=0)
         raw_ancestry_distribution['ancestry_distribution'] = raw_ancestry_distribution['ancestry_distribution'].map(
-            lambda x: [{y:x[y]} for y in x])
+            lambda x: [{y: x[y]} for y in x])
         raw_ancestry_distribution = raw_ancestry_distribution.explode('ancestry_distribution')
         raw_ancestry_distribution['stage'] = raw_ancestry_distribution['ancestry_distribution'].map(
             lambda x: list(x.keys())[0])
@@ -371,58 +373,58 @@ class Score:
             self.scores.drop(columns=['pubication'])
             self.scores = self.scores.reindex(
                 columns=self.scores.columns.tolist() + ['publication.id'
-                                                        'publication.title'
-                                                        'publication.doi'
-                                                        'publication.PMID'
-                                                        'publication.journal'
-                                                        'publication.firstauthor'
-                                                        'publication.date_publication'])
+                    , 'publication.title'
+                    , 'publication.doi'
+                    , 'publication.PMID'
+                    , 'publication.journal'
+                    , 'publication.firstauthor'
+                    , 'publication.date_publication'])
         if 'samples_age' in self.samples_variants.columns:
             self.samples_variants.drop(columns=['samples_age'])
             self.samples_variants = self.samples_variants.reindex(
                 columns=self.samples_variants.columns.tolist() + ['sample_age.estimate_type'
-                                                                  'sample_age.estimate'
-                                                                  'sample_age.interval.type'
-                                                                  'sample_age.interval.lower'
-                                                                  'sample_age.interval.upper'
-                                                                  'sample_age.variability_type'
-                                                                  'sample_age.variability'
-                                                                  'sample_age.unit']
+                    , 'sample_age.estimate'
+                    , 'sample_age.interval.type'
+                    , 'sample_age.interval.lower'
+                    , 'sample_age.interval.upper'
+                    , 'sample_age.variability_type'
+                    , 'sample_age.variability'
+                    , 'sample_age.unit']
             )
         if 'followup_time' in self.samples_variants.columns:
             self.samples_variants.drop(columns=['followup_time'])
             self.samples_variants = self.samples_variants.reindex(
                 columns=self.samples_variants.columns.tolist() + ['followup_time.estimate_type'
-                                                                  'followup_time.estimate'
-                                                                  'followup_time.interval.type'
-                                                                  'followup_time.interval.lower'
-                                                                  'followup_time.interval.upper'
-                                                                  'followup_time.variability_type'
-                                                                  'followup_time.variability'
-                                                                  'followup_time.unit'])
+                    , 'followup_time.estimate'
+                    , 'followup_time.interval.type'
+                    , 'followup_time.interval.lower'
+                    , 'followup_time.interval.upper'
+                    , 'followup_time.variability_type'
+                    , 'followup_time.variability'
+                    , 'followup_time.unit'])
         if 'samples_age' in self.samples_training.columns:
             self.samples_training.drop(columns=['samples_age'])
             self.samples_training = self.samples_training.reindex(
                 columns=self.samples_training.columns.tolist() + ['sample_age.estimate_type'
-                                                                  'sample_age.estimate'
-                                                                  'sample_age.interval.type'
-                                                                  'sample_age.interval.lower'
-                                                                  'sample_age.interval.upper'
-                                                                  'sample_age.variability_type'
-                                                                  'sample_age.variability'
-                                                                  'sample_age.unit']
+                    , 'sample_age.estimate'
+                    , 'sample_age.interval.type'
+                    , 'sample_age.interval.lower'
+                    , 'sample_age.interval.upper'
+                    , 'sample_age.variability_type'
+                    , 'sample_age.variability'
+                    , 'sample_age.unit']
             )
         if 'followup_time' in self.samples_training.columns:
             self.samples_training.drop(columns=['followup_time'])
             self.samples_training = self.samples_training.reindex(
                 columns=self.samples_training.columns.tolist() + ['followup_time.estimate_type'
-                                                                  'followup_time.estimate'
-                                                                  'followup_time.interval.type'
-                                                                  'followup_time.interval.lower'
-                                                                  'followup_time.interval.upper'
-                                                                  'followup_time.variability_type'
-                                                                  'followup_time.variability'
-                                                                  'followup_time.unit'])
+                    , 'followup_time.estimate'
+                    , 'followup_time.interval.type'
+                    , 'followup_time.interval.lower'
+                    , 'followup_time.interval.upper'
+                    , 'followup_time.variability_type'
+                    , 'followup_time.variability'
+                    , 'followup_time.unit'])
         return
 
     def __str__(self):
