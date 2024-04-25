@@ -3,7 +3,7 @@ import sys
 import re
 
 import requests
-from pandas import DataFrame, read_table
+from pandas import DataFrame, read_table, Series
 from requests.adapters import HTTPAdapter
 
 from pandaspgs import get_scores
@@ -59,3 +59,11 @@ def read_scoring_file(pgs_id: str = None, grch='GRCh37') -> DataFrame:
 
     df = read_table(home_path + os.sep + file_name, comment='#', compression='gzip')
     return df
+
+
+def genotype_weighted_score(s: Series) -> DataFrame:
+    genotype = [s['effect_allele'] + '/' + s['effect_allele'], s['effect_allele'] + '/' + s['other_allele'],
+                s['other_allele'] + '/' + s['other_allele']]
+    weighted_score = [2 * s['effect_weight'], 1 * s['effect_weight'], 0 * s['effect_weight']]
+    data = {s['rsID'] + "_genotype": genotype, s['rsID'] + "_weighted_score": weighted_score}
+    return DataFrame(data=data)
