@@ -111,7 +111,7 @@ class SampleSet:
                          'source_GWAS_catalog', 'source_PMID', 'source_DOI', 'cohorts_additional'])
             self.cohorts = DataFrame(columns=['sample_set_id', 'sample_id', 'name_short', 'name_full', 'name_others'])
         if 'publication' in self.sample_sets.columns:
-            self.sample_sets.drop(columns=['pubication'])
+            self.sample_sets = self.sample_sets.drop(columns=['pubication'])
             self.sample_sets = self.sample_sets.reindex(
                 columns=self.sample_sets.columns.tolist() + ['publication.title',
                                                              'publication.doi', 'publication.PMID',
@@ -119,7 +119,7 @@ class SampleSet:
                                                              'publication.firstauthor',
                                                              'publication.date_publication'])
         if 'sample_age' in self.samples:
-            self.samples.drop(columns=['sample_age'])
+            self.samples = self.samples.drop(columns=['sample_age'])
             self.samples = self.samples.reindex(
                 columns=self.samples.columns.tolist() + ['sample_age.estimate_type', 'sample_age.estimate',
                                                          'sample_age.interval.type', 'sample_age.interval.lower',
@@ -128,7 +128,7 @@ class SampleSet:
                                                          'sample_age.unit']
             )
         if 'followup_time' in self.samples:
-            self.samples.drop(columns=['followup_time'])
+            self.samples = self.samples.drop(columns=['followup_time'])
             self.samples = self.samples.reindex(
                 columns=self.samples.columns.tolist() + ['followup_time.estimate_type', 'followup_time.estimate',
                                                          'followup_time.interval.type', 'followup_time.interval.lower',

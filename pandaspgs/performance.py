@@ -159,7 +159,7 @@ class PerformanceMetric:
             self.othermetrics = DataFrame(
                 columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
         if 'publication' in self.performance_metrics.columns:
-            self.performance_metrics.drop(columns=['pubication'])
+            self.performance_metrics = self.performance_metrics.drop(columns=['pubication'])
             self.performance_metrics = self.performance_metrics.reindex(
                 columns=self.performance_metrics.columns.tolist() + ['publication.title',
                                                                      'publication.doi', 'publication.PMID',
@@ -167,7 +167,7 @@ class PerformanceMetric:
                                                                      'publication.firstauthor',
                                                                      'publication.date_publication'])
         if 'sample_age' in self.samples:
-            self.samples.drop(columns=['sample_age'])
+            self.samples = self.samples.drop(columns=['sample_age'])
             self.samples = self.samples.reindex(
                 columns=self.samples.columns.tolist() + ['sample_age.estimate_type', 'sample_age.estimate',
                                                          'sample_age.interval.type', 'sample_age.interval.lower',
@@ -176,7 +176,7 @@ class PerformanceMetric:
                                                          'sample_age.unit']
             )
         if 'followup_time' in self.samples:
-            self.samples.drop(columns=['followup_time'])
+            self.samples = self.samples.drop(columns=['followup_time'])
             self.samples = self.samples.reindex(
                 columns=self.samples.columns.tolist() + ['followup_time.estimate_type', 'followup_time.estimate',
                                                          'followup_time.interval.type', 'followup_time.interval.lower',

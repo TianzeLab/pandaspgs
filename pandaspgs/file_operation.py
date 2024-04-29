@@ -13,7 +13,7 @@ s.mount('https://', HTTPAdapter(max_retries=5))
 home_path = os.path.expanduser('~') + os.sep + 'pandaspgs_home'
 
 
-def read_scoring_file(pgs_id: str = None, grch='GRCh37') -> DataFrame:
+def read_scoring_file(pgs_id: str = None, grch: str = 'GRCh37') -> DataFrame:
     """
     Download a scoring file and convert it to a DataFrame. The directory of the downloaded file is $HOME/pandaspgs_home.
 
