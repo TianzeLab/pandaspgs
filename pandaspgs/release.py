@@ -13,7 +13,7 @@ class Release:
        Attributes:
             raw_data: list. Convert from obtained JSON data
             releases: DataFrame. It only exists if the parameter mode of constructor is Fat.
-            released_score_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            released_performance_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
             released_publication_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
             released_score_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
             mode: Fat or Thin. Specifies the mode of the returned object.
@@ -26,7 +26,7 @@ class Release:
        ch.raw_data
        ch.mode
        ch.releases
-       ch.released_score_ids
+       ch.released_performance_ids
        ch.released_publication_ids
        ch.released_score_ids
        ```
@@ -66,10 +66,10 @@ class Release:
         if mode == "Thin":
             return
         if data is None or len(data) == 0:
-            self.releases = ['date', 'score_count', 'performance_count', 'publication_count', 'notes']
-            self.released_score_ids = ['release_date', 'released_score_id']
-            self.released_publication_ids = ['release_date', 'released_publication']
-            self.released_performance_ids = ['release_date', 'released_performance_id']
+            self.releases = DataFrame(columns=['date', 'score_count', 'performance_count', 'publication_count', 'notes'])
+            self.released_score_ids = DataFrame(columns=['release_date', 'released_score_id'])
+            self.released_publication_ids = DataFrame(columns=['release_date', 'released_publication'])
+            self.released_performance_ids = DataFrame(columns=['release_date', 'released_performance_id'])
             return
         datas = json_normalize(data=data, max_level=1)
         datas['released_score_ids'] = datas['released_score_ids'].map(lambda x: x == [])

@@ -1,5 +1,4 @@
 from pandas import DataFrame, json_normalize, set_option, Series
-from pandas import concat
 
 set_option('display.max_columns', None)
 set_option('display.width', 1000)
