@@ -12,7 +12,7 @@ class TraitCategory:
 
        Attributes:
             raw_data: list. Convert from obtained JSON data
-            EFO_traits : DataFrame. It only exists if the parameter mode of constructor is Fat.
+            efotraits : DataFrame. It only exists if the parameter mode of constructor is Fat.
             trait_categories: DataFrame. It only exists if the parameter mode of constructor is Fat.
 
        ```python
@@ -22,16 +22,16 @@ class TraitCategory:
        ch
        ch.raw_data
        ch.mode
-       ch.EFO_traits
+       ch.efotraits
        ch.trait_categories
        ```
        Subset object s by either identifier or position
        ```python
        all_df = get_trait_categories()
-       all_df[0].EFO_traits
-       all_df[0:3].EFO_traits
-       all_df['Biological process'].EFO_traits
-       all_df[('Biological process','Body measurement','Cancer')].EFO_traits
+       all_df[0].efotraits
+       all_df[0:3].efotraits
+       all_df['Biological process'].efotraits
+       all_df[('Biological process','Body measurement','Cancer')].efotraits
        ```
        Objects can be manipulated like sets in the mathematical sense.
        ```python
@@ -62,7 +62,7 @@ class TraitCategory:
         if mode == "Thin":
             return
         if data is None or len(data) == 0:
-            self.EFO_traits = DataFrame(
+            self.efotraits = DataFrame(
                 columns=['id', 'label', 'description', 'url', 'category_id'])
             self.trait_categories = DataFrame(
                 columns=['id', 'label'])
@@ -72,14 +72,14 @@ class TraitCategory:
 
         self.trait_categories = json_normalize(data=data, max_level=1).drop(columns=['efotraits'])
         self.trait_categories.columns = ['label', 'id']
-        self.EFO_traits = json_normalize(data=data, record_path=['efotraits'], meta=['id1'])
-        self.EFO_traits.columns = ['id', 'label', 'description', 'url', 'category_id']
+        self.efotraits = json_normalize(data=data, record_path=['efotraits'], meta=['id1'])
+        self.efotraits.columns = ['id', 'label', 'description', 'url', 'category_id']
 
     def __str__(self):
         if self.mode == 'Fat':
             return ("TraitCategory is running in fat mode. It has 2 DataFrames with hierarchical "
-                    "dependencies.\ntrait_categories: %d rows\n|\n -EFO_traits: %d rows" % (
-                        len(self.trait_categories), len(self.EFO_traits)))
+                    "dependencies.\ntrait_categories: %d rows\n|\n -efotraits: %d rows" % (
+                        len(self.trait_categories), len(self.efotraits)))
         if self.mode == 'Thin':
             return (
                 'TraitCategory is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '

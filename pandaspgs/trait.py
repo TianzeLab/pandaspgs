@@ -12,7 +12,7 @@ class Trait:
 
        Attributes:
             raw_data: list. Convert from obtained JSON data
-            EFO_traits : DataFrame. It only exists if the parameter mode of constructor is Fat.
+            traits : DataFrame. It only exists if the parameter mode of constructor is Fat.
             trait_categories: DataFrame. It only exists if the parameter mode of constructor is Fat.
             trait_synonyms: DataFrame. It only exists if the parameter mode of constructor is Fat.
             trait_mapped_terms: DataFrame. It only exists if the parameter mode of constructor is Fat.
@@ -27,7 +27,7 @@ class Trait:
        ch
        ch.raw_data
        ch.mode
-       ch.EFO_traits
+       ch.traits
        ch.trait_categories
        ch.trait_synonyms
        ch.trait_mapped_terms
@@ -37,10 +37,10 @@ class Trait:
        Subset object s by either identifier or position
        ```python
        all_df = get_traits()
-       all_df[0].EFO_traits
-       all_df[0:3].EFO_traits
-       all_df['EFO_0004214'].EFO_traits
-       all_df[('EFO_0004214','HP_0002027','HP_0011458')].EFO_traits
+       all_df[0].traits
+       all_df[0:3].traits
+       all_df['EFO_0004214'].traits
+       all_df[('EFO_0004214','HP_0002027','HP_0011458')].traits
        ```
        Objects can be manipulated like sets in the mathematical sense.
        ```python
@@ -70,7 +70,7 @@ class Trait:
         if mode == "Thin":
             return
         if data is None or len(data) == 0:
-            self.EFO_traits = DataFrame(
+            self.traits = DataFrame(
                 columns=['id', 'label', 'description', 'url'])
             self.trait_categories = DataFrame(
                 columns=['trait _id', 'trait_category'])
@@ -85,7 +85,7 @@ class Trait:
         datas['trait_mapped_terms'] = datas['trait_mapped_terms'].map(lambda x: x == [])
         datas['associated_pgs_ids'] = datas['associated_pgs_ids'].map(lambda x: x == [])
         datas['child_associated_pgs_ids'] = datas['child_associated_pgs_ids'].map(lambda x: x == [])
-        self.EFO_traits = json_normalize(data=data, max_level=1).drop(
+        self.traits = json_normalize(data=data, max_level=1).drop(
             columns=['trait_categories', 'trait_synonyms', 'trait_mapped_terms',
                      'associated_pgs_ids', 'child_associated_pgs_ids'])
         if not datas['trait_categories'].all():
@@ -119,11 +119,11 @@ class Trait:
 
     def __str__(self):
         if self.mode == 'Fat':
-            return ("Trait is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\nEFO_traits: "
+            return ("Trait is running in fat mode. It has 6 DataFrames with hierarchical dependencies.\ntraits: "
                     "%d rows\n|\n -associated_pgs_ids: %d rows\n|\n -child_associated_pgs_ids:"
                     "%d rows\n|\n -trait_categories: %d rows\n|\n -trait_mapped_terms: %d rows\n|\n -trait_synonyms:"
                     " %d rows" % (
-                        len(self.EFO_traits), len(self.associated_pgs_ids), len(self.child_associated_pgs_ids),
+                        len(self.traits), len(self.associated_pgs_ids), len(self.child_associated_pgs_ids),
                         len(self.trait_categories), len(self.trait_mapped_terms), len(self.trait_synonyms)))
         if self.mode == 'Thin':
             return ('Trait is running in thin mode. It has 1 list that contains the raw data.\nraw_data: a list of '

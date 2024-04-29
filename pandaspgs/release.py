@@ -16,6 +16,7 @@ class Release:
             released_performance_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
             released_publication_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
             released_score_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            released_new_trait_ids: DataFrame. It only exists if the parameter mode of constructor is Fat.
             mode: Fat or Thin. Specifies the mode of the returned object.
 
        ```python
@@ -29,6 +30,7 @@ class Release:
        ch.released_performance_ids
        ch.released_publication_ids
        ch.released_score_ids
+       ch.released_new_trait_ids
        ```
        Subset object s by either identifier or position
        ```python
@@ -70,13 +72,15 @@ class Release:
             self.released_score_ids = DataFrame(columns=['release_date', 'released_score_id'])
             self.released_publication_ids = DataFrame(columns=['release_date', 'released_publication'])
             self.released_performance_ids = DataFrame(columns=['release_date', 'released_performance_id'])
+            self.released_new_trait_ids = DataFrame(columns=['release_date','released_new_trait_id'])
             return
         datas = json_normalize(data=data, max_level=1)
         datas['released_score_ids'] = datas['released_score_ids'].map(lambda x: x == [])
         datas['released_publication_ids'] = datas['released_publication_ids'].map(lambda x: x == [])
         datas['released_performance_ids'] = datas['released_performance_ids'].map(lambda x: x == [])
+        datas['released_new_trait_ids'] = datas['released_new_trait_ids'].map(lambda x: x == [])
         self.releases = json_normalize(data=data, max_level=1).drop(
-            columns=['released_score_ids', 'released_publication_ids', 'released_performance_ids'])
+            columns=['released_score_ids', 'released_publication_ids', 'released_performance_ids', 'released_new_trait_ids'])
         if not datas['released_score_ids'].all():
             self.released_score_ids = json_normalize(data=data, record_path=['released_score_ids'], meta=['date'])
             self.released_score_ids.columns = ['released_score_id', 'release_date']
@@ -95,6 +99,12 @@ class Release:
             self.released_performance_ids.columns = ['released_performance_id', 'release_date']
         else:
             self.released_performance_ids = DataFrame(columns=['released_performance_id', 'release_date'])
+        if not datas['released_new_trait_ids'].all():
+            self.released_new_trait_ids = json_normalize(data=data, record_path=['released_new_trait_ids'],
+                                                           meta=['date'])
+            self.released_new_trait_ids.columns = ['released_new_trait_ids', 'release_date']
+        else:
+            self.released_new_trait_ids = DataFrame(columns=['released_new_trait_ids', 'release_date'])
         return
 
     def __str__(self):

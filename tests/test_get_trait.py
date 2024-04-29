@@ -24,7 +24,7 @@ def test_get_traits():
     filter_get_trait = get_traits(trait_id='EFO_0000305')
     filter_get_trait
     assert len(filter_get_trait) == 1
-    assert filter_get_trait.EFO_traits.size == 4 * 1
+    assert filter_get_trait.traits.size == 4 * 1
     assert filter_get_trait.trait_categories.size == 2 * 1
     assert filter_get_trait.trait_synonyms.size == 2 * 9
     assert filter_get_trait.associated_pgs_ids.size == 2 * 103

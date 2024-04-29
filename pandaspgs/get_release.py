@@ -4,7 +4,7 @@ from pandaspgs.release import Release
 import re
 
 
-def get_releases(date: str = 'latest', cached: bool = True, mode: str = 'Fat') -> Release:
+def get_releases(date: str = 'all', cached: bool = True, mode: str = 'Fat') -> Release:
     """
     Get Release data from the server.
 
