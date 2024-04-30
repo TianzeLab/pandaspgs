@@ -74,7 +74,7 @@ class PerformanceMetric:
             self.performance_metrics = DataFrame(
                 columns=['id', 'associated_pgs_id', 'phenotyping_reported', 'publication.id', 'publication.title',
                          'publication.doi', 'publication.PMID', 'publication.journal', 'publication.firstauthor',
-                         'publication.date_publication', 'sampleset.id', 'performance_metrics', 'covariates',
+                         'publication.date_publication', 'sampleset.id', 'covariates',
                          'performance_comments'])
             self.samples = DataFrame(
                 columns=['id', 'performance_metric_id', 'sample_number', 'sample_cases', 'sample_controls',
@@ -89,11 +89,14 @@ class PerformanceMetric:
             self.cohorts = DataFrame(
                 columns=['performance_metric_id', 'sample_id', 'name_short', 'name_full', 'name_others'])
             self.effect_sizes = DataFrame(
-                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
+                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se',
+                         'unit'])
             self.class_acc = DataFrame(
-                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
+                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se',
+                         'unit'])
             self.othermetrics = DataFrame(
-                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se'])
+                columns=['performance_metric_id', 'name_long', 'name_short', 'estimate', 'ci_lower', 'ci_upper', 'se',
+                         'unit'])
             return
         datas = json_normalize(data=data, max_level=1)
         datas['sampleset.samples'] = datas['sampleset.samples'].map(lambda x: x == [])
@@ -166,23 +169,33 @@ class PerformanceMetric:
                                                                      'publication.journal',
                                                                      'publication.firstauthor',
                                                                      'publication.date_publication'])
-        if 'sample_age' in self.samples:
+        if 'sample_age' in self.samples.columns:
             self.samples = self.samples.drop(columns=['sample_age'])
-            self.samples = self.samples.reindex(
-                columns=self.samples.columns.tolist() + ['sample_age.estimate_type', 'sample_age.estimate',
-                                                         'sample_age.interval.type', 'sample_age.interval.lower',
-                                                         'sample_age.interval.upper',
-                                                         'sample_age.variability_type', 'sample_age.variability',
-                                                         'sample_age.unit']
+            if 'sample_age.estimate_type' not in self.samples.columns:
+                self.samples = self.samples.reindex(
+                    columns=self.samples.columns.tolist() + ['sample_age.estimate_type', 'sample_age.estimate',
+                                                             'sample_age.interval.type', 'sample_age.interval.lower',
+                                                             'sample_age.interval.upper',
+                                                             'sample_age.variability_type', 'sample_age.variability',
+                                                             'sample_age.unit']
             )
-        if 'followup_time' in self.samples:
+        if 'followup_time' in self.samples.columns:
             self.samples = self.samples.drop(columns=['followup_time'])
-            self.samples = self.samples.reindex(
-                columns=self.samples.columns.tolist() + ['followup_time.estimate_type', 'followup_time.estimate',
-                                                         'followup_time.interval.type', 'followup_time.interval.lower',
-                                                         'followup_time.interval.upper',
-                                                         'followup_time.variability_type', 'followup_time.variability',
-                                                         'followup_time.unit'])
+            if 'followup_time.estimate_type' not in self.samples.columns:
+                self.samples = self.samples.reindex(
+                    columns=self.samples.columns.tolist() + ['followup_time.estimate_type', 'followup_time.estimate',
+                                                             'followup_time.interval.type',
+                                                             'followup_time.interval.lower',
+                                                             'followup_time.interval.upper',
+                                                             'followup_time.variability_type',
+                                                             'followup_time.variability',
+                                                             'followup_time.unit'])
+        if 'unit' not in self.effect_sizes.columns:
+            self.effect_sizes['unit'] = None
+        if 'unit' not in self.class_acc.columns:
+            self.class_acc['unit'] = None
+        if 'unit' not in self.othermetrics.columns:
+            self.othermetrics['unit'] = None
         return
 
     def __str__(self):

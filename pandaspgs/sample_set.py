@@ -118,23 +118,27 @@ class SampleSet:
                                                              'publication.journal',
                                                              'publication.firstauthor',
                                                              'publication.date_publication'])
-        if 'sample_age' in self.samples:
+        if 'sample_age' in self.samples.columns:
             self.samples = self.samples.drop(columns=['sample_age'])
-            self.samples = self.samples.reindex(
-                columns=self.samples.columns.tolist() + ['sample_age.estimate_type', 'sample_age.estimate',
-                                                         'sample_age.interval.type', 'sample_age.interval.lower',
-                                                         'sample_age.interval.upper',
-                                                         'sample_age.variability_type', 'sample_age.variability',
-                                                         'sample_age.unit']
+            if 'sample_age.estimate_type' not in self.samples.columns:
+                self.samples = self.samples.reindex(
+                    columns=self.samples.columns.tolist() + ['sample_age.estimate_type', 'sample_age.estimate',
+                                                             'sample_age.interval.type', 'sample_age.interval.lower',
+                                                             'sample_age.interval.upper',
+                                                             'sample_age.variability_type', 'sample_age.variability',
+                                                             'sample_age.unit']
             )
-        if 'followup_time' in self.samples:
+        if 'followup_time' in self.samples.columns:
             self.samples = self.samples.drop(columns=['followup_time'])
-            self.samples = self.samples.reindex(
-                columns=self.samples.columns.tolist() + ['followup_time.estimate_type', 'followup_time.estimate',
-                                                         'followup_time.interval.type', 'followup_time.interval.lower',
-                                                         'followup_time.interval.upper',
-                                                         'followup_time.variability_type', 'followup_time.variability',
-                                                         'followup_time.unit'])
+            if 'followup_time.estimate_type' not in self.samples.columns:
+                self.samples = self.samples.reindex(
+                    columns=self.samples.columns.tolist() + ['followup_time.estimate_type', 'followup_time.estimate',
+                                                             'followup_time.interval.type',
+                                                             'followup_time.interval.lower',
+                                                             'followup_time.interval.upper',
+                                                             'followup_time.variability_type',
+                                                             'followup_time.variability',
+                                                             'followup_time.unit'])
         return
 
     def __str__(self):
