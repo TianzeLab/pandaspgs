@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Set operation - pandasPGS Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Set operation";
+        var mkdocs_page_input_path = "set_operation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> pandasPGS Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">API</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../ancestry_category/">Ancestry category</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../browser/">Browser</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../client/">Client</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cohort/">Cohort</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../file_operation/">File operation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_ancestry_category/">Get ancestry category</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_child_trait/">Get child trait</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_cohort/">Get cohort</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_performance/">Get performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_publication/">Get publication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_release/">Get release</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_sample_set/">Get sample set</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_score/">Get score</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_trait/">Get trait</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_trait_category/">Get trait category</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../performance/">Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../publication/">Publication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../release/">Release</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../sample_set/">Sample set</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../score/">Score</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Set operation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.set_operation.bind">bind</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.set_operation.intersect">intersect</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.set_operation.set_diff">set_diff</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.set_operation.set_equal">set_equal</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.set_operation.set_xor">set_xor</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.set_operation.union">union</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../trait/">Trait</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../trait_category/">Trait category</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">pandasPGS Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Set operation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="doc doc-object doc-module">
+
+
+
+<h2 id="pandaspgs.set_operation" class="doc doc-heading">
+          <span class="doc doc-object-name doc-module-name">pandaspgs.set_operation</span>
+
+
+</h2>
+
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="pandaspgs.set_operation.bind" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">bind</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">bind</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
+    <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span>
+<span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Binds together PGS objects of the same object. Note that bind() preserves duplicates whereas union() does not.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>a</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the pandasPGS custom class.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>b</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the same type as a.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>
+            –
+            <div class="doc-md-description">
+              <p>An object of the same type as a.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+from pandaspgs.set_operation import bind
+
+
+a = get_cohorts(cohort_symbol='100-plus')
+b = get_cohorts(cohort_symbol='23andMe')
+c = bind(a,b)
+</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="pandaspgs.set_operation.intersect" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">intersect</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">intersect</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
+    <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span>
+<span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns the data common to both A and B, with no repetitions</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>a</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the pandasPGS custom class.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>b</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the same type as a.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>
+            –
+            <div class="doc-md-description">
+              <p>An object of the same type as a.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+from pandaspgs.set_operation import intersect
+
+
+a = get_cohorts(cohort_symbol='100-plus')
+b = get_cohorts(cohort_symbol='23andMe')
+c = intersect(a,b)
+</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="pandaspgs.set_operation.set_diff" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">set_diff</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">set_diff</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
+    <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span>
+<span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>returns the data in A that is not in B, with no repetitions</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>a</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the pandasPGS custom class.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>b</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the same type as a.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>
+            –
+            <div class="doc-md-description">
+              <p>An object of the same type as a.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+from pandaspgs.set_operation import set_diff
+
+
+a = get_cohorts(cohort_symbol='23andMe')
+b = get_cohorts(cohort_symbol='23andMe')
+c = set_diff(a,b)
+</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="pandaspgs.set_operation.set_equal" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">set_equal</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">set_equal</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Check if the raw data of a and b are equal</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>a</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the pandasPGS custom class.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>b</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the same type as a.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>bool</code>
+            –
+            <div class="doc-md-description">
+              <p>An object of the same type as a.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+from pandaspgs.set_operation import set_equal
+
+
+a = get_cohorts(cohort_symbol='100-plus')
+b = get_cohorts(cohort_symbol='23andMe')
+c = set_equal(a,b)
+</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="pandaspgs.set_operation.set_xor" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">set_xor</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">set_xor</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
+    <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span>
+<span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>returns the data of A and B that are not in their intersection (the symmetric difference), with no repetitions</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>a</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the pandasPGS custom class.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>b</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the same type as a.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>
+            –
+            <div class="doc-md-description">
+              <p>An object of the same type as a.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+from pandaspgs.set_operation import set_xor
+
+
+a = get_cohorts(cohort_symbol='100-plus')
+b = get_cohorts(cohort_symbol='23andMe')
+c = set_xor(a,b)
+</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="pandaspgs.set_operation.union" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">union</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">union</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
+    <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span>
+<span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>returns the combined data from A and B with no repetitions</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>a</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the pandasPGS custom class.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>b</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>An object of the same type as a.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><a class="autorefs autorefs-internal" title="pandaspgs.ancestry_category.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.performance.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.publication.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.release.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.sample_set.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.score.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.trait_category.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>
+            –
+            <div class="doc-md-description">
+              <p>An object of the same type as a.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+from pandaspgs.set_operation import union
+
+
+a = get_cohorts(cohort_symbol='100-plus')
+b = get_cohorts(cohort_symbol='23andMe')
+c = union(a,b)
+</code></pre>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../score/" class="btn btn-neutral float-left" title="Score"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../trait/" class="btn btn-neutral float-right" title="Trait">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../score/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../trait/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

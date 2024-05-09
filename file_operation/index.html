@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>File operation - pandasPGS Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "File operation";
+        var mkdocs_page_input_path = "file_operation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> pandasPGS Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">API</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../ancestry_category/">Ancestry category</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../browser/">Browser</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../client/">Client</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cohort/">Cohort</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">File operation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.file_operation.read_scoring_file">read_scoring_file</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.file_operation.write_csv">write_csv</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.file_operation.write_xlsx">write_xlsx</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_ancestry_category/">Get ancestry category</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_child_trait/">Get child trait</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_cohort/">Get cohort</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_performance/">Get performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_publication/">Get publication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_release/">Get release</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_sample_set/">Get sample set</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_score/">Get score</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_trait/">Get trait</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../get_trait_category/">Get trait category</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../performance/">Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../publication/">Publication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../release/">Release</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../sample_set/">Sample set</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../score/">Score</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../set_operation/">Set operation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../trait/">Trait</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../trait_category/">Trait category</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">pandasPGS Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">File operation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="doc doc-object doc-module">
+
+
+
+<h2 id="pandaspgs.file_operation" class="doc doc-heading">
+          <span class="doc doc-object-name doc-module-name">pandaspgs.file_operation</span>
+
+
+</h2>
+
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="pandaspgs.file_operation.read_scoring_file" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">read_scoring_file</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">read_scoring_file</span><span class="p">(</span>
+    <span class="n">pgs_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">grch</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GRCh37&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Download a scoring file and convert it to a DataFrame. The directory of the downloaded file is $HOME/pandaspgs_home.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>pgs_id</code></b>
+                  (<code>str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Polygenic Score ID.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>grch</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;GRCh37&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>GRCh37 or GRCh38.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code><span title="pandas.DataFrame">DataFrame</span></code>
+            –
+            <div class="doc-md-description">
+              <p>A DataFrame.</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>      <pre><code class="language-Python">from pandaspgs import read_scoring_file
+
+df = read_scoring_file(pgs_id='PGS000737')
+</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="pandaspgs.file_operation.write_csv" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">write_csv</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">write_csv</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">o</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a directory and write the attributes of pandasPGS objects to the corresponding CSV files.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>path</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>The directory that needs to be created.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>o</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>pandasPGS object.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>None</code>
+            –
+            <div class="doc-md-description">
+              <p>None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>      <pre><code class="language-Python">from pandaspgs import *
+import os
+home_path = os.path.expanduser('~') + os.sep + 'pandaspgs_home'
+ancestry = get_ancestry_categories()
+write_csv(home_path + os.sep + 'ancestry', ancestry)
+</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="pandaspgs.file_operation.write_xlsx" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">write_xlsx</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">write_xlsx</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">o</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Create a directory and write the attributes of pandasPGS objects to the corresponding EXCEL files.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>path</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>The directory that needs to be created.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>o</code></b>
+                  (<code><a class="autorefs autorefs-internal" title="pandaspgs.AncestryCategory" href="../ancestry_category/#pandaspgs.ancestry_category.AncestryCategory">AncestryCategory</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Cohort" href="../cohort/#pandaspgs.cohort.Cohort">Cohort</a> | <a class="autorefs autorefs-internal" title="pandaspgs.PerformanceMetric" href="../performance/#pandaspgs.performance.PerformanceMetric">PerformanceMetric</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Publication" href="../publication/#pandaspgs.publication.Publication">Publication</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Release" href="../release/#pandaspgs.release.Release">Release</a> | <a class="autorefs autorefs-internal" title="pandaspgs.SampleSet" href="../sample_set/#pandaspgs.sample_set.SampleSet">SampleSet</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Score" href="../score/#pandaspgs.score.Score">Score</a> | <a class="autorefs autorefs-internal" title="pandaspgs.Trait" href="../trait/#pandaspgs.trait.Trait">Trait</a> | <a class="autorefs autorefs-internal" title="pandaspgs.TraitCategory" href="../trait_category/#pandaspgs.trait_category.TraitCategory">TraitCategory</a></code>)
+              –
+              <div class="doc-md-description">
+                <p>pandasPGS object.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+      <ul class="first simple">
+          <li>
+                <code>None</code>
+            –
+            <div class="doc-md-description">
+              <p>None</p>
+            </div>
+          </li>
+      </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>      <pre><code class="language-Python">from pandaspgs import *
+import os
+home_path = os.path.expanduser('~') + os.sep + 'pandaspgs_home'
+ancestry = get_ancestry_categories()
+write_xlsx(home_path + os.sep + 'ancestry', ancestry)
+</code></pre>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../cohort/" class="btn btn-neutral float-left" title="Cohort"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../get_ancestry_category/" class="btn btn-neutral float-right" title="Get ancestry category">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../cohort/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../get_ancestry_category/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
