@@ -11,9 +11,9 @@ setuptools.setup(
     description="A Python package for easy retrieval of PGS Catalog data",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/caotianze/pandaspgs",
+    url="https://github.com/tianzelab/pandaspgs",
     project_urls={
-        "Bug Tracker": "https://github.com/caotianze/pandaspgs/issues",
+        "Bug Tracker": "https://github.com/tianzelab/pandaspgs/issues",
     },
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -24,7 +24,7 @@ setuptools.setup(
     ],
     packages=['pandaspgs'],
     python_requires=">=3.11",
-    install_requires=['pandas>=2.1.4', 'requests>=2.31.0', 'progressbar2>=4.4.0', 'cachetools>=5.3.3'],
+    install_requires=['pandas>=2.1.4', 'requests>=2.31.0', 'progressbar2>=4.4.2', 'cachetools>=5.3.3'],
     license="MIT",
     keywords=['pgs', 'genomics', 'snp', 'bioinformatics','pandas'],
     package_data={
