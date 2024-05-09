@@ -18,7 +18,7 @@ from pandaspgs.get_publication import get_publications
 from pandaspgs.get_release import get_releases
 from pandaspgs.get_sample_set import get_sample_sets
 from pandaspgs.set_operation import set_equal, set_xor, set_diff, intersect, union, bind
-from pandaspgs.file_operation import read_scoring_file
+from pandaspgs.file_operation import read_scoring_file, write_csv, write_xlsx
 from pandaspgs.client import clear_cache
 
 __all__ = ['Cohort', 'Score', 'SampleSet', 'Release', 'Trait', 'Publication', 'AncestryCategory',
@@ -26,4 +26,5 @@ __all__ = ['Cohort', 'Score', 'SampleSet', 'Release', 'Trait', 'Publication', 'A
            'open_trait_in_pgs_catalog', 'open_in_dbsnp', 'open_in_pubmed', 'PerformanceMetric',
            'TraitCategory', 'get_performances', 'get_ancestry_categories', 'get_traits', 'get_trait_categories',
            'get_child_traits', 'get_scores', 'get_cohorts', 'get_publications', 'get_releases', 'get_sample_sets',
-           'set_equal', 'set_xor', 'set_diff', 'intersect', 'union', 'bind', 'read_scoring_file']
+           'set_equal', 'set_xor', 'set_diff', 'intersect', 'union', 'bind', 'read_scoring_file', 'write_csv',
+           'write_xlsx']

@@ -1,9 +1,7 @@
 import pytest
-
 from pandaspgs import *
 import os
 import shutil
-
 from sqlalchemy import create_engine
 
 home_path = os.path.expanduser('~') + os.sep + 'pandaspgs_home'
@@ -16,7 +14,7 @@ def test_read_scoring_file():
     df1 = read_scoring_file(pgs_id='PGS000737')
     df2 = read_scoring_file(pgs_id='PGS000737', grch='GRCh38')
     shutil.rmtree(home_path, ignore_errors=True)
-    assert df1.size == 3*14 and df2.size == 3*12
+    assert df1.size == 3 * 14 and df2.size == 3 * 12
     with pytest.raises(Exception):
         read_scoring_file(pgs_id='PGS000xxxx')
 
@@ -76,3 +74,69 @@ def test_write_to_sql():
     ancestry = get_ancestry_categories()
     ancestry.ancestry_categories.to_sql('ancestry_categories', engine, index=False)
     ancestry.categories.to_sql('categories', engine, index=False)
+
+
+def test_write_csv():
+    shutil.rmtree(home_path + os.sep, ignore_errors=True)
+    os.makedirs(home_path, exist_ok=True)
+    ancestry = get_ancestry_categories()
+    write_csv(home_path + os.sep + 'ancestry', ancestry)
+    assert os.path.isfile(home_path + os.sep + 'ancestry' + os.sep + 'ancestry_categories.csv')
+    assert os.path.isfile(home_path + os.sep + 'ancestry' + os.sep + 'categories.csv')
+    trait_c = get_trait_categories()
+    write_csv(home_path + os.sep + 'trait_c', trait_c)
+    assert os.path.isfile(home_path + os.sep + 'trait_c' + os.sep + 'trait_categories.csv')
+    trait = get_traits()
+    write_csv(home_path + os.sep + 'trait', trait)
+    assert os.path.isfile(home_path + os.sep + 'trait' + os.sep + 'traits.csv')
+    ss = get_sample_sets()
+    write_csv(home_path + os.sep + 'ss', ss)
+    assert os.path.isfile(home_path + os.sep + 'ss' + os.sep + 'sample_sets.csv')
+    rel = get_releases()
+    write_csv(home_path + os.sep + 'rel', rel)
+    assert os.path.isfile(home_path + os.sep + 'rel' + os.sep + 'releases.csv')
+    pub = get_publications()
+    write_csv(home_path + os.sep + 'pub', pub)
+    assert os.path.isfile(home_path + os.sep + 'pub' + os.sep + 'publications.csv')
+    pp = get_performances()
+    write_csv(home_path + os.sep + 'pp', pp)
+    assert os.path.isfile(home_path + os.sep + 'pp' + os.sep + 'performance_metrics.csv')
+    cohort = get_cohorts()
+    write_csv(home_path + os.sep + 'cohort', cohort)
+    assert os.path.isfile(home_path + os.sep + 'cohort' + os.sep + 'cohorts.csv')
+    scores = get_scores()
+    write_csv(home_path + os.sep + 'scores', scores)
+    assert os.path.isfile(home_path + os.sep + 'scores' + os.sep + 'scores.csv')
+
+
+def test_write_xlsx():
+    shutil.rmtree(home_path + os.sep, ignore_errors=True)
+    os.makedirs(home_path, exist_ok=True)
+    ancestry = get_ancestry_categories()
+    write_xlsx(home_path + os.sep + 'ancestry', ancestry)
+    assert os.path.isfile(home_path + os.sep + 'ancestry' + os.sep + 'ancestry_categories.xlsx')
+    assert os.path.isfile(home_path + os.sep + 'ancestry' + os.sep + 'categories.xlsx')
+    trait_c = get_trait_categories()
+    write_xlsx(home_path + os.sep + 'trait_c', trait_c)
+    assert os.path.isfile(home_path + os.sep + 'trait_c' + os.sep + 'trait_categories.xlsx')
+    trait = get_traits()
+    write_xlsx(home_path + os.sep + 'trait', trait)
+    assert os.path.isfile(home_path + os.sep + 'trait' + os.sep + 'traits.xlsx')
+    ss = get_sample_sets()
+    write_xlsx(home_path + os.sep + 'ss', ss)
+    assert os.path.isfile(home_path + os.sep + 'ss' + os.sep + 'sample_sets.xlsx')
+    rel = get_releases()
+    write_xlsx(home_path + os.sep + 'rel', rel)
+    assert os.path.isfile(home_path + os.sep + 'rel' + os.sep + 'releases.xlsx')
+    pub = get_publications()
+    write_xlsx(home_path + os.sep + 'pub', pub)
+    assert os.path.isfile(home_path + os.sep + 'pub' + os.sep + 'publications.xlsx')
+    pp = get_performances()
+    write_xlsx(home_path + os.sep + 'pp', pp)
+    assert os.path.isfile(home_path + os.sep + 'pp' + os.sep + 'performance_metrics.xlsx')
+    cohort = get_cohorts()
+    write_xlsx(home_path + os.sep + 'cohort', cohort)
+    assert os.path.isfile(home_path + os.sep + 'cohort' + os.sep + 'cohorts.xlsx')
+    scores = get_scores()
+    write_xlsx(home_path + os.sep + 'scores', scores)
+    assert os.path.isfile(home_path + os.sep + 'scores' + os.sep + 'scores.xlsx')

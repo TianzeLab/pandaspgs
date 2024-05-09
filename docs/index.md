@@ -28,8 +28,8 @@
 - [open_trait_in_pgs_catalog][pandaspgs.browser.open_trait_in_pgs_catalog]
 ### File operation
 - [read_scoring_file][pandaspgs.file_operation.read_scoring_file]
-- write_xlsx
-- write_csv
+- [write_xlsx][pandaspgs.file_operation.write_xlsx]
+- [write_csv][pandaspgs.file_operation.write_csv]
 ## Class
 - [Cohort][pandaspgs.cohort.Cohort]
 - [PerformanceMetric][pandaspgs.performance.PerformanceMetric]
