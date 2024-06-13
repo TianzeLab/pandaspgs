@@ -61,7 +61,7 @@
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">File operation</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">File operation</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.file_operation.read_scoring_file">read_scoring_file</a>
     </li>
@@ -172,17 +172,16 @@
 
 
 <h2 id="pandaspgs.file_operation" class="doc doc-heading">
-          <span class="doc doc-object-name doc-module-name">pandaspgs.file_operation</span>
+            <span class="doc doc-object-name doc-module-name">pandaspgs.file_operation</span>
 
 
 </h2>
 
-  <div class="doc doc-contents first">
+    <div class="doc doc-contents first">
 
-  
+
 
   <div class="doc doc-children">
-
 
 
 
@@ -195,21 +194,19 @@
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.file_operation.read_scoring_file" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">read_scoring_file</span>
+            <span class="doc doc-object-name doc-function-name">read_scoring_file</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">read_scoring_file</span><span class="p">(</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">read_scoring_file</span><span class="p">(</span>
     <span class="n">pgs_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">grch</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GRCh37&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
-      <p>Download a scoring file and convert it to a DataFrame. The directory of the downloaded file is $HOME/pandaspgs_home.</p>
+    <div class="doc doc-contents ">
 
+      <p>Download a scoring file and convert it to a DataFrame. The directory of the downloaded file is $HOME/pandaspgs_home.</p>
 
 
 <table class="field-list">
@@ -248,7 +245,6 @@
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -256,18 +252,18 @@
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-                <code><span title="pandas.DataFrame">DataFrame</span></code>
-            –
-            <div class="doc-md-description">
-              <p>A DataFrame.</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+              –
+              <div class="doc-md-description">
+                <p>A DataFrame.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>      <pre><code class="language-Python">from pandaspgs import read_scoring_file
@@ -275,21 +271,19 @@
 df = read_scoring_file(pgs_id='PGS000737')
 </code></pre>
 
-  </div>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.file_operation.write_csv" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">write_csv</span>
+            <span class="doc doc-object-name doc-function-name">write_csv</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">write_csv</span><span class="p">(</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">write_csv</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">o</span><span class="p">:</span> <span class="n">AncestryCategory</span>
     <span class="o">|</span> <span class="n">Cohort</span>
@@ -303,10 +297,9 @@ df = read_scoring_file(pgs_id='PGS000737')
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
-      <p>Create a directory and write the attributes of pandasPGS objects to the corresponding CSV files.</p>
+    <div class="doc doc-contents ">
 
+      <p>Create a directory and write the attributes of pandasPGS objects to the corresponding CSV files.</p>
 
 
 <table class="field-list">
@@ -341,7 +334,6 @@ df = read_scoring_file(pgs_id='PGS000737')
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -349,18 +341,18 @@ df = read_scoring_file(pgs_id='PGS000737')
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-                <code>None</code>
-            –
-            <div class="doc-md-description">
-              <p>None</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>None</code>
+              –
+              <div class="doc-md-description">
+                <p>None</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>      <pre><code class="language-Python">from pandaspgs import *
@@ -370,21 +362,19 @@ ancestry = get_ancestry_categories()
 write_csv(home_path + os.sep + 'ancestry', ancestry)
 </code></pre>
 
-  </div>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.file_operation.write_xlsx" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">write_xlsx</span>
+            <span class="doc doc-object-name doc-function-name">write_xlsx</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">write_xlsx</span><span class="p">(</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">write_xlsx</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">o</span><span class="p">:</span> <span class="n">AncestryCategory</span>
     <span class="o">|</span> <span class="n">Cohort</span>
@@ -398,10 +388,9 @@ write_csv(home_path + os.sep + 'ancestry', ancestry)
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
-      <p>Create a directory and write the attributes of pandasPGS objects to the corresponding EXCEL files.</p>
+    <div class="doc doc-contents ">
 
+      <p>Create a directory and write the attributes of pandasPGS objects to the corresponding EXCEL files.</p>
 
 
 <table class="field-list">
@@ -436,7 +425,6 @@ write_csv(home_path + os.sep + 'ancestry', ancestry)
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -444,18 +432,18 @@ write_csv(home_path + os.sep + 'ancestry', ancestry)
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-                <code>None</code>
-            –
-            <div class="doc-md-description">
-              <p>None</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>None</code>
+              –
+              <div class="doc-md-description">
+                <p>None</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>      <pre><code class="language-Python">from pandaspgs import *
@@ -465,7 +453,7 @@ ancestry = get_ancestry_categories()
 write_xlsx(home_path + os.sep + 'ancestry', ancestry)
 </code></pre>
 
-  </div>
+    </div>
 
 </div>
 
@@ -473,7 +461,7 @@ write_xlsx(home_path + os.sep + 'ancestry', ancestry)
 
   </div>
 
-  </div>
+    </div>
 
 </div>
               

@@ -49,7 +49,7 @@
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Browser</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Browser</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.browser.open_in_dbsnp">open_in_dbsnp</a>
     </li>
@@ -178,17 +178,16 @@
 
 
 <h2 id="pandaspgs.browser" class="doc doc-heading">
-          <span class="doc doc-object-name doc-module-name">pandaspgs.browser</span>
+            <span class="doc doc-object-name doc-module-name">pandaspgs.browser</span>
 
 
 </h2>
 
-  <div class="doc doc-contents first">
+    <div class="doc doc-contents first">
 
-  
+
 
   <div class="doc doc-children">
-
 
 
 
@@ -201,19 +200,17 @@
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.browser.open_in_dbsnp" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">open_in_dbsnp</span>
+            <span class="doc doc-object-name doc-function-name">open_in_dbsnp</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">open_in_dbsnp</span><span class="p">(</span><span class="n">variant_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">open_in_dbsnp</span><span class="p">(</span><span class="n">variant_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
-      <p>This function launches the web browser at dbSNP and opens a tab for each SNP identifier.</p>
+    <div class="doc doc-contents ">
 
+      <p>This function launches the web browser at dbSNP and opens a tab for each SNP identifier.</p>
 
 
 <table class="field-list">
@@ -240,7 +237,6 @@
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -248,45 +244,42 @@
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-                <code>bool</code>
-            –
-            <div class="doc-md-description">
-              <p>Returns TRUE if successful. Note however that this function is run for its side effect.</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>bool</code>
+              –
+              <div class="doc-md-description">
+                <p>Returns TRUE if successful. Note however that this function is run for its side effect.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>      <pre><code class="language-python">from pandaspgs.browser import open_in_dbsnp
 open_in_dbsnp('rs56261590')
 </code></pre>
 
-  </div>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.browser.open_in_pubmed" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">open_in_pubmed</span>
+            <span class="doc doc-object-name doc-function-name">open_in_pubmed</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">open_in_pubmed</span><span class="p">(</span><span class="n">pubmed_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">open_in_pubmed</span><span class="p">(</span><span class="n">pubmed_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
-      <p>This function launches the web browser and opens a tab for each PubMed citation.</p>
+    <div class="doc doc-contents ">
 
+      <p>This function launches the web browser and opens a tab for each PubMed citation.</p>
 
 
 <table class="field-list">
@@ -313,7 +306,6 @@ open_in_dbsnp('rs56261590')
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -321,45 +313,42 @@ open_in_dbsnp('rs56261590')
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-                <code>bool</code>
-            –
-            <div class="doc-md-description">
-              <p>Returns TRUE if successful. Note however that this function is run for its side effect</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>bool</code>
+              –
+              <div class="doc-md-description">
+                <p>Returns TRUE if successful. Note however that this function is run for its side effect</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>      <pre><code class="language-python">from pandaspgs.browser import open_in_pubmed
 open_in_pubmed('26301688')
 </code></pre>
 
-  </div>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.browser.open_publication_in_pgs_catalog" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">open_publication_in_pgs_catalog</span>
+            <span class="doc doc-object-name doc-function-name">open_publication_in_pgs_catalog</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">open_publication_in_pgs_catalog</span><span class="p">(</span><span class="n">pgp_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">open_publication_in_pgs_catalog</span><span class="p">(</span><span class="n">pgp_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
-      <p>This function launches the web browser and opens a tab for each identifier on the PGS Catalog web graphical user interface: https://www.pgscatalog.org/.</p>
+    <div class="doc doc-contents ">
 
+      <p>This function launches the web browser and opens a tab for each identifier on the PGS Catalog web graphical user interface: https://www.pgscatalog.org/.</p>
 
 
 <table class="field-list">
@@ -386,7 +375,6 @@ open_in_pubmed('26301688')
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -394,45 +382,42 @@ open_in_pubmed('26301688')
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-                <code>bool</code>
-            –
-            <div class="doc-md-description">
-              <p>Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>bool</code>
+              –
+              <div class="doc-md-description">
+                <p>Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>      <pre><code class="language-python">from pandaspgs.browser import open_publication_in_pgs_catalog
 open_publication_in_pgs_catalog('PGP000001')
 </code></pre>
 
-  </div>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.browser.open_sample_set_in_pgs_catalog" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">open_sample_set_in_pgs_catalog</span>
+            <span class="doc doc-object-name doc-function-name">open_sample_set_in_pgs_catalog</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">open_sample_set_in_pgs_catalog</span><span class="p">(</span><span class="n">pss_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">open_sample_set_in_pgs_catalog</span><span class="p">(</span><span class="n">pss_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
-      <p>This function launches the web browser and opens a tab for each identifier on the PGS Catalog web graphical user interface: https://www.pgscatalog.org/.</p>
+    <div class="doc doc-contents ">
 
+      <p>This function launches the web browser and opens a tab for each identifier on the PGS Catalog web graphical user interface: https://www.pgscatalog.org/.</p>
 
 
 <table class="field-list">
@@ -459,7 +444,6 @@ open_publication_in_pgs_catalog('PGP000001')
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -467,45 +451,42 @@ open_publication_in_pgs_catalog('PGP000001')
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-                <code>bool</code>
-            –
-            <div class="doc-md-description">
-              <p>Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>bool</code>
+              –
+              <div class="doc-md-description">
+                <p>Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>      <pre><code class="language-python">from pandaspgs.browser import open_sample_set_in_pgs_catalog
 open_sample_set_in_pgs_catalog('PSS000001')
 </code></pre>
 
-  </div>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.browser.open_score_in_pgs_catalog" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">open_score_in_pgs_catalog</span>
+            <span class="doc doc-object-name doc-function-name">open_score_in_pgs_catalog</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">open_score_in_pgs_catalog</span><span class="p">(</span><span class="n">pgs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">open_score_in_pgs_catalog</span><span class="p">(</span><span class="n">pgs_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
-      <p>This function launches the web browser and opens a tab for each identifier on the PGS Catalog web graphical user interface: https://www.pgscatalog.org/.</p>
+    <div class="doc doc-contents ">
 
+      <p>This function launches the web browser and opens a tab for each identifier on the PGS Catalog web graphical user interface: https://www.pgscatalog.org/.</p>
 
 
 <table class="field-list">
@@ -532,7 +513,6 @@ open_sample_set_in_pgs_catalog('PSS000001')
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -540,45 +520,42 @@ open_sample_set_in_pgs_catalog('PSS000001')
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-                <code>bool</code>
-            –
-            <div class="doc-md-description">
-              <p>Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>bool</code>
+              –
+              <div class="doc-md-description">
+                <p>Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>      <pre><code class="language-python">from pandaspgs.browser import open_score_in_pgs_catalog
 open_score_in_pgs_catalog('PGS000001')
 </code></pre>
 
-  </div>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.browser.open_trait_in_pgs_catalog" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">open_trait_in_pgs_catalog</span>
+            <span class="doc doc-object-name doc-function-name">open_trait_in_pgs_catalog</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">open_trait_in_pgs_catalog</span><span class="p">(</span><span class="n">efo_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">open_trait_in_pgs_catalog</span><span class="p">(</span><span class="n">efo_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
-      <p>This function launches the web browser and opens a tab for each identifier on the PGS Catalog web graphical user interface: https://www.pgscatalog.org/.</p>
+    <div class="doc doc-contents ">
 
+      <p>This function launches the web browser and opens a tab for each identifier on the PGS Catalog web graphical user interface: https://www.pgscatalog.org/.</p>
 
 
 <table class="field-list">
@@ -605,7 +582,6 @@ open_score_in_pgs_catalog('PGS000001')
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -613,25 +589,25 @@ open_score_in_pgs_catalog('PGS000001')
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-                <code>bool</code>
-            –
-            <div class="doc-md-description">
-              <p>Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>bool</code>
+              –
+              <div class="doc-md-description">
+                <p>Returns TRUE if successful, or FALSE otherwise. But note that this function is run for its side effect.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>      <pre><code class="language-python">from pandaspgs.browser import open_trait_in_pgs_catalog
 open_trait_in_pgs_catalog('EFO_0001645')
 </code></pre>
 
-  </div>
+    </div>
 
 </div>
 
@@ -639,7 +615,7 @@ open_trait_in_pgs_catalog('EFO_0001645')
 
   </div>
 
-  </div>
+    </div>
 
 </div>
               

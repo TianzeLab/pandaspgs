@@ -105,7 +105,7 @@
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Performance</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Performance</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#pandaspgs.performance.PerformanceMetric.__init__">__init__</a>
     </li>
@@ -168,17 +168,16 @@
 
 
 <h2 id="pandaspgs.performance.PerformanceMetric" class="doc doc-heading">
-          <span class="doc doc-object-name doc-class-name">pandaspgs.performance.PerformanceMetric</span>
+            <span class="doc doc-object-name doc-class-name">pandaspgs.performance.PerformanceMetric</span>
 
 
 </h2>
 
 
-  <div class="doc doc-contents first">
+    <div class="doc doc-contents first">
 
-  
+
       <p>An object that stores data of type PerformanceMetric. To understand the significance of each column of the DataFrame. Please visit "PerformanceMetric" in <a href="https://www.pgscatalog.org/rest/">PGS Catalog Documentation</a> for details.</p>
-
 
 
 <table class="field-list">
@@ -272,9 +271,9 @@ all_df['PPM000001'].performance_metrics
 all_df[('PPM000001','PPM000002','PPM000003')].performance_metrics
 </code></pre>
 <p>Objects can be manipulated like sets in the mathematical sense.</p>
-<pre><code class="language-python">one = get_cohorts(ppm_id='PPM000001')
-two = get_cohorts(ppm_id='PPM000002')
-three = get_cohorts(ppm_id='PPM000003')
+<pre><code class="language-python">one = get_performances(ppm_id='PPM000001')
+two = get_performances(ppm_id='PPM000002')
+three = get_performances(ppm_id='PPM000003')
 one_and_two = one+two
 two_and_three = two+three
 only_one = one_and_two - two_and_three
@@ -284,10 +283,9 @@ one_and_three = one_and_two ^ two_and_three
 </code></pre>
 
 
-  
+
 
   <div class="doc doc-children">
-
 
 
 
@@ -300,17 +298,15 @@ one_and_three = one_and_two ^ two_and_three
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="pandaspgs.performance.PerformanceMetric.__init__" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">__init__</span>
+            <span class="doc doc-object-name doc-function-name">__init__</span>
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Fat&#39;</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="nf">data</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Fat&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
 
 
 
@@ -349,7 +345,7 @@ one_and_three = one_and_two ^ two_and_three
     </tr>
   </tbody>
 </table>
-  </div>
+    </div>
 
 </div>
 
@@ -357,8 +353,7 @@ one_and_three = one_and_two ^ two_and_three
 
   </div>
 
-  </div>
-
+    </div>
 
 </div>
               
