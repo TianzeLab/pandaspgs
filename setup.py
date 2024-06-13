@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pandaspgs",
-    version="0.9.0",
+    version="0.1.0",
     author="Cao Tianze",
     author_email="hnrcao@qq.com",
     description="A Python package for easy retrieval of PGS Catalog data",
@@ -18,7 +18,7 @@ setuptools.setup(
     classifiers=[
         "Development Status :: 4 - Beta",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],

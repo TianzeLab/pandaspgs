@@ -4,3 +4,4 @@ dist/
 build/
 site/
 *.pyc
+/pandaspgs.egg-info

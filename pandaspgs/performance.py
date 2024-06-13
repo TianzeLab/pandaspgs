@@ -45,9 +45,9 @@ class PerformanceMetric:
     ```
     Objects can be manipulated like sets in the mathematical sense.
     ```python
-    one = get_cohorts(ppm_id='PPM000001')
-    two = get_cohorts(ppm_id='PPM000002')
-    three = get_cohorts(ppm_id='PPM000003')
+    one = get_performances(ppm_id='PPM000001')
+    two = get_performances(ppm_id='PPM000002')
+    three = get_performances(ppm_id='PPM000003')
     one_and_two = one+two
     two_and_three = two+three
     only_one = one_and_two - two_and_three

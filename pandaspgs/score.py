@@ -380,55 +380,26 @@ class Score:
                     , 'publication.date_publication'])
         if 'sample_age' in self.samples_variants.columns:
             self.samples_variants = self.samples_variants.drop(columns=['sample_age'])
-            if 'sample_age.estimate_type' not in self.samples_variants.columns:
-                self.samples_variants = self.samples_variants.reindex(
-                    columns=self.samples_variants.columns.tolist() + ['sample_age.estimate_type'
-                        , 'sample_age.estimate'
-                        , 'sample_age.interval.type'
-                        , 'sample_age.interval.lower'
-                        , 'sample_age.interval.upper'
-                        , 'sample_age.variability_type'
-                        , 'sample_age.variability'
-                        , 'sample_age.unit'])
+        if 'sample_age.interval' in self.samples_variants.columns:
+            self.samples_variants = self.samples_variants.drop(columns=['sample_age.interval'])
         if 'followup_time' in self.samples_variants.columns:
             self.samples_variants = self.samples_variants.drop(columns=['followup_time'])
-            if 'followup_time.estimate_type' not in self.samples_variants.columns:
-                self.samples_variants = self.samples_variants.reindex(
-                    columns=self.samples_variants.columns.tolist() + ['followup_time.estimate_type'
-                        , 'followup_time.estimate'
-                        , 'followup_time.interval.type'
-                        , 'followup_time.interval.lower'
-                        , 'followup_time.interval.upper'
-                        , 'followup_time.variability_type'
-                        , 'followup_time.variability'
-                        , 'followup_time.unit'])
+        if 'followup_time.interval' in self.samples_variants.columns:
+            self.samples_variants = self.samples_variants.drop(columns=['followup_time.interval'])
         if 'sample_age' in self.samples_training.columns:
             self.samples_training = self.samples_training.drop(columns=['sample_age'])
-            if 'sample_age.estimate_type' not in self.samples_training.columns:
-                self.samples_training = self.samples_training.reindex(
-                    columns=self.samples_training.columns.tolist() + ['sample_age.estimate_type'
-                        , 'sample_age.estimate'
-                        , 'sample_age.interval.type'
-                        , 'sample_age.interval.lower'
-                        , 'sample_age.interval.upper'
-                        , 'sample_age.variability_type'
-                        , 'sample_age.variability'
-                        , 'sample_age.unit'])
+        if 'sample_age.interval' in self.samples_training.columns:
+            self.samples_training = self.samples_training.drop(columns=['sample_age.interval'])
         if 'followup_time' in self.samples_training.columns:
             self.samples_training = self.samples_training.drop(columns=['followup_time'])
-            if 'followup_time.estimate_type' not in self.samples_training.columns:
-                self.samples_training = self.samples_training.reindex(
-                    columns=self.samples_training.columns.tolist() + ['followup_time.estimate_type'
-                        , 'followup_time.estimate'
-                        , 'followup_time.interval.type'
-                        , 'followup_time.interval.lower'
-                        , 'followup_time.interval.upper'
-                        , 'followup_time.variability_type'
-                        , 'followup_time.variability'
-                        , 'followup_time.unit'])
-        for miss_column in ['followup_time.variability_type', 'followup_time.variability',
-                            'followup_time.interval.type', 'followup_time.interval.lower',
-                            'followup_time.interval.upper']:
+        if 'followup_time.interval' in self.samples_training.columns:
+            self.samples_training = self.samples_training.drop(columns=['followup_time.interval'])
+        for miss_column in ['sample_age.estimate_type', 'sample_age.estimate', 'sample_age.interval.type',
+                            'sample_age.interval.lower', 'sample_age.interval.upper', 'sample_age.variability_type',
+                            'sample_age.variability', 'sample_age.unit', 'followup_time.estimate_type',
+                            'followup_time.estimate', 'followup_time.interval.type', 'followup_time.interval.lower',
+                            'followup_time.interval.upper', 'followup_time.variability_type',
+                            'followup_time.variability', 'followup_time.unit']:
             if miss_column not in self.samples_training.columns:
                 self.samples_training[miss_column] = None
             if miss_column not in self.samples_variants.columns:
