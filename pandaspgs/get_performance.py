@@ -17,7 +17,7 @@ def get_performances(ppm_id: str = None, pgs_id: str = None, pgp_id: str = None,
 
 
     Returns:
-        A PerformanceMetrics object. Attributes of type DataFrame have hierarchical dependencies.
+        A PerformanceMetric object. Attributes of type DataFrame have hierarchical dependencies.
 
     ```Python
     from pandaspgs.get_performance import get_performances
