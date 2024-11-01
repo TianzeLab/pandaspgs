@@ -1,4 +1,4 @@
-# pandasPGS: a Python package for easy retrieval of PGS Catalog data
+# pandasPGS: a Python package for easy retrieval of Polygenic Score Catalog data
 
 ## Installation
 `pip install pandaspgs`
