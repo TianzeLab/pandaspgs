@@ -150,7 +150,7 @@ def set_equal(
         b:An object of the same type as a.
 
     Returns:
-        An object of the same type as a.
+        True, if a is equal to b. False, if a is not equal to b
     ```python
     from pandaspgs.get_cohort import get_cohorts
     from pandaspgs.set_operation import set_equal
