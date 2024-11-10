@@ -14,6 +14,7 @@ class TraitCategory:
             raw_data: list. Convert from obtained JSON data
             efotraits : DataFrame. It only exists if the parameter mode of constructor is Fat.
             trait_categories: DataFrame. It only exists if the parameter mode of constructor is Fat.
+            mode: Fat or Thin. Specifies the mode of the returned object.
 
        ```python
        from pandaspgs.get_trait import get_trait_categories
