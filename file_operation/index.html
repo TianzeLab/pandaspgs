@@ -181,6 +181,11 @@
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -206,7 +211,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Download a scoring file and convert it to a DataFrame. The directory of the downloaded file is $HOME/pandaspgs_home.</p>
+        <p>Download a scoring file and convert it to a DataFrame. The directory of the downloaded file is $HOME/pandaspgs_home.</p>
 
 
 <table class="field-list">
@@ -266,7 +271,7 @@
       </td>
     </tr>
   </tbody>
-</table>      <pre><code class="language-Python">from pandaspgs import read_scoring_file
+</table>        <pre><code class="language-Python">from pandaspgs import read_scoring_file
 
 df = read_scoring_file(pgs_id='PGS000737')
 </code></pre>
@@ -285,21 +290,23 @@ df = read_scoring_file(pgs_id='PGS000737')
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">write_csv</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">o</span><span class="p">:</span> <span class="n">AncestryCategory</span>
-    <span class="o">|</span> <span class="n">Cohort</span>
-    <span class="o">|</span> <span class="n">PerformanceMetric</span>
-    <span class="o">|</span> <span class="n">Publication</span>
-    <span class="o">|</span> <span class="n">Release</span>
-    <span class="o">|</span> <span class="n">SampleSet</span>
-    <span class="o">|</span> <span class="n">Score</span>
-    <span class="o">|</span> <span class="n">Trait</span>
-    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">o</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">AncestryCategory</span>
+        <span class="o">|</span> <span class="n">Cohort</span>
+        <span class="o">|</span> <span class="n">PerformanceMetric</span>
+        <span class="o">|</span> <span class="n">Publication</span>
+        <span class="o">|</span> <span class="n">Release</span>
+        <span class="o">|</span> <span class="n">SampleSet</span>
+        <span class="o">|</span> <span class="n">Score</span>
+        <span class="o">|</span> <span class="n">Trait</span>
+        <span class="o">|</span> <span class="n">TraitCategory</span>
+    <span class="p">),</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-      <p>Create a directory and write the attributes of pandasPGS objects to the corresponding CSV files.</p>
+        <p>Create a directory and write the attributes of pandasPGS objects to the corresponding CSV files.</p>
 
 
 <table class="field-list">
@@ -355,7 +362,7 @@ df = read_scoring_file(pgs_id='PGS000737')
       </td>
     </tr>
   </tbody>
-</table>      <pre><code class="language-Python">from pandaspgs import *
+</table>        <pre><code class="language-Python">from pandaspgs import *
 import os
 home_path = os.path.expanduser('~') + os.sep + 'pandaspgs_home'
 ancestry = get_ancestry_categories()
@@ -376,21 +383,23 @@ write_csv(home_path + os.sep + 'ancestry', ancestry)
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">write_xlsx</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">o</span><span class="p">:</span> <span class="n">AncestryCategory</span>
-    <span class="o">|</span> <span class="n">Cohort</span>
-    <span class="o">|</span> <span class="n">PerformanceMetric</span>
-    <span class="o">|</span> <span class="n">Publication</span>
-    <span class="o">|</span> <span class="n">Release</span>
-    <span class="o">|</span> <span class="n">SampleSet</span>
-    <span class="o">|</span> <span class="n">Score</span>
-    <span class="o">|</span> <span class="n">Trait</span>
-    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">o</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">AncestryCategory</span>
+        <span class="o">|</span> <span class="n">Cohort</span>
+        <span class="o">|</span> <span class="n">PerformanceMetric</span>
+        <span class="o">|</span> <span class="n">Publication</span>
+        <span class="o">|</span> <span class="n">Release</span>
+        <span class="o">|</span> <span class="n">SampleSet</span>
+        <span class="o">|</span> <span class="n">Score</span>
+        <span class="o">|</span> <span class="n">Trait</span>
+        <span class="o">|</span> <span class="n">TraitCategory</span>
+    <span class="p">),</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-      <p>Create a directory and write the attributes of pandasPGS objects to the corresponding EXCEL files.</p>
+        <p>Create a directory and write the attributes of pandasPGS objects to the corresponding EXCEL files.</p>
 
 
 <table class="field-list">
@@ -446,7 +455,7 @@ write_csv(home_path + os.sep + 'ancestry', ancestry)
       </td>
     </tr>
   </tbody>
-</table>      <pre><code class="language-Python">from pandaspgs import *
+</table>        <pre><code class="language-Python">from pandaspgs import *
 import os
 home_path = os.path.expanduser('~') + os.sep + 'pandaspgs_home'
 ancestry = get_ancestry_categories()
