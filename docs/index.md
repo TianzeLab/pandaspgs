@@ -1,6 +1,7 @@
 # API
 ## Function
 ### Cache
+- [reinit_cache][pandaspgs.client.reinit_cache]
 - [clear_cache][pandaspgs.client.clear_cache]
 ### Get data from server
 - [get_cohorts][pandaspgs.get_cohort.get_cohorts]

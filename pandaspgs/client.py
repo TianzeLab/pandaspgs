@@ -60,10 +60,72 @@ def get_sample_set(url: str, cached=True) -> List[Dict]:
 def get_release(url: str, cached=True) -> List[Dict]:
     return get_data(url, cache_impl=release_cache, cached=cached)
 
+def reinit_cache(field: str = 'All', maxsize: int = 1024*1024, ttl:int = 60 * 60 * 24) -> None:
+    """
+    Reinitialize some or all of the cache pools.
+
+    Args:
+        field: It can be one of the following: 'All', 'Score', 'Publication', 'Trait', 'Trait_category', 'Performance', 'Cohort', 'Sample_set', 'Release', 'Ancestry_category'
+        maxsize: The number of HTTP requests that can be stored in the cache pool.
+        ttl: The unit is seconds. Expiration time.
+
+    Returns:
+        None
+
+    ```Python
+    from pandaspgs import get_publications, reinit_cache
+
+    # Reinitialize all the cache pools. Each cache pool can only store 10 HTTP requests, and the expiration time is 10 seconds.
+    reinit_cache(field = 'All', maxsize = 10, ttl = 10)
+    pub = get_publications()
+    # Reinitialize the cache used by get_publications()
+    reinit_cache(field = 'Publication', maxsize = 10, ttl = 10)
+    pub = get_publications()
+    ```
+    """
+    global publication_cache
+    global score_cache
+    global trait_cache
+    global trait_category_cache
+    global performance_cache
+    global cohort_cache
+    global sample_set_cache
+    global release_cache
+    global ancestry_category_cache
+    if field not in fields_and_all:
+        raise Exception('The field must one of %s' % str(fields_and_all))
+    if field == "Publication":
+        publication_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+    elif field == "Score":
+        score_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+    elif field == "Trait":
+        trait_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+    elif field == "Trait_category":
+        trait_category_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+    elif field == "Performance":
+        performance_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+    elif field == "Cohort":
+        cohort_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+    elif field == "Sample_set":
+        sample_set_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+    elif field == "Release":
+        release_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+    elif field == "Ancestry_category":
+        ancestry_category_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+    else:
+        publication_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+        score_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+        trait_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+        trait_category_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+        performance_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+        cohort_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+        sample_set_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+        release_cache = TTLCache(maxsize=maxsize, ttl=ttl)
+        ancestry_category_cache = TTLCache(maxsize=maxsize, ttl=ttl)
 
 def clear_cache(field: str = 'All') -> None:
     """
-    Clear some or all of the cache.
+    Clear some or all of the cache pools.
 
     Args:
         field: It can be one of the following: 'All', 'Score', 'Publication', 'Trait', 'Trait_category', 'Performance', 'Cohort', 'Sample_set', 'Release', 'Ancestry_category'
