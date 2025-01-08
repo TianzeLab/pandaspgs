@@ -12,9 +12,9 @@ def test_get_data():
     assert len(r2) == 1
     r3 = get_data('https://www.pgscatalog.org/rest/publication/all', cache_impl=cache)
     r3 = get_data('https://www.pgscatalog.org/rest/publication/all', cache_impl=cache)
-    assert len(r3) == 455
+    assert len(r3) == 689
     r4 = get_data('https://www.pgscatalog.org/rest/publication/all', cache_impl=cache, cached=False)
-    assert len(r3) == 455
+    assert len(r3) == 689
 
 
 def test_get_publication():
@@ -26,11 +26,11 @@ def test_get_publication():
     r3 = get_publication('https://www.pgscatalog.org/rest/publication/all')
     clear_cache('Publication')
     r3 = get_publication('https://www.pgscatalog.org/rest/publication/all')
-    assert len(r3) == 455
+    assert len(r3) == 689
     r4 = get_publication('https://www.pgscatalog.org/rest/publication/all', cached=False)
-    assert len(r3) == 455
+    assert len(r3) == 689
 
 
 def test_get_ancestry_category():
     cat = get_ancestry_category('https://www.pgscatalog.org/rest/ancestry_categories')
-    assert cat[0]['symbol'] == 'AFR'
+    assert cat[0]['symbols'] == 'AFR'

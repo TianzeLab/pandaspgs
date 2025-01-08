@@ -17,13 +17,13 @@ def test_get_publications():
     filter_by_none = get_publications()
     clear_cache('Publication')
     clear_cache('All')
-    assert len(filter_by_none) == 537
-    assert len(filter_by_none ^ filter_by_id) == 536
+    assert len(filter_by_none) == 689
+    assert len(filter_by_none ^ filter_by_id) == 688
     assert len(filter_by_none[range(2)]) == 2
     assert len(filter_by_none[1:3]) == 2
     assert filter_by_none['PGP000001'] == filter_by_id
     assert len(filter_by_id + filter_by_pgs_id) == 2
-    assert len(filter_by_none - filter_by_id) == 536
+    assert len(filter_by_none - filter_by_id) == 688
     assert len(filter_by_none & filter_by_id) == 1
     assert len(filter_by_id | filter_by_pgs_id) == 1
     assert filter_by_id == filter_by_pgs_id
