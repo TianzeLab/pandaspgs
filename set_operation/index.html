@@ -187,11 +187,6 @@
 
 
 
-
-
-
-
-
   <div class="doc doc-children">
 
 
@@ -211,28 +206,24 @@
 
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">bind</span><span class="p">(</span>
-    <span class="n">a</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
-    <span class="n">b</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="n">AncestryCategory</span>
     <span class="o">|</span> <span class="n">Cohort</span>
@@ -248,7 +239,7 @@
 
     <div class="doc doc-contents ">
 
-        <p>Binds together PGS objects of the same object. Note that bind() preserves duplicates whereas union() does not.</p>
+      <p>Binds together PGS objects of the same object. Note that bind() preserves duplicates whereas union() does not.</p>
 
 
 <table class="field-list">
@@ -304,7 +295,7 @@
       </td>
     </tr>
   </tbody>
-</table>        <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
 from pandaspgs.set_operation import bind
 
 
@@ -326,28 +317,24 @@ c = bind(a,b)
 
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">intersect</span><span class="p">(</span>
-    <span class="n">a</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
-    <span class="n">b</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="n">AncestryCategory</span>
     <span class="o">|</span> <span class="n">Cohort</span>
@@ -363,7 +350,7 @@ c = bind(a,b)
 
     <div class="doc doc-contents ">
 
-        <p>Returns the data common to both A and B, with no repetitions</p>
+      <p>Returns the data common to both A and B, with no repetitions</p>
 
 
 <table class="field-list">
@@ -419,7 +406,7 @@ c = bind(a,b)
       </td>
     </tr>
   </tbody>
-</table>        <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
 from pandaspgs.set_operation import intersect
 
 
@@ -441,28 +428,24 @@ c = intersect(a,b)
 
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_diff</span><span class="p">(</span>
-    <span class="n">a</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
-    <span class="n">b</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="n">AncestryCategory</span>
     <span class="o">|</span> <span class="n">Cohort</span>
@@ -478,7 +461,7 @@ c = intersect(a,b)
 
     <div class="doc doc-contents ">
 
-        <p>returns the data in A that is not in B, with no repetitions</p>
+      <p>returns the data in A that is not in B, with no repetitions</p>
 
 
 <table class="field-list">
@@ -534,7 +517,7 @@ c = intersect(a,b)
       </td>
     </tr>
   </tbody>
-</table>        <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
 from pandaspgs.set_operation import set_diff
 
 
@@ -556,34 +539,30 @@ c = set_diff(a,b)
 
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_equal</span><span class="p">(</span>
-    <span class="n">a</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
-    <span class="n">b</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Check if the raw data of a and b are equal</p>
+      <p>Check if the raw data of a and b are equal</p>
 
 
 <table class="field-list">
@@ -639,7 +618,7 @@ c = set_diff(a,b)
       </td>
     </tr>
   </tbody>
-</table>        <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
 from pandaspgs.set_operation import set_equal
 
 
@@ -661,28 +640,24 @@ c = set_equal(a,b)
 
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_xor</span><span class="p">(</span>
-    <span class="n">a</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
-    <span class="n">b</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="n">AncestryCategory</span>
     <span class="o">|</span> <span class="n">Cohort</span>
@@ -698,7 +673,7 @@ c = set_equal(a,b)
 
     <div class="doc doc-contents ">
 
-        <p>returns the data of A and B that are not in their intersection (the symmetric difference), with no repetitions</p>
+      <p>returns the data of A and B that are not in their intersection (the symmetric difference), with no repetitions</p>
 
 
 <table class="field-list">
@@ -754,7 +729,7 @@ c = set_equal(a,b)
       </td>
     </tr>
   </tbody>
-</table>        <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
 from pandaspgs.set_operation import set_xor
 
 
@@ -776,28 +751,24 @@ c = set_xor(a,b)
 
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">union</span><span class="p">(</span>
-    <span class="n">a</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
-    <span class="n">b</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n">AncestryCategory</span>
-        <span class="o">|</span> <span class="n">Cohort</span>
-        <span class="o">|</span> <span class="n">PerformanceMetric</span>
-        <span class="o">|</span> <span class="n">Publication</span>
-        <span class="o">|</span> <span class="n">Release</span>
-        <span class="o">|</span> <span class="n">SampleSet</span>
-        <span class="o">|</span> <span class="n">Score</span>
-        <span class="o">|</span> <span class="n">Trait</span>
-        <span class="o">|</span> <span class="n">TraitCategory</span>
-    <span class="p">),</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">AncestryCategory</span>
+    <span class="o">|</span> <span class="n">Cohort</span>
+    <span class="o">|</span> <span class="n">PerformanceMetric</span>
+    <span class="o">|</span> <span class="n">Publication</span>
+    <span class="o">|</span> <span class="n">Release</span>
+    <span class="o">|</span> <span class="n">SampleSet</span>
+    <span class="o">|</span> <span class="n">Score</span>
+    <span class="o">|</span> <span class="n">Trait</span>
+    <span class="o">|</span> <span class="n">TraitCategory</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
     <span class="n">AncestryCategory</span>
     <span class="o">|</span> <span class="n">Cohort</span>
@@ -813,7 +784,7 @@ c = set_xor(a,b)
 
     <div class="doc doc-contents ">
 
-        <p>returns the combined data from A and B with no repetitions</p>
+      <p>returns the combined data from A and B with no repetitions</p>
 
 
 <table class="field-list">
@@ -869,7 +840,7 @@ c = set_xor(a,b)
       </td>
     </tr>
   </tbody>
-</table>        <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
+</table>      <pre><code class="language-python">from pandaspgs.get_cohort import get_cohorts
 from pandaspgs.set_operation import union
 
 

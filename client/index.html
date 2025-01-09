@@ -179,11 +179,6 @@
 
 
 
-
-
-
-
-
   <div class="doc doc-children">
 
 
@@ -207,7 +202,7 @@
 
     <div class="doc doc-contents ">
 
-        <p>Clear some or all of the cache pools.</p>
+      <p>Clear some or all of the cache pools.</p>
 
 
 <table class="field-list">
@@ -257,7 +252,7 @@
       </td>
     </tr>
   </tbody>
-</table>        <pre><code class="language-Python">from pandaspgs.get_publication import get_publications
+</table>      <pre><code class="language-Python">from pandaspgs.get_publication import get_publications
 from pandaspgs.client import clear_cache
 
 # Clear all caches.
@@ -282,14 +277,14 @@ pub = get_publications()
 </h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">reinit_cache</span><span class="p">(</span>
     <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;All&quot;</span><span class="p">,</span>
-    <span class="n">maxsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
+    <span class="n">maxsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
     <span class="n">ttl</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Reinitialize some or all of the cache pools.</p>
+      <p>Reinitialize some or all of the cache pools.</p>
 
 
 <table class="field-list">
@@ -315,7 +310,7 @@ pub = get_publications()
             <li>
               <b><code>maxsize</code></b>
                   (<code>int</code>, default:
-                      <code>1024 * 1024</code>
+                      <code>2 * 1024</code>
 )
               –
               <div class="doc-md-description">
@@ -359,7 +354,7 @@ pub = get_publications()
       </td>
     </tr>
   </tbody>
-</table>        <pre><code class="language-Python">from pandaspgs import get_publications, reinit_cache
+</table>      <pre><code class="language-Python">from pandaspgs import get_publications, reinit_cache
 
 # Reinitialize all the cache pools. Each cache pool can only store 10 HTTP requests, and the expiration time is 10 seconds.
 reinit_cache(field = 'All', maxsize = 10, ttl = 10)
