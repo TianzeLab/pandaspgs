@@ -5,10 +5,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pandaspgs",
-    version="0.2.0",
+    version="1.0.0",
     author="Cao Tianze",
     author_email="hnrcao@qq.com",
-    description="A Python package for easy retrieval of PGS Catalog data",
+    description="A Python package for easy retrieval of Polygenic Score Catalog data",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/tianzelab/pandaspgs",

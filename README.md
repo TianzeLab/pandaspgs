@@ -1,5 +1,3 @@
-# pandasPGS: a Python package for easy retrieval of Polygenic Score Catalog data
-
 ## Citation
 Zhang Z, Zhou J, Cao T, Huang Y, Huang C, Xia Y. 2025. pandasPGS: a Python package for easy retrieval of Polygenic Score Catalog data. PeerJ 13:e18985 https://doi.org/10.7717/peerj.18985
 
