@@ -5,3 +5,4 @@ build/
 site/
 *.pyc
 /pandaspgs.egg-info
+/.vscode
